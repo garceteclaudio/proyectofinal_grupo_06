@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'Pangolin';
+  src: url('../resources/fonts/Pangolin.ttf') format('truetype');
+}
+
+.main-content {
+  font-family: Pangolin;
+  margin-left: 100px;
+  padding: 25px;
+  transition: margin-left 400ms ease;
+}
+
+.sidebar:hover + .main-content {
+  margin-left: 300px;
+}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import avatarClaudio from '../../images/avatar-clau.png';
 import avatarMurillo from '../../images/avatar-murillo.png';
 import avatarYani from '../../images/avatar-yani.jpeg';
