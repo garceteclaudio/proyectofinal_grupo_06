@@ -27,13 +27,13 @@ const Sidebar = () => {
               </Link>
               <ul className="sidebar-subitem">
                 <li className="sidebar-item">
-                  <Link to="/games/imc" className="sidebar-link">
+                  <Link to="/imc" className="sidebar-link">
                     <img src="/resources/images/sidebar/icon3.png" className="item-icon"/>
                     <span className="item-text">Proyecto 01: Índice de Masa Corporal</span>
                   </Link>
                 </li>
                 <li className="sidebar-item">
-                  <Link to="/games/transacciones" className="sidebar-link">
+                  <Link to="/transacciones" className="sidebar-link">
                     <img src="/resources/images/sidebar/icon4.png" className="item-icon"/>
                     <span className="item-text">Proyecto 02: Gestor de Transacciones</span>
                   </Link>
