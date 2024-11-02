@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'Mononiki';
+    src: url('../resources/fonts/Mononiki.ttf') format('truetype');
+  }
+
+/* CONTENEDOR DEL VIDEO DE FONDO */
+.home-bg {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 35px;
+}
+
+/* ESTILOS DEL VIDEO DE FONDO */
+#home-video {
+    position: absolute;
+    width: auto;
+    height: auto;
+    z-index: 1;
+}
+
+/* CONTENEDOR DEL TEXTO DE FONDO */
+.text-container {
+    width: 35%;
+    color: #ffffff; /* solo era para el ascii, cambiar a #ffffffC0; */
+    font-family: 'Mononiki';
+    text-align: center;
+    white-space: wrap;
+    z-index: 2;
+    line-height: 40px; /* solo era para el ascii, eliminar más adelante */
+}
+
+/* ESTILOS DE LAS LÍNEAS DEL TEXTO */
+.message {
+    font-size: 1em;
+    display: inline;
+    position: relative;
+}
+
+/* ESTILOS DEL CARET DE LAS LÍNEAS ...↑↑↑ */
+.message::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 40px;
+    margin-top: 5px;
+    right: -10px;
+    background-color: #ffffffC0;
+    animation: blinking 0.7s step-end infinite;
+}
+
+/* ANIMACIÓN DE PARPADEO DEL CARET */
+@keyframes blinking {
+    50% {
+        background-color: transparent;
+    }
+}

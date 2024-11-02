@@ -5,7 +5,7 @@ import Phaser from 'phaser';
 import Escena1 from "../scenes/Escena1.js";
 import Escena2 from "../scenes/Escena2.js";
 import GameOver from "../scenes/GameOver.js";
-import AdminEscenas from "../model/adminEscenas.js";
+import AdminEscenas from "../models/adminEscenas.js";
 import YouWin from "../scenes/YouWin.js";
 
 function Games() {
