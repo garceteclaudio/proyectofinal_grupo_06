@@ -9,10 +9,8 @@ export default class Escena2 extends Phaser.Scene {
     this.grupoBalasBoss = null;
     this.vidasJugador = 3;
     this.textoVidasJugador = null;
-
     this.grupoMeteoros = null;
     this.grupoBalas = null;
-
     this.grupoEnemigosNave = null;
     this.boss = null;
     this.cursors = null;
@@ -31,6 +29,15 @@ export default class Escena2 extends Phaser.Scene {
     this.generarEnemigosEvento = null;
     this.bossVidas = 10;
     this.textoVidasBoss = null;
+    this.sonidoPierdeVida = null;
+  }
+
+  colisionNave() {
+    this.sonidoPierdeVida.play();
+    this.jugador.setTint(0xff0000);
+    this.time.delayedCall(1500, () => {
+      this.jugador.clearTint();
+    });
   }
 
   generarMeteoros() {
@@ -39,6 +46,15 @@ export default class Escena2 extends Phaser.Scene {
     const y = Phaser.Math.Between(0, 600);
     const meteoro = this.grupoMeteoros.create(800, y, "meteoro");
     meteoro.setVelocityX(-200);
+  }
+
+  generarEnemigosNave() {
+    if (this.juegoTerminado) return;
+
+    const y = Phaser.Math.Between(50, 550);
+    const enemigoNave = this.grupoEnemigosNave.create(800, y, "enemigoNave");
+    enemigoNave.setVelocityX(-150);
+    enemigoNave.vidas = 3;
   }
 
   dispararBala() {
@@ -75,15 +91,6 @@ export default class Escena2 extends Phaser.Scene {
     }
   }
 
-  generarEnemigosNave() {
-    if (this.juegoTerminado) return;
-
-    const y = Phaser.Math.Between(50, 550);
-    const enemigoNave = this.grupoEnemigosNave.create(800, y, "enemigoNave");
-    enemigoNave.setVelocityX(-150);
-    enemigoNave.vidas = 3;
-  }
-
   colisionBalaEnemigo(bala, enemigoNave) {
     enemigoNave.destroy();
     bala.destroy();
@@ -95,6 +102,8 @@ export default class Escena2 extends Phaser.Scene {
     enemigoNave.destroy();
     this.vidasJugador -= 1;
     this.textoVidasJugador.setText(`Vidas: ${this.vidasJugador}`);
+
+    this.colisionNave();
 
     if (this.vidasJugador <= 0) {
       this.scene.start("GameOver", { puntaje: this.puntaje });
@@ -108,6 +117,8 @@ export default class Escena2 extends Phaser.Scene {
     meteoro.destroy();
     this.vidasJugador -= 1;
     this.textoVidasJugador.setText(`Vidas: ${this.vidasJugador}`);
+
+    this.colisionNave();
 
     if (this.vidasJugador <= 0) {
       this.scene.start("GameOver", { puntaje: this.puntaje });
@@ -131,7 +142,7 @@ export default class Escena2 extends Phaser.Scene {
       }
     );
 
-    //Manejo del evento para generar más enemigos cuando aparezca el boss
+    // Manejo del evento para generar más enemigos cuando aparezca el boss
     if (this.generarEnemigosEvento) {
       this.generarEnemigosEvento.remove();
     }
@@ -143,7 +154,7 @@ export default class Escena2 extends Phaser.Scene {
       loop: true,
     });
 
-    //Configura la colisión atrasada entre las balas del jugador y el boss
+    // Configura la colisión entre las balas del jugador y el boss
     setTimeout(() => {
       this.physics.add.collider(
         this.grupoBalas,
@@ -153,6 +164,29 @@ export default class Escena2 extends Phaser.Scene {
         this
       );
     }, 5000);
+
+    // Iniciar generación de meteoros verticales si el jefe sigue vivo después de 10 segundos
+    this.time.delayedCall(10000, () => {
+      if (this.boss && this.boss.active) {
+        this.iniciarMeteorosVerticales();
+      }
+    });
+  }
+
+  // Método para generar meteoros de manera vertical
+  iniciarMeteorosVerticales() {
+    this.time.addEvent({
+      delay: 1000, // Intervalo de caída de los meteoros
+      callback: () => {
+        if (!this.juegoTerminado && this.boss && this.boss.active) {
+          const x = Phaser.Math.Between(50, 750);
+          const meteoro = this.grupoMeteoros.create(x, 0, "meteoro");
+          meteoro.setVelocityY(200);
+        }
+      },
+      callbackScope: this,
+      loop: true,
+    });
   }
 
   destruirBoss(bala, boss) {
@@ -203,11 +237,14 @@ export default class Escena2 extends Phaser.Scene {
       explosion.destroy();
     });
   }
-  // nuevo
+
   colisionBalaBoss(jugador, bala) {
     bala.destroy();
     this.vidasJugador -= 1;
     this.textoVidasJugador.setText(`Vidas: ${this.vidasJugador}`);
+
+    this.colisionNave();
+
     if (this.vidasJugador <= 0) {
       this.scene.start("GameOver", { puntaje: this.puntaje });
       this.musicaFondo.stop();
@@ -221,7 +258,7 @@ export default class Escena2 extends Phaser.Scene {
       if (bala) {
         bala.setActive(true);
         bala.setVisible(true);
-        bala.setVelocityX(-400); // Dirección hacia el jugador
+        bala.setVelocityX(-400);
       }
     }
   }
@@ -307,6 +344,10 @@ export default class Escena2 extends Phaser.Scene {
     this.load.audio("grito", "/public/resources/sounds/grito.mp3");
     this.load.audio("balaSonido", "/public/resources/sounds/balaSonido.mp3");
     this.load.audio(
+      "sonidoPierdeVida",
+      "/public/resources/sounds/sonidoPierdeVida.mp3"
+    );
+    this.load.audio(
       "sonidoExplosion",
       "/public/resources/sounds/sonidoExplosion.mp3"
     );
@@ -314,6 +355,7 @@ export default class Escena2 extends Phaser.Scene {
   }
 
   create() {
+    this.vidasJugador = 3;
     this.juegoTerminado = false;
     this.bossAparecido = false;
     this.puntaje = 0;
@@ -355,9 +397,18 @@ export default class Escena2 extends Phaser.Scene {
     this.grupoEnemigosNave = this.physics.add.group();
 
     this.animacionNave();
+    this.manejadorColisiones();
+
+    /* 
+    this.time.addEvent({
+      delay: 1000, // Intervalo para generar meteoros
+      callback: () => Meteoro.generarMeteoros(this, this.grupoMeteoros), // Llama al método de generación de meteoros
+      callbackScope: this,
+      loop: true,
+    });*/
 
     this.time.addEvent({
-      delay: 2000,
+      delay: 1000,
       callback: this.generarMeteoros,
       callbackScope: this,
       loop: true,
@@ -371,7 +422,7 @@ export default class Escena2 extends Phaser.Scene {
     });
 
     this.time.addEvent({
-      delay: 4000,
+      delay: 3000,
       callback: this.generarEnemigosNave,
       callbackScope: this,
       loop: true,
@@ -383,8 +434,6 @@ export default class Escena2 extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     });
-
-    this.manejadorColisiones();
 
     this.cursors = this.input.keyboard.createCursorKeys();
     this.teclas = this.input.keyboard.addKeys({
@@ -399,6 +448,7 @@ export default class Escena2 extends Phaser.Scene {
     this.musicaFondo.play();
     this.sonidoGrito = this.sound.add("grito");
     this.sonidoBala = this.sound.add("balaSonido");
+    this.sonidoPierdeVida = this.sound.add("sonidoPierdeVida");
     this.sonidoExplosion = this.sound.add("sonidoExplosion");
   } // fin crete()
 

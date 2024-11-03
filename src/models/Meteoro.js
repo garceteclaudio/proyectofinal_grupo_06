@@ -7,17 +7,18 @@ export default class Meteoro extends Phaser.Physics.Arcade.Sprite {
     scene.physics.add.existing(this);
 
     // Configurar propiedades iniciales
-    //this.setCollideWorldBounds(false);
+    this.setVelocityX(-200); // Configura la velocidad para que se mueva de derecha a izquierda
     this.setActive(true);
     this.setVisible(true);
   }
 
-  generarMeteoros(scene, grupoMeteoros) {
-    const y = Phaser.Math.Between(0, 600);
-    const meteoro = new Meteoro(scene, 800, y, "meteoro");
+  // Método para generar un nuevo meteoro y agregarlo al grupo
+  static generarMeteoros(scene, grupoMeteoros) {
+    if (scene.juegoTerminado) return; // Verifica si el juego ha terminado
+    const y = Phaser.Math.Between(0, scene.game.config.height); // Obtener una posición Y aleatoria dentro de los límites de la pantalla
+    const meteoro = new Meteoro(scene, 800, y, "meteoro"); // Crear un nuevo meteoro
 
-    // Configurar la velocidad para que se mueva de derecha a izquierda
-    meteoro.setVelocityX(-200); // Asegúrate de que la velocidad sea negativa
-    grupoMeteoros.add(meteoro);
+    grupoMeteoros.add(meteoro); // Agregar el meteoro al grupo
+    return meteoro; // Opcional: puedes devolver el meteoro creado si lo necesitas
   }
 }
