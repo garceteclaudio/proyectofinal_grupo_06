@@ -2,6 +2,10 @@ export default class Escena2 extends Phaser.Scene {
   constructor() {
     super({ key: "Escena 2" });
     this.jugador = null;
+    this.grupoBalas = null;
+    this.grupoBalasBoss = null;
+    this.vidasJugador = 3;
+    this.textoVidasJugador = null;
     this.grupoMeteoros = null;
     this.grupoBalas = null;
     this.grupoEnemigosNave = null;
@@ -176,6 +180,28 @@ export default class Escena2 extends Phaser.Scene {
       explosion.destroy();
     });
   }
+  // nuevo
+  colisionBalaBoss(jugador, bala) {
+    bala.destroy();
+    this.vidasJugador -= 1;
+    this.textoVidasJugador.setText(`Vidas: ${this.vidasJugador}`);
+    if (this.vidasJugador <= 0) {
+      this.scene.start("GameOver", { puntaje: this.puntaje });
+      this.musicaFondo.stop();
+      this.juegoTerminado = true;
+    }
+  }
+
+  dispararBalaBoss() {
+    if (this.boss && this.boss.active) {
+      const bala = this.grupoBalasBoss.get(this.boss.x, this.boss.y);
+      if (bala) {
+        bala.setActive(true);
+        bala.setVisible(true);
+        bala.setVelocityX(-400); // Dirección hacia el jugador
+      }
+    }
+  }
 
   preload() {
     this.load.image("espacio", "/public/resources/images/espacio.png");
@@ -207,6 +233,40 @@ export default class Escena2 extends Phaser.Scene {
     this.jugador = this.physics.add.sprite(100, 300, "nave", 0);
     this.jugador.setCollideWorldBounds(true);
     this.jugador.setAngle(90);
+
+    // Inicialización de grupos y jugador...
+    this.grupoBalasBoss = this.physics.add.group({
+      defaultKey: "bala2",
+      maxSize: 20,
+    });
+
+    // Mostrar vidas del jugador en pantalla
+    this.textoVidasJugador = this.add.text(
+      600,
+      16,
+      `Vidas: ${this.vidasJugador}`,
+      {
+        fontSize: "32px",
+        fill: "#fff",
+      }
+    );
+
+    // Colisión entre balas del boss y el jugador
+    this.physics.add.collider(
+      this.jugador,
+      this.grupoBalasBoss,
+      this.colisionBalaBoss,
+      null,
+      this
+    );
+
+    // Llamar al método de disparo del boss
+    this.time.addEvent({
+      delay: 2000,
+      callback: this.dispararBalaBoss,
+      callbackScope: this,
+      loop: true,
+    });
 
     this.grupoBalas = this.physics.add.group({
       defaultKey: "bala2",
