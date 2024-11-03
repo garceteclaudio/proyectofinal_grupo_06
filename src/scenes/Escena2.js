@@ -1,3 +1,6 @@
+import Nave from "../models/Nave";
+import Meteoro from "../models/Meteoro";
+
 export default class Escena2 extends Phaser.Scene {
   constructor() {
     super({ key: "Escena 2" });
@@ -6,8 +9,10 @@ export default class Escena2 extends Phaser.Scene {
     this.grupoBalasBoss = null;
     this.vidasJugador = 3;
     this.textoVidasJugador = null;
+
     this.grupoMeteoros = null;
     this.grupoBalas = null;
+
     this.grupoEnemigosNave = null;
     this.boss = null;
     this.cursors = null;
@@ -87,11 +92,29 @@ export default class Escena2 extends Phaser.Scene {
   }
 
   colisionJugadorEnemigo(jugador, enemigoNave) {
-    this.scene.start("GameOver", { puntaje: this.puntaje });
-    this.musicaFondo.stop();
-    this.puntaje = 0;
-    this.juegoTerminado = true;
     enemigoNave.destroy();
+    this.vidasJugador -= 1;
+    this.textoVidasJugador.setText(`Vidas: ${this.vidasJugador}`);
+
+    if (this.vidasJugador <= 0) {
+      this.scene.start("GameOver", { puntaje: this.puntaje });
+      this.musicaFondo.stop();
+      this.juegoTerminado = true;
+      this.puntaje = 0;
+    }
+  }
+
+  colisionJugadorMeteoro(jugador, meteoro) {
+    meteoro.destroy();
+    this.vidasJugador -= 1;
+    this.textoVidasJugador.setText(`Vidas: ${this.vidasJugador}`);
+
+    if (this.vidasJugador <= 0) {
+      this.scene.start("GameOver", { puntaje: this.puntaje });
+      this.musicaFondo.stop();
+      this.juegoTerminado = true;
+      this.puntaje = 0;
+    }
   }
 
   aparecerBoss() {
@@ -203,6 +226,73 @@ export default class Escena2 extends Phaser.Scene {
     }
   }
 
+  animacionNave() {
+    this.anims.create({
+      key: "izquierda",
+      frames: [{ key: "nave", frame: 1 }],
+      frameRate: 20,
+    });
+
+    this.anims.create({
+      key: "normal",
+      frames: [{ key: "nave", frame: 0 }],
+      frameRate: 20,
+    });
+
+    this.anims.create({
+      key: "derecha",
+      frames: [{ key: "nave", frame: 2 }],
+      frameRate: 20,
+    });
+  }
+
+  manejadorColisiones() {
+    //INICIO | Colisiones
+
+    // Colisión entre balas del boss y el jugador
+    this.physics.add.collider(
+      this.jugador,
+      this.grupoBalasBoss,
+      this.colisionBalaBoss,
+      null,
+      this
+    );
+
+    this.physics.add.collider(
+      this.jugador,
+      this.grupoMeteoros,
+      this.colisionJugadorMeteoro,
+      null,
+      this
+    );
+
+    this.physics.add.collider(
+      this.grupoBalas,
+      this.grupoMeteoros,
+      this.destruirMeteoro,
+      null,
+      this
+    );
+
+    this.physics.add.collider(
+      this.jugador,
+      this.grupoEnemigosNave,
+      this.colisionJugadorEnemigo,
+      null,
+      this
+    );
+
+    this.physics.add.collider(
+      this.grupoBalas,
+      this.grupoEnemigosNave,
+      this.colisionBalaEnemigo,
+      null,
+      this
+    );
+
+    //FIN | Colisiones
+  }
+
   preload() {
     this.load.image("espacio", "/public/resources/images/espacio.png");
     this.load.spritesheet("nave", "/public/resources/images/nave.png", {
@@ -234,12 +324,6 @@ export default class Escena2 extends Phaser.Scene {
     this.jugador.setCollideWorldBounds(true);
     this.jugador.setAngle(90);
 
-    // Inicialización de grupos y jugador...
-    this.grupoBalasBoss = this.physics.add.group({
-      defaultKey: "bala2",
-      maxSize: 20,
-    });
-
     // Mostrar vidas del jugador en pantalla
     this.textoVidasJugador = this.add.text(
       600,
@@ -251,21 +335,15 @@ export default class Escena2 extends Phaser.Scene {
       }
     );
 
-    // Colisión entre balas del boss y el jugador
-    this.physics.add.collider(
-      this.jugador,
-      this.grupoBalasBoss,
-      this.colisionBalaBoss,
-      null,
-      this
-    );
+    this.textoDePuntaje = this.add.text(16, 16, "Puntaje: 0", {
+      fontSize: "32px",
+      fill: "#fff",
+    });
 
-    // Llamar al método de disparo del boss
-    this.time.addEvent({
-      delay: 2000,
-      callback: this.dispararBalaBoss,
-      callbackScope: this,
-      loop: true,
+    // Inicialización de grupos y jugador...
+    this.grupoBalasBoss = this.physics.add.group({
+      defaultKey: "bala2",
+      maxSize: 20,
     });
 
     this.grupoBalas = this.physics.add.group({
@@ -276,34 +354,25 @@ export default class Escena2 extends Phaser.Scene {
     this.grupoMeteoros = this.physics.add.group();
     this.grupoEnemigosNave = this.physics.add.group();
 
-    this.anims.create({
-      key: "izquierda",
-      frames: [{ key: "nave", frame: 1 }],
-      frameRate: 20,
-    });
-
-    this.anims.create({
-      key: "normal",
-      frames: [{ key: "nave", frame: 0 }],
-      frameRate: 20,
-    });
-
-    this.anims.create({
-      key: "derecha",
-      frames: [{ key: "nave", frame: 2 }],
-      frameRate: 20,
-    });
+    this.animacionNave();
 
     this.time.addEvent({
-      delay: 4000,
-      callback: this.generarEnemigosNave,
+      delay: 2000,
+      callback: this.generarMeteoros,
       callbackScope: this,
       loop: true,
     });
 
     this.time.addEvent({
-      delay: 1000,
-      callback: this.generarMeteoros,
+      delay: 2000,
+      callback: this.dispararBalaBoss,
+      callbackScope: this,
+      loop: true,
+    });
+
+    this.time.addEvent({
+      delay: 4000,
+      callback: this.generarEnemigosNave,
       callbackScope: this,
       loop: true,
     });
@@ -315,6 +384,8 @@ export default class Escena2 extends Phaser.Scene {
       loop: true,
     });
 
+    this.manejadorColisiones();
+
     this.cursors = this.input.keyboard.createCursorKeys();
     this.teclas = this.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -324,56 +395,12 @@ export default class Escena2 extends Phaser.Scene {
       space: Phaser.Input.Keyboard.KeyCodes.SPACE,
     });
 
-    //INICIO | Colisiones
-    this.physics.add.collider(
-      this.jugador,
-      this.grupoMeteoros,
-      (jugador, meteoro) => {
-        meteoro.destroy();
-        this.scene.start("GameOver", { puntaje: this.puntaje });
-        this.musicaFondo.stop();
-        this.puntaje = 0;
-      },
-      null,
-      this
-    );
-
-    this.physics.add.collider(
-      this.grupoBalas,
-      this.grupoMeteoros,
-      this.destruirMeteoro,
-      null,
-      this
-    );
-    this.physics.add.collider(
-      this.jugador,
-      this.grupoEnemigosNave,
-      this.colisionJugadorEnemigo,
-      null,
-      this
-    );
-
-    this.physics.add.collider(
-      this.grupoBalas,
-      this.grupoEnemigosNave,
-      this.colisionBalaEnemigo,
-      null,
-      this
-    );
-
-    //FIN | Colisiones
-
-    this.textoDePuntaje = this.add.text(16, 16, "Puntaje: 0", {
-      fontSize: "32px",
-      fill: "#fff",
-    });
-
     this.musicaFondo = this.sound.add("musicaFondo", { loop: true });
     this.musicaFondo.play();
     this.sonidoGrito = this.sound.add("grito");
     this.sonidoBala = this.sound.add("balaSonido");
     this.sonidoExplosion = this.sound.add("sonidoExplosion");
-  }
+  } // fin crete()
 
   update() {
     if (this.juegoTerminado) return;
@@ -410,5 +437,5 @@ export default class Escena2 extends Phaser.Scene {
         this.boss.x = 600;
       }
     }
-  }
+  } // fin update
 }
