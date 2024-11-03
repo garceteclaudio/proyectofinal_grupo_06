@@ -1,7 +1,14 @@
+import Nave from "../models/Nave";
+import Meteoro from "../models/Meteoro";
+
 export default class Escena2 extends Phaser.Scene {
   constructor() {
     super({ key: "Escena 2" });
     this.jugador = null;
+    this.grupoBalas = null;
+    this.grupoBalasBoss = null;
+    this.vidasJugador = 3;
+    this.textoVidasJugador = null;
     this.grupoMeteoros = null;
     this.grupoBalas = null;
     this.grupoEnemigosNave = null;
@@ -22,6 +29,15 @@ export default class Escena2 extends Phaser.Scene {
     this.generarEnemigosEvento = null;
     this.bossVidas = 10;
     this.textoVidasBoss = null;
+    this.sonidoPierdeVida = null;
+  }
+
+  colisionNave() {
+    this.sonidoPierdeVida.play();
+    this.jugador.setTint(0xff0000);
+    this.time.delayedCall(1500, () => {
+      this.jugador.clearTint();
+    });
   }
 
   generarMeteoros() {
@@ -30,6 +46,15 @@ export default class Escena2 extends Phaser.Scene {
     const y = Phaser.Math.Between(0, 600);
     const meteoro = this.grupoMeteoros.create(800, y, "meteoro");
     meteoro.setVelocityX(-200);
+  }
+
+  generarEnemigosNave() {
+    if (this.juegoTerminado) return;
+
+    const y = Phaser.Math.Between(50, 550);
+    const enemigoNave = this.grupoEnemigosNave.create(800, y, "enemigoNave");
+    enemigoNave.setVelocityX(-150);
+    enemigoNave.vidas = 3;
   }
 
   dispararBala() {
@@ -66,15 +91,6 @@ export default class Escena2 extends Phaser.Scene {
     }
   }
 
-  generarEnemigosNave() {
-    if (this.juegoTerminado) return;
-
-    const y = Phaser.Math.Between(50, 550);
-    const enemigoNave = this.grupoEnemigosNave.create(800, y, "enemigoNave");
-    enemigoNave.setVelocityX(-150);
-    enemigoNave.vidas = 3;
-  }
-
   colisionBalaEnemigo(bala, enemigoNave) {
     enemigoNave.destroy();
     bala.destroy();
@@ -83,11 +99,33 @@ export default class Escena2 extends Phaser.Scene {
   }
 
   colisionJugadorEnemigo(jugador, enemigoNave) {
-    this.scene.start("GameOver", { puntaje: this.puntaje });
-    this.musicaFondo.stop();
-    this.puntaje = 0;
-    this.juegoTerminado = true;
     enemigoNave.destroy();
+    this.vidasJugador -= 1;
+    this.textoVidasJugador.setText(`Vidas: ${this.vidasJugador}`);
+
+    this.colisionNave();
+
+    if (this.vidasJugador <= 0) {
+      this.scene.start("GameOver", { puntaje: this.puntaje });
+      this.musicaFondo.stop();
+      this.juegoTerminado = true;
+      this.puntaje = 0;
+    }
+  }
+
+  colisionJugadorMeteoro(jugador, meteoro) {
+    meteoro.destroy();
+    this.vidasJugador -= 1;
+    this.textoVidasJugador.setText(`Vidas: ${this.vidasJugador}`);
+
+    this.colisionNave();
+
+    if (this.vidasJugador <= 0) {
+      this.scene.start("GameOver", { puntaje: this.puntaje });
+      this.musicaFondo.stop();
+      this.juegoTerminado = true;
+      this.puntaje = 0;
+    }
   }
 
   aparecerBoss() {
@@ -104,7 +142,7 @@ export default class Escena2 extends Phaser.Scene {
       }
     );
 
-    //Manejo del evento para generar más enemigos cuando aparezca el boss
+    // Manejo del evento para generar más enemigos cuando aparezca el boss
     if (this.generarEnemigosEvento) {
       this.generarEnemigosEvento.remove();
     }
@@ -116,7 +154,7 @@ export default class Escena2 extends Phaser.Scene {
       loop: true,
     });
 
-    //Configura la colisión atrasada entre las balas del jugador y el boss
+    // Configura la colisión entre las balas del jugador y el boss
     setTimeout(() => {
       this.physics.add.collider(
         this.grupoBalas,
@@ -126,6 +164,29 @@ export default class Escena2 extends Phaser.Scene {
         this
       );
     }, 5000);
+
+    // Iniciar generación de meteoros verticales si el jefe sigue vivo después de 10 segundos
+    this.time.delayedCall(10000, () => {
+      if (this.boss && this.boss.active) {
+        this.iniciarMeteorosVerticales();
+      }
+    });
+  }
+
+  // Método para generar meteoros de manera vertical
+  iniciarMeteorosVerticales() {
+    this.time.addEvent({
+      delay: 1000, // Intervalo de caída de los meteoros
+      callback: () => {
+        if (!this.juegoTerminado && this.boss && this.boss.active) {
+          const x = Phaser.Math.Between(50, 750);
+          const meteoro = this.grupoMeteoros.create(x, 0, "meteoro");
+          meteoro.setVelocityY(200);
+        }
+      },
+      callbackScope: this,
+      loop: true,
+    });
   }
 
   destruirBoss(bala, boss) {
@@ -177,45 +238,32 @@ export default class Escena2 extends Phaser.Scene {
     });
   }
 
-  preload() {
-    this.load.image("espacio", "/public/resources/images/espacio.png");
-    this.load.spritesheet("nave", "/public/resources/images/nave.png", {
-      frameWidth: 60,
-      frameHeight: 60,
-    });
-    this.load.image("meteoro", "/public/resources/images/meteoro.png");
-    this.load.image("bala2", "/public/resources/images/balaHorizontal.png");
-    this.load.image("enemigoNave", "/public/resources/images/enemigoNave.png");
-    this.load.image("boss", "/public/resources/images/boss.png");
-    this.load.audio("musicaFondo", "/public/resources/sounds/9.mp3");
-    this.load.audio("grito", "/public/resources/sounds/grito.mp3");
-    this.load.audio("balaSonido", "/public/resources/sounds/balaSonido.mp3");
-    this.load.audio(
-      "sonidoExplosion",
-      "/public/resources/sounds/sonidoExplosion.mp3"
-    );
-    this.load.image("contacto", "/public/resources/images/contacto.png");
+  colisionBalaBoss(jugador, bala) {
+    bala.destroy();
+    this.vidasJugador -= 1;
+    this.textoVidasJugador.setText(`Vidas: ${this.vidasJugador}`);
+
+    this.colisionNave();
+
+    if (this.vidasJugador <= 0) {
+      this.scene.start("GameOver", { puntaje: this.puntaje });
+      this.musicaFondo.stop();
+      this.juegoTerminado = true;
+    }
   }
 
-  create() {
-    this.juegoTerminado = false;
-    this.bossAparecido = false;
-    this.puntaje = 0;
-    this.bossVidas = 10;
+  dispararBalaBoss() {
+    if (this.boss && this.boss.active) {
+      const bala = this.grupoBalasBoss.get(this.boss.x, this.boss.y);
+      if (bala) {
+        bala.setActive(true);
+        bala.setVisible(true);
+        bala.setVelocityX(-400);
+      }
+    }
+  }
 
-    this.fondoEspacio = this.add.tileSprite(400, 300, 800, 600, "espacio");
-    this.jugador = this.physics.add.sprite(100, 300, "nave", 0);
-    this.jugador.setCollideWorldBounds(true);
-    this.jugador.setAngle(90);
-
-    this.grupoBalas = this.physics.add.group({
-      defaultKey: "bala2",
-      maxSize: 50,
-    });
-
-    this.grupoMeteoros = this.physics.add.group();
-    this.grupoEnemigosNave = this.physics.add.group();
-
+  animacionNave() {
     this.anims.create({
       key: "izquierda",
       frames: [{ key: "nave", frame: 1 }],
@@ -233,17 +281,149 @@ export default class Escena2 extends Phaser.Scene {
       frames: [{ key: "nave", frame: 2 }],
       frameRate: 20,
     });
+  }
+
+  manejadorColisiones() {
+    //INICIO | Colisiones
+
+    // Colisión entre balas del boss y el jugador
+    this.physics.add.collider(
+      this.jugador,
+      this.grupoBalasBoss,
+      this.colisionBalaBoss,
+      null,
+      this
+    );
+
+    this.physics.add.collider(
+      this.jugador,
+      this.grupoMeteoros,
+      this.colisionJugadorMeteoro,
+      null,
+      this
+    );
+
+    this.physics.add.collider(
+      this.grupoBalas,
+      this.grupoMeteoros,
+      this.destruirMeteoro,
+      null,
+      this
+    );
+
+    this.physics.add.collider(
+      this.jugador,
+      this.grupoEnemigosNave,
+      this.colisionJugadorEnemigo,
+      null,
+      this
+    );
+
+    this.physics.add.collider(
+      this.grupoBalas,
+      this.grupoEnemigosNave,
+      this.colisionBalaEnemigo,
+      null,
+      this
+    );
+
+    //FIN | Colisiones
+  }
+
+  preload() {
+    this.load.image("espacio", "/public/resources/images/espacio.png");
+    this.load.spritesheet("nave", "/public/resources/images/nave.png", {
+      frameWidth: 60,
+      frameHeight: 60,
+    });
+    this.load.image("meteoro", "/public/resources/images/meteoro.png");
+    this.load.image("bala2", "/public/resources/images/balaHorizontal.png");
+    this.load.image("enemigoNave", "/public/resources/images/enemigoNave.png");
+    this.load.image("boss", "/public/resources/images/boss.png");
+    this.load.audio("musicaFondo", "/public/resources/sounds/9.mp3");
+    this.load.audio("grito", "/public/resources/sounds/grito.mp3");
+    this.load.audio("balaSonido", "/public/resources/sounds/balaSonido.mp3");
+    this.load.audio(
+      "sonidoPierdeVida",
+      "/public/resources/sounds/sonidoPierdeVida.mp3"
+    );
+    this.load.audio(
+      "sonidoExplosion",
+      "/public/resources/sounds/sonidoExplosion.mp3"
+    );
+    this.load.image("contacto", "/public/resources/images/contacto.png");
+  }
+
+  create() {
+    this.vidasJugador = 3;
+    this.juegoTerminado = false;
+    this.bossAparecido = false;
+    this.puntaje = 0;
+    this.bossVidas = 10;
+
+    this.fondoEspacio = this.add.tileSprite(400, 300, 800, 600, "espacio");
+    this.jugador = this.physics.add.sprite(100, 300, "nave", 0);
+    this.jugador.setCollideWorldBounds(true);
+    this.jugador.setAngle(90);
+
+    // Mostrar vidas del jugador en pantalla
+    this.textoVidasJugador = this.add.text(
+      600,
+      16,
+      `Vidas: ${this.vidasJugador}`,
+      {
+        fontSize: "32px",
+        fill: "#fff",
+      }
+    );
+
+    this.textoDePuntaje = this.add.text(16, 16, "Puntaje: 0", {
+      fontSize: "32px",
+      fill: "#fff",
+    });
+
+    // Inicialización de grupos y jugador...
+    this.grupoBalasBoss = this.physics.add.group({
+      defaultKey: "bala2",
+      maxSize: 20,
+    });
+
+    this.grupoBalas = this.physics.add.group({
+      defaultKey: "bala2",
+      maxSize: 50,
+    });
+
+    this.grupoMeteoros = this.physics.add.group();
+    this.grupoEnemigosNave = this.physics.add.group();
+
+    this.animacionNave();
+    this.manejadorColisiones();
+
+    /* 
+    this.time.addEvent({
+      delay: 1000, // Intervalo para generar meteoros
+      callback: () => Meteoro.generarMeteoros(this, this.grupoMeteoros), // Llama al método de generación de meteoros
+      callbackScope: this,
+      loop: true,
+    });*/
 
     this.time.addEvent({
-      delay: 4000,
-      callback: this.generarEnemigosNave,
+      delay: 1000,
+      callback: this.generarMeteoros,
       callbackScope: this,
       loop: true,
     });
 
     this.time.addEvent({
-      delay: 1000,
-      callback: this.generarMeteoros,
+      delay: 2000,
+      callback: this.dispararBalaBoss,
+      callbackScope: this,
+      loop: true,
+    });
+
+    this.time.addEvent({
+      delay: 3000,
+      callback: this.generarEnemigosNave,
       callbackScope: this,
       loop: true,
     });
@@ -264,56 +444,13 @@ export default class Escena2 extends Phaser.Scene {
       space: Phaser.Input.Keyboard.KeyCodes.SPACE,
     });
 
-    //INICIO | Colisiones
-    this.physics.add.collider(
-      this.jugador,
-      this.grupoMeteoros,
-      (jugador, meteoro) => {
-        meteoro.destroy();
-        this.scene.start("GameOver", { puntaje: this.puntaje });
-        this.musicaFondo.stop();
-        this.puntaje = 0;
-      },
-      null,
-      this
-    );
-
-    this.physics.add.collider(
-      this.grupoBalas,
-      this.grupoMeteoros,
-      this.destruirMeteoro,
-      null,
-      this
-    );
-    this.physics.add.collider(
-      this.jugador,
-      this.grupoEnemigosNave,
-      this.colisionJugadorEnemigo,
-      null,
-      this
-    );
-
-    this.physics.add.collider(
-      this.grupoBalas,
-      this.grupoEnemigosNave,
-      this.colisionBalaEnemigo,
-      null,
-      this
-    );
-
-    //FIN | Colisiones
-
-    this.textoDePuntaje = this.add.text(16, 16, "Puntaje: 0", {
-      fontSize: "32px",
-      fill: "#fff",
-    });
-
     this.musicaFondo = this.sound.add("musicaFondo", { loop: true });
     this.musicaFondo.play();
     this.sonidoGrito = this.sound.add("grito");
     this.sonidoBala = this.sound.add("balaSonido");
+    this.sonidoPierdeVida = this.sound.add("sonidoPierdeVida");
     this.sonidoExplosion = this.sound.add("sonidoExplosion");
-  }
+  } // fin crete()
 
   update() {
     if (this.juegoTerminado) return;
@@ -350,5 +487,5 @@ export default class Escena2 extends Phaser.Scene {
         this.boss.x = 600;
       }
     }
-  }
+  } // fin update
 }
