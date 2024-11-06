@@ -2,7 +2,7 @@ const datosCuentas = [];
 
 // Maneja el evento de envío del formulario
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("formulario-flexbox");
+    const form = document.getElementById("formulario");
     const verListado = document.getElementById("verListado");
     const masTransacciones = document.getElementById("masTransacciones");
 
@@ -32,7 +32,7 @@ function registrarDatos(event) {
         transacciones: parseInt(transac)
     });
 
-    document.getElementById("formulario-flexbox").reset();
+    document.getElementById("formulario").reset();
 }
 
 // Función para mostrar los datos registrados

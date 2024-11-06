@@ -8,47 +8,51 @@
   </head>
   <body>
     <main>
-      <p id="inicio"></p>
-      <div>
-        <a href="#inicio" class="inicio"><img src="/public/resources/images/home.png" alt="Inicio" /></a>
+      <div class="background"></div>
+      <div class="form-container">
+        <form class="form-box" id="formulario">
+          <div class="title-container">
+          <p class="form-title">Formulario de Carga</p>
+          </div>
+          <!-- NOMBRE -->
+          <div class="form-input">
+            <label for="nombre">Nombre Completo</label>
+            <input type="text" id="nombre" required/>
+            <img src="/public/resources/images/user.png" class="form-image"
+            />
+          </div>
+          <!-- TRANSACCIONES -->
+          <div class="form-input">
+            <label for="transacciones">Cantidad de Transacciones</label>
+            <input type="number" id="transacciones" required />
+            <img src="/public/resources/images/payment.png" class="form-image"/>
+          </div>
+          <!-- MÉTODO DE PAGO -->
+          <div class="form-input">
+            <label for="select">Método de Pago</label>
+            <select name="type-of-user" id="select">
+              <option value="Transferencia" class="form-option">Transferencia</option>
+              <option value="Mercado Pago" class="form-option">Mercado Pago</option>
+              <option value="Brubank" class="form-option">Brubank</option>
+              <option value="Ualá" class="form-option">Ualá</option>
+              <option value="PayPal" class="form-option">PayPal</option>
+              <option value="Depósito" class="form-option">Depósito</option>
+              <option value="Criptomonedas" class="form-option">Criptomonedas</option>
+            </select>
+            <img src="/public/resources/images/method.png" class="form-image"/>
+          </div>
+          <!-- BOTONES -->
+          <div class="button-container">
+            <div class="submit-box">
+              <button type="submit" id="cargar" class="form-button">Cargar</button>
+            </div>
+            <div class="normal-box">
+              <button type="button" id="verListado" class="form-button">Ver Listado</button>
+              <button type="button" id="masTransacciones" class="form-button">Ver Resumen</button>
+            </div>
+          </div>
+        </form>
       </div>
-      <form action="" id="formulario-flexbox">
-        <h2>Formulario de Compra</h2>
-        <!-- NOMBRE -->
-        <div class="form_input">
-          <label for="nombre">Nombre Completo</label>
-          <input type="text" id="nombre" required />
-          <img src="/public/resources/images/user.png" alt="Usuario" class="linea" />
-        </div>
-        <!-- TRANSACCIONES -->
-        <div class="form_input">
-          <label for="transacciones">Cantidad de Transacciones</label>
-          <input type="number" id="transacciones" required />
-          <img src="/public/resources/images/payment.png" alt="Transacciones" class="linea" />
-        </div>
-        <!-- MÉTODO DE PAGO -->
-        <div class="form_input">
-          <label for="select">Método de Pago</label>
-          <select name="type-of-user" id="select">
-            <option value="Fiwind">Fiwind</option>
-            <option value="Lemon Cash">Lemon Cash</option>
-            <option value="PayPal">PayPal</option>
-            <option value="Transferencia">Transferencia</option>
-            <option value="Mercado Pago">Mercado Pago</option>
-            <option value="Personal Pay">Personal Pay</option>
-            <option value="Naranja X">Naranja X</option>
-            <option value="Prex">Prex</option>
-          </select>
-          <img src="/public/resources/images/method.png" alt="Método de Pago" class="linea" />
-        </div>
-        <!-- BOTONES -->
-        <div>
-          <button type="submit" id="cargar" class="bt-chico">Cargar</button>
-          <button type="button" id="verListado" class="bt-chico">Ver Listado</button>
-          <button type="button" id="masTransacciones" class="bt-grande">Billeteras con mas transacciones</button>
-        </div>
-      </form>
-
       <!-- Contenedores para el listado y el resumen de transacciones -->
       <section class="listado" id="contenedorListado">
         <h2>Resumen de Cuentas</h2>
@@ -62,4 +66,5 @@
     </main>
     <script src="../../../src/index.js"></script>
   </body>
-</html> */}
+</html>
+ */}
