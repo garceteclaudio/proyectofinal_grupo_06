@@ -1,68 +1,67 @@
 const datosCuentas = [];
 
-// Maneja el evento de envío del formulario
+//MANEJO DEL FORMULARIO COMO EVENTOS
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("formulario");
     const verListado = document.getElementById("verListado");
-    const masTransacciones = document.getElementById("masTransacciones");
+    const verResumen = document.getElementById("verResumen");
 
     form.addEventListener("submit", registrarDatos);
-    verListado.addEventListener("click", muestraDatos);
-    masTransacciones.addEventListener("click", muestraMovimientos);
+    verListado.addEventListener("click", mostrarListado);
+    verResumen.addEventListener("click", mostrarResumen);
 });
 
-// Función para registrar datos
+//FUNCIÓN PARA REGISTRAR LOS DATOS DE LAS TRANSACCIONES
 function registrarDatos(event) {
     event.preventDefault();
 
     let nombre = document.getElementById("nombre").value.trim();
-    let billetera = document.getElementById("select").value;
-    let transac = document.getElementById("transacciones").value.trim();
+    let billetera = document.getElementById("billetera").value;
+    let cantidad = document.getElementById("cantidad").value.trim();
 
-    // Validación de datos
-    if (!nombre || !billetera || !transac) {
-        alert("Por favor, rellena todos los datos");
-        return;
-    }
-
-    // Almacena los datos en el array
+    //ALMACENA CADA CONJUNNTO DE DATOS EN UN ARRAY
     datosCuentas.push({
         nombre: nombre,
         billetera: billetera,
-        transacciones: parseInt(transac)
+        transacciones: parseInt(cantidad)
     });
 
     document.getElementById("formulario").reset();
 }
 
-// Función para mostrar los datos registrados
-function muestraDatos() {
+//FUNCIÓN PARA MOSTRAR LAS TRANSACCIONES COMO UN LSITADO
+function mostrarListado() {
+    const datosListado = document.getElementById("listadoFinal");
     let datos = "";
-    const listaDatos = document.getElementById("listado");
 
+    //GENERAR UNA ITEM DE LISTA PARA MOSTRAR LAS TRANSACCIONES REGISTRADAS
     for (let i = 0; i < datosCuentas.length; i++) {
         datos += `<li>${datosCuentas[i].nombre} - ${datosCuentas[i].billetera} - ${datosCuentas[i].transacciones}</li>`;
     }
 
-    listaDatos.innerHTML = datos;
+    datosListado.innerHTML = datos || "Todavía no se registraron transacciones.";
 }
 
-// Función para mostrar la cuenta con la mayor transacción
-function muestraMovimientos() {
-    const listaMovimientos = document.getElementById("masTransaccionesResumen");
-    let cuentaMaxTransaccion = null;
+function mostrarResumen() {
+    const datosResumen = document.getElementById("resumenFinal");
+    let maxTransaccion = {};
 
-    // Busca la cuenta con la mayor cantidad de transacciones
+    //RECORRER CADA CONJUNTO DE DATOS DEL ARRAY 
     for (const cuenta of datosCuentas) {
-        if (!cuentaMaxTransaccion || cuenta.transacciones > cuentaMaxTransaccion.transacciones) {
-            cuentaMaxTransaccion = cuenta;
+        const billetera = cuenta.billetera;
+        
+        //REGISTRAR LA MAYOR TRANSACCIÓN DE CADA BILLETERA EN CASO DE EXISTIR
+        if (!maxTransaccion[billetera] || cuenta.transacciones > maxTransaccion[billetera].transacciones) {
+            maxTransaccion[billetera] = cuenta;
         }
     }
 
-    // Muestra la cuenta con más transacciones
-    if (cuentaMaxTransaccion) {
-        listaMovimientos.innerHTML = `<li>${cuentaMaxTransaccion.nombre} - ${cuentaMaxTransaccion.billetera} - ${cuentaMaxTransaccion.transacciones}</li>`;
-    } else {
-        listaMovimientos.innerHTML = "No hay transacciones registradas.";
+    //GENERAR UN ITEM DE LISTA PARA MOSTRAR LA MAYOR TRANSACCIÓN DE CADA BILLETERA
+    let datos = "";
+    for (const billetera in maxTransaccion) {
+        const cuenta = maxTransaccion[billetera];
+        datos += `<li>${cuenta.nombre} - ${cuenta.billetera} - ${cuenta.transacciones}</li>`;
     }
+
+    datosResumen.innerHTML = datos || "Todavía no se registraron transacciones.";
 }

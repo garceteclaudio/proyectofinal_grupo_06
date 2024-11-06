@@ -144,6 +144,8 @@
     box-sizing: border-box;
 }
 
+/* CAJAS DE LOS ...↑↑↑ */
+
 .submit-box {
     display: inline-flex;
     justify-content: center;
@@ -157,16 +159,25 @@
     gap: 10px;
 }
 
-.form-button {
+.normal-box a {
     width: 100%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #DDDDDD;
+}
+
+/* ESTILOS DE LOS ...↑↑↑ */
+
+.form-button {
+    width: 100%; 
     font-size: 20px;
-    font-weight: bold;
+    font-weight: 1000;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     text-transform: uppercase;
+    color: #DDDDDD;
     margin: 10px 0px;
     padding: 25px 15px; 
     background-color: #212D61;
     box-shadow: 0 0 10px #240E67;
-    color: #DDDDDD;
     border: none; 
     border-radius: 10px;
     cursor: pointer; 
@@ -174,7 +185,6 @@
 
 .form-button:hover {
     background-color: #1A0749;
-    color:#F9F9F9;
     box-shadow: 0 0 20px #1A0749;
 }
 
@@ -183,23 +193,86 @@
     color: #2D3369;
 }
 
-/* WIP */
+/* RESÚMENES */
 
-.listado {
-    display: block;
-    background-color: transparent;
-    background-color: #E7E7E7;
-    filter: opacity(75%);
-    backdrop-filter: blur(100px);
-    padding: 20px 30px 50px;
-    max-width: 50%;
-    margin: auto;
-    margin-top: 50px;
-    box-shadow: 0 0 20px #2669CD;
-    border-radius: 10px;
+.summary-container {
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    position: fixed;
     display: flex;
-    flex-direction: column;
-    gap: 25px;
-    z-index: 10;
-    font-size: 21px;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0;
+    z-index: -1;
+    transition: opacity 0.8s ease, z-index 0.3s ease;
+    background-color: transparent;
+}
+
+.summary-container:target {
+    pointer-events: auto;
+    opacity: 1;
+    z-index: 3;
+}
+
+/* CAJAS DE LOS ...↑↑↑ */
+
+.summary-box {
+    width: 40%;
+    height: fit-content;
+    padding: 20px;
+    border-radius: 45px;
+    box-shadow: 0 0 20px #2669CD;
+    background-color: #E7E7E7;
+    filter: opacity(80%);
+    position: relative;
+    font-size: 30px;
+}
+
+.summary-box:hover{
+    box-shadow: 0 0 15px#E0D6EB;
+}
+
+/* TÍTULOS DE LAS ...↑↑↑ */
+
+.summary-title {
+    font-family: 'IndieFlower';
+    font-size: 50px;
+    color: #212D61;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 0px;
+    margin-bottom: 15px;
+}
+
+/* LISTAS DE LAS ...↑↑↑ */
+
+.summary-list {
+    list-style: none;
+    font-size: 30px;
+    line-height: 60px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #212D61;
+    padding: 10px 20px;
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+/* TOGGLE DE LAS ...↑↑↑ */
+
+.summary-toggle {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 45px;
+    font-weight: 1000;
+    text-decoration: none;
+    color: #212D61;
+}
+
+.summary-toggle:hover {
+    color: #1A0749;
+    scale: 1.2;
 }
