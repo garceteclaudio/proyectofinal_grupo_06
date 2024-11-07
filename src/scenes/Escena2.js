@@ -15,7 +15,7 @@ export default class Escena2 extends Phaser.Scene {
     this.boss = null;
     this.cursors = null;
     this.teclas = null;
-
+    this.grupoVidas = null;
     this.textoDePuntaje = null;
     this.juegoTerminado = false;
     this.musicaFondo = null;
@@ -283,9 +283,28 @@ export default class Escena2 extends Phaser.Scene {
       frameRate: 20,
     });
   }
+  generarVida() {
+    // Genera la vida en una posición aleatoria en el eje Y
+    const y = Phaser.Math.Between(50, 550);
+    const vida = this.grupoVidas.create(800, y, "vida");
+    vida.setVelocityX(-100); // Movimiento de derecha a izquierda
+  }
 
+  recogerVida(jugador, vida) {
+    vida.destroy(); // Elimina la imagen de vida al recogerla
+    this.vidasJugador += 1; // Incrementa la vida del jugador
+    this.textoVidasJugador.setText(`Vidas: ${this.vidasJugador}`); // Actualiza el texto de vidas en pantalla
+  }
   manejadorColisiones() {
     //INICIO | Colisiones
+
+    this.physics.add.overlap(
+      this.jugador,
+      this.grupoVidas,
+      this.recogerVida,
+      null,
+      this
+    );
 
     // Colisión entre balas del boss y el jugador
     this.physics.add.collider(
@@ -337,6 +356,7 @@ export default class Escena2 extends Phaser.Scene {
       frameWidth: 60,
       frameHeight: 60,
     });
+    this.load.image("vida", "/public/resources/images/vida.png");
     this.load.image("meteoro", "/public/resources/images/meteoro.png");
     this.load.image("bala2", "/public/resources/images/balaHorizontal.png");
     this.load.image("enemigoNave", "/public/resources/images/enemigoNave.png");
@@ -396,6 +416,7 @@ export default class Escena2 extends Phaser.Scene {
 
     this.grupoMeteoros = this.physics.add.group();
     this.grupoEnemigosNave = this.physics.add.group();
+    this.grupoVidas = this.physics.add.group();
 
     this.animacionNave();
     this.manejadorColisiones();
@@ -407,6 +428,14 @@ export default class Escena2 extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     });*/
+
+    // Evento para generar la imagen de vida cada 3 segundos
+    this.time.addEvent({
+      delay: 3000,
+      callback: this.generarVida,
+      callbackScope: this,
+      loop: true,
+    });
 
     this.time.addEvent({
       delay: 1000,
