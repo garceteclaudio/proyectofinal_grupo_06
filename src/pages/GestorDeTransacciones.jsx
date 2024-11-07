@@ -68,7 +68,7 @@ const GestorDeTransacciones = () => {
   };
 
   return (
-    <div className="form-container">
+    <div className="project-container">
       <div className="background-image"></div>
       {/*<div className="form-container">*/}
       <form className="form-box" onSubmit={registrarDatos}>
@@ -136,7 +136,7 @@ const GestorDeTransacciones = () => {
         <div className="summary-box">
           <a href="#" className="summary-toggle">×</a>
           <h2 className="summary-title">Listado completo de transacciones</h2>
-          {mostrarListado()}
+          <div className="summary-list">{mostrarListado()}</div>
         </div>
       </div>
       {/* RESUMEN */}
@@ -144,7 +144,7 @@ const GestorDeTransacciones = () => {
         <div className="summary-box">
           <a href="#" className="summary-toggle">×</a>
           <h2 className="summary-title">Transacciones más altas por billetera</h2>
-          {mostrarResumen()}
+          <div className="summary-list">{mostrarResumen()}</div>
         </div>
       </div>
     </div>

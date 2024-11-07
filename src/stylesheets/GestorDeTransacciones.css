@@ -10,7 +10,7 @@
 
 /* CONTENEDOR DEL FORMULARIO */
 
-.form-container {
+.project-container {
     position: relative;
     height: 100vh;
     width: auto;
@@ -51,10 +51,11 @@
 /* FORMULARIO */
 
 .form-box {
-    width: 50%;
+    width: 55%;
     height: fit-content;
-    padding: 0px 30px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    padding: 0px 10px;
+    font-family: Pangolin;
+    letter-spacing: 1px;
     background-color: #e7e7e7;
     filter: opacity(75%);
     box-shadow: 0 0 20px #2669cd;
@@ -76,7 +77,7 @@
 }
 
 .form-title {
-    margin: 10px 0px;
+    margin: 10px 0px 0px;
     padding: 10px;
     font-family: "IndieFlower";
     font-size: 60px;
@@ -94,15 +95,16 @@
     display: grid;
     grid-template-columns: 1fr auto;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     padding: 0px;
-    margin: 45px 20px;
+    margin: 35px 20px;
 }
 
 .form-input label {
     grid-column: 1;
-    font-size: 25px;
-    font-weight: 700;
+    font-size: 30px;
+    font-weight: 600;
+    padding: 10px 5px 0px;
     color: #212d61;
     text-shadow: 0 0 5px #d4e9ff;
     text-transform: uppercase;
@@ -110,11 +112,12 @@
 
 .form-input input {
     grid-column: 1;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Pangolin;
+    letter-spacing: 1px;
     font-size: 25px;
-    font-weight: 350;
+    font-weight: 300;
     color: #000000;
-    padding: 5px 10px;
+    padding: 0px 10px;
     background-color: transparent;
     border: none;
     border-bottom: 3px solid #000000;
@@ -122,7 +125,8 @@
 
 .form-input select {
     grid-column: 1;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Pangolin;
+    letter-spacing: 1px;
     font-size: 25px;
     font-weight: 350;
     color: #000000;
@@ -169,7 +173,8 @@
 
 .normal-box a {
     width: 100%;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Pangolin;
+    letter-spacing: 1px;
     color: #dddddd;
 }
 
@@ -179,7 +184,8 @@
     width: 100%;
     font-size: 20px;
     font-weight: 1000;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Pangolin;
+    letter-spacing: 1px;
     text-transform: uppercase;
     color: #dddddd;
     margin: 10px 0px;
@@ -258,14 +264,15 @@
 /* LISTAS DE LAS ...↑↑↑ */
 
 .summary-list {
-    list-style: none;
-    font-size: 30px;
-    line-height: 60px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 25px;
+    line-height: 45px;
+    font-family: Pangolin;
+    letter-spacing: 1px;
     color: #212d61;
-    padding: 10px 20px;
-    margin-bottom: 15px;
+    padding: 20px 5px 10px;
+    margin-bottom: 10px;
     text-align: left;
+    list-style: none;
 }
 
 /* TOGGLE DE LAS ...↑↑↑ */
