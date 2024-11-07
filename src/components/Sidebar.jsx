@@ -21,10 +21,6 @@ const Sidebar = () => {
             </li>
             {/* LISTA DE SUBITEMS DE LA SIDEBAR */}
             <li className="sidebar-item">
-              <Link to="/games" className="sidebar-link">
-                <img src="/resources/images/sidebar/icon2.png" className="item-icon"/>
-                <span className="item-text">Juegos</span>
-              </Link>
               <ul className="sidebar-subitem">
                 <li className="sidebar-item">
                   <Link to="/imc" className="sidebar-link">
@@ -39,7 +35,7 @@ const Sidebar = () => {
                   </Link>
                 </li>
                 <li className="sidebar-item">
-                  <Link to="/games/meteoritos" className="sidebar-link">
+                  <Link to="/games" className="sidebar-link">
                     <img src="/resources/images/sidebar/icon5.png" className="item-icon"/>
                     <span className="item-text">Proyecto 03: Esquivando Meteoritos</span>
                   </Link>
