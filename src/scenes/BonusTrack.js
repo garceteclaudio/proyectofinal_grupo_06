@@ -16,12 +16,12 @@ export default class BonusTrack extends Phaser.Scene {
       "musicaFondoBonustrack",
       "/public/resources/sounds/bonustrack.mp3"
     );
-    this.load.image("moneda", "/public/resources/images/moneda.png");
-    this.load.image("fondo", "/public/resources/images/espacio.png");
+    this.load.image("moneda", "/public/resources/images/game/moneda.png");
+    this.load.image("fondo", "/public/resources/images/game/espacio.png");
   }
 
   create(data) {
-    this.puntaje = data.puntaje || 0; // Obtener el puntaje de la escena anterior
+    this.puntaje = data.puntaje || 0;
 
     this.add.image(400, 300, "fondo");
 
@@ -40,7 +40,6 @@ export default class BonusTrack extends Phaser.Scene {
     this.jugador = this.physics.add.sprite(400, 550, "nave", 0);
     this.jugador.setCollideWorldBounds(true);
 
-    // Configurar teclas WASD y flechas
     this.teclas = this.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.W,
       left: Phaser.Input.Keyboard.KeyCodes.A,
@@ -93,7 +92,6 @@ export default class BonusTrack extends Phaser.Scene {
       fill: "#ffd700",
     });
 
-    // Hacer que el texto desaparezca después de 500 milisegundos
     this.time.delayedCall(500, () => {
       textoBonus.destroy();
     });
@@ -101,7 +99,7 @@ export default class BonusTrack extends Phaser.Scene {
 
   finDelJuego() {
     this.musicaFondoBonustrack.stop();
-    this.scene.start("Escena 2", { puntaje: this.puntaje }); // Cambiar a Escena2 en lugar de GameOver
+    this.scene.start("Escena 2", { puntaje: this.puntaje });
   }
 
   update() {

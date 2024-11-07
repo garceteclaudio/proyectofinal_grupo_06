@@ -351,16 +351,22 @@ export default class Escena2 extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("espacio", "/public/resources/images/espacio.png");
-    this.load.spritesheet("nave", "/public/resources/images/nave.png", {
+    this.load.image("espacio", "/public/resources/images/game/espacio.png");
+    this.load.spritesheet("nave", "/public/resources/images/game/nave.png", {
       frameWidth: 60,
       frameHeight: 60,
     });
-    this.load.image("vida", "/public/resources/images/vida.png");
-    this.load.image("meteoro", "/public/resources/images/meteoro.png");
-    this.load.image("bala2", "/public/resources/images/balaHorizontal.png");
-    this.load.image("enemigoNave", "/public/resources/images/enemigoNave.png");
-    this.load.image("boss", "/public/resources/images/boss.png");
+    this.load.image("vida", "/public/resources/images/game/vida.png");
+    this.load.image("meteoro", "/public/resources/images/game/meteoro.png");
+    this.load.image(
+      "bala2",
+      "/public/resources/images/game/balaHorizontal.png"
+    );
+    this.load.image(
+      "enemigoNave",
+      "/public/resources/images/game/enemigoNave.png"
+    );
+    this.load.image("boss", "/public/resources/images/game/boss.png");
     this.load.audio("musicaFondo", "/public/resources/sounds/9.mp3");
     this.load.audio("grito", "/public/resources/sounds/grito.mp3");
     this.load.audio("balaSonido", "/public/resources/sounds/balaSonido.mp3");
@@ -372,7 +378,7 @@ export default class Escena2 extends Phaser.Scene {
       "sonidoExplosion",
       "/public/resources/sounds/sonidoExplosion.mp3"
     );
-    this.load.image("contacto", "/public/resources/images/contacto.png");
+    this.load.image("contacto", "/public/resources/images/game/contacto.png");
   }
 
   create() {

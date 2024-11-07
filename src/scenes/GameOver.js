@@ -6,7 +6,7 @@ export default class GameOver extends Phaser.Scene {
   preload() {
     this.load.image(
       "fondoGameOver",
-      "/public/resources/images/fondoGameOver.png"
+      "/public/resources/images/game/fondoGameOver.png"
     );
   }
 
@@ -44,9 +44,8 @@ export default class GameOver extends Phaser.Scene {
       })
       .setOrigin(0.5);
 
-    // Detectar la tecla "R" para reiniciar el juego
     this.input.keyboard.on("keydown-R", () => {
-      this.scene.start("Escena 1"); // Cambia "NombreDeLaEscenaDelJuego" al nombre de tu escena de juego
+      this.scene.start("Escena 1");
     });
   }
 }
