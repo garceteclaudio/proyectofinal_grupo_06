@@ -15,7 +15,7 @@ export default class Escena2 extends Phaser.Scene {
     this.boss = null;
     this.cursors = null;
     this.teclas = null;
-    this.puntaje = 0;
+
     this.textoDePuntaje = null;
     this.juegoTerminado = false;
     this.musicaFondo = null;
@@ -30,6 +30,11 @@ export default class Escena2 extends Phaser.Scene {
     this.bossVidas = 10;
     this.textoVidasBoss = null;
     this.sonidoPierdeVida = null;
+  }
+
+  init(data) {
+    // Asignar el puntaje recibido de Escena1
+    this.puntaje = data.puntaje || 0;
   }
 
   colisionNave() {
@@ -84,10 +89,6 @@ export default class Escena2 extends Phaser.Scene {
     if (!this.juegoTerminado) {
       this.puntaje += 1;
       this.textoDePuntaje.setText(`Puntaje: ${this.puntaje}`);
-
-      if (this.puntaje === 100 && !this.bossAparecido) {
-        this.aparecerBoss();
-      }
     }
   }
 
@@ -358,7 +359,7 @@ export default class Escena2 extends Phaser.Scene {
     this.vidasJugador = 3;
     this.juegoTerminado = false;
     this.bossAparecido = false;
-    this.puntaje = 0;
+
     this.bossVidas = 10;
 
     this.fondoEspacio = this.add.tileSprite(400, 300, 800, 600, "espacio");
@@ -434,6 +435,17 @@ export default class Escena2 extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     });
+
+    this.time.delayedCall(
+      15000,
+      () => {
+        if (!this.bossAparecido) {
+          this.aparecerBoss();
+        }
+      },
+      [],
+      this
+    );
 
     this.cursors = this.input.keyboard.createCursorKeys();
     this.teclas = this.input.keyboard.addKeys({

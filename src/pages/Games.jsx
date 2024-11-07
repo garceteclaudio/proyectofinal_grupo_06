@@ -7,6 +7,7 @@ import Escena2 from "../scenes/Escena2.js";
 import GameOver from "../scenes/GameOver.js";
 import AdminEscenas from "../models/adminEscenas.js";
 import YouWin from "../scenes/YouWin.js";
+import Bonustrack from "../scenes/BonusTrack.js";
 
 function Games() {
   const gameRef = useRef(null);
@@ -24,7 +25,7 @@ function Games() {
             debug: false,
           },
         },
-        scene: [Escena2, YouWin, GameOver],
+        scene: [Escena1,Escena2,Bonustrack, YouWin, GameOver],
         parent: "game-container",
       };
       

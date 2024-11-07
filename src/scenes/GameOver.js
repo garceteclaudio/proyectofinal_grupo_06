@@ -46,7 +46,7 @@ export default class GameOver extends Phaser.Scene {
 
     // Detectar la tecla "R" para reiniciar el juego
     this.input.keyboard.on("keydown-R", () => {
-      this.scene.start("Escena 2"); // Cambia "NombreDeLaEscenaDelJuego" al nombre de tu escena de juego
+      this.scene.start("Escena 1"); // Cambia "NombreDeLaEscenaDelJuego" al nombre de tu escena de juego
     });
   }
 }

@@ -53,7 +53,7 @@ export default class YouWin extends Phaser.Scene {
 
     // Evento de teclado para reiniciar con "R"
     this.input.keyboard.on("keydown-R", () => {
-      this.scene.start("Escena 2");
+      this.scene.start("Escena 1");
     });
 
     //this.setupButtons();
