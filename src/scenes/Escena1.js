@@ -103,16 +103,16 @@ export default class Escena1 extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("espacio", "/public/resources/images/espacio.png");
-    this.load.spritesheet("nave", "/public/resources/images/nave.png", {
+    this.load.image("espacio", "/public/resources/images/game/espacio.png");
+    this.load.spritesheet("nave", "/public/resources/images/game/nave.png", {
       frameWidth: 60,
       frameHeight: 60,
     });
-    this.load.image("meteoro", "/public/resources/images/meteoro.png", {
+    this.load.image("meteoro", "/public/resources/images/game/meteoro.png", {
       frameWidth: 56,
       frameHeight: 60,
     });
-    this.load.image("bala", "/public/resources/images/bala.png");
+    this.load.image("bala", "/public/resources/images/game/bala.png");
     this.load.audio("musicaFondo", "/public/resources/sounds/9.mp3");
     this.load.audio("grito", "/public/resources/sounds/grito.mp3");
     this.load.audio("balaSonido", "/public/resources/sounds/balaSonido.mp3");
@@ -120,7 +120,7 @@ export default class Escena1 extends Phaser.Scene {
       "sonidoExplosion",
       "/public/resources/sounds/sonidoExplosion.mp3"
     );
-    this.load.image("destello", "/public/resources/images/destello.png");
+    this.load.image("destello", "/public/resources/images/game/destello.png");
     this.load.audio("alerta", "/public/resources/sounds/alerta.mp3");
   }
 

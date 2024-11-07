@@ -5,8 +5,8 @@ export default class YouWin extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("espacio", "/public/resources/images/espacio.png");
-    this.load.image("gato", "/public/resources/images/gatoplaneta.png");
+    this.load.image("espacio", "/public/resources/images/game/espacio.png");
+    this.load.image("gato", "/public/resources/images/game/gatoplaneta.png");
     this.load.audio(
       "musicaVictoria",
       "/public/resources/sounds/musicaVictoria.mp3"
@@ -51,7 +51,6 @@ export default class YouWin extends Phaser.Scene {
     this.musicaVictoria = this.sound.add("musicaVictoria", { loop: false });
     this.musicaVictoria.play();
 
-    // Evento de teclado para reiniciar con "R"
     this.input.keyboard.on("keydown-R", () => {
       this.scene.start("Escena 1");
     });
