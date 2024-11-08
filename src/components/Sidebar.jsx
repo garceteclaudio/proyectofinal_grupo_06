@@ -41,7 +41,7 @@ const Sidebar = () => {
                   </Link>
                 </li>
                 <li className="sidebar-item">
-                  <Link to="/games/matematico" className="sidebar-link">
+                  <Link to="/desafio-matematico" className="sidebar-link">
                     <img src="/resources/images/sidebar/icon6.png" className="item-icon"/>
                     <span className="item-text">Proyecto 04: Desafío Matemático</span>
                   </Link>
