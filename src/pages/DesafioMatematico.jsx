@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import "../stylesheets/DesafioMatematico.css";
 
 function DesafioMatematico() {
     const [num1, setNumero1] = useState(0);
@@ -11,84 +11,120 @@ function DesafioMatematico() {
     const [mensaje, setMensaje] = useState('');
     const [desafio, setDesafio] = useState(1);
     const [juegoTerminado, setJuegoTerminado] = useState(false);
-  
+    const [dificultad, setDificultad] = useState('basico');
+
     const generarProblema = () => {
       if (desafio > 5) {
-        setJuegoTerminado(true);
-        return;
+          setJuegoTerminado(true);
+          return;
       }
   
-      // Generar números entre 0 y 10
-      let newNum1 = Math.floor(Math.random() * 11);
-      let newNum2 = Math.floor(Math.random() * 11);
-      const newOperacion = Math.random() > 0.5 ? '+' : '-';
+      let newNum1, newNum2, newOperacion, correctAnswer;
   
-      // Si es una resta, asegurarse de que num1 >= num2
-      if (newOperacion === '-' && newNum2 > newNum1) {
-        [newNum1, newNum2] = [newNum2, newNum1]; // Intercambiar valores
+      switch (dificultad) {
+          case 'basico':
+              newNum1 = Math.floor(Math.random() * 11);
+              newNum2 = Math.floor(Math.random() * 11);
+              newOperacion = Math.random() > 0.5 ? '+' : '-';
+              // Asegurar que newNum1 >= newNum2 en restas
+              if (newOperacion === '-' && newNum2 > newNum1) {
+                  [newNum1, newNum2] = [newNum2, newNum1];
+              }
+              correctAnswer = newOperacion === '+' ? newNum1 + newNum2 : newNum1 - newNum2;
+              break;
+          case 'intermedio':
+              newNum1 = Math.floor(Math.random() * 11);
+              newNum2 = Math.floor(Math.random() * 11) + 1; // Evitar división por cero
+              newOperacion = Math.random() > 0.5 ? '×' : '÷';
+              correctAnswer = newOperacion === '×' ? newNum1 * newNum2 : Math.floor(newNum1 / newNum2);
+              break;
+          case 'avanzado':
+              const decimalNum1 = (Math.random() * 10).toFixed(1);
+              const decimalNum2 = (Math.random() * 10).toFixed(1);
+              newOperacion = Math.random() > 0.5 ? '×' : '+';
+              correctAnswer = newOperacion === '×' ? (decimalNum1 * decimalNum2).toFixed(1) : (parseFloat(decimalNum1) + parseFloat(decimalNum2)).toFixed(1);
+              newNum1 = decimalNum1;
+              newNum2 = decimalNum2;
+              break;
+          default:
+              break;
       }
   
       setNumero1(newNum1);
       setNumero2(newNum2);
       setOperacion(newOperacion);
-      setRespuestaCorrecta(newOperacion === '+' ? newNum1 + newNum2 : newNum1 - newNum2);
+      setRespuestaCorrecta(correctAnswer);
       setRespuesta('');
       setMensaje('');
-    };
+  };
   
+
     const handleSubmit = (e) => {
-      e.preventDefault();
-      
-      if (parseInt(respuesta) === respuestaCorrecta) {
-        setMensaje('¡Correcto!');
-        setPuntaje(puntaje + 1);
-      } else {
-        setMensaje(`Incorrecto. La respuesta correcta es ${respuestaCorrecta}`);
-      }
+        e.preventDefault();
+        
+        if (parseFloat(respuesta) === parseFloat(respuestaCorrecta)) {
+            setMensaje('¡Correcto!');
+            setPuntaje(puntaje + 1);
+        } else {
+            setMensaje(`Incorrecto. La respuesta correcta es ${respuestaCorrecta}`);
+        }
     };
-  
+
     const siguienteDesafio = () => {
-      setDesafio(desafio + 1);
-      generarProblema();
+        setDesafio(desafio + 1);
+        generarProblema();
     };
-  
+
     useEffect(() => {
-      generarProblema();
-    }, [desafio]);
-  
+        generarProblema();
+    }, [desafio, dificultad]); // Regenera problema si cambia la dificultad
+
     if (juegoTerminado) {
-      return (
-        <div className="App">
-          <h1>Juego Terminado</h1>
-          <p>Puntaje final: {puntaje}</p>
-        </div>
-      );
+        return (
+            <div id="juego-terminado">
+              <div>
+                <h1 id='juegoTerminado-titulo'>Juego Terminado.</h1>
+                <h2>Puntaje final: {puntaje}</h2>
+                </div>
+            </div>
+        );
     }
+    
     return (
-        <div className="App">
-          <h1>Desafío Matemático ({desafio}/5)</h1>
-          <p id="numbers">
-            {num1} {operacion} {num2}
-          </p>
-          <form onSubmit={handleSubmit}>
-            <input
-              type="number"
-              value={respuesta}
-              onChange={(e) => setRespuesta(e.target.value)}
-              placeholder="Tu respuesta"
-              disabled={mensaje !== ''}
-            />
-            <button type="submit" disabled={mensaje !== ''}>Comprobar</button>
-          </form>
-          <p>{mensaje}</p>
-          {mensaje && (
-            <button onClick={siguienteDesafio}>
-              {desafio < 5 ? 'Siguiente desafío' : 'Ver resultado final'}
-            </button>
-          )}
-          <p>Puntaje: {puntaje}</p>
+        <div className="Apper">
+            <div id='contenedor-form'>
+                <h1 id='titulo-desafio-matematico'>Desafío Matemático ({desafio}/5)</h1>
+                <label>
+                    Selecciona la dificultad:
+                    <select value={dificultad} onChange={(e) => setDificultad(e.target.value)}>
+                        <option value="basico">Básico</option>
+                        <option value="intermedio">Intermedio</option>
+                        <option value="avanzado">Avanzado</option>
+                    </select>
+                </label>
+                <p id="numbers">
+                    {num1} {operacion} {num2}
+                </p>
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="number"
+                        value={respuesta}
+                        onChange={(e) => setRespuesta(e.target.value)}
+                        placeholder="Tu respuesta"
+                        disabled={mensaje !== ''}
+                    />
+                    <button type="submit" disabled={mensaje !== ''}>Comprobar</button>
+                </form>
+                <p>{mensaje}</p>
+                {mensaje && (
+                    <button onClick={siguienteDesafio}>
+                        {desafio < 5 ? 'Siguiente desafío' : 'Ver resultado final'}
+                    </button>
+                )}
+                <p>Puntaje: {puntaje}</p>
+            </div>
         </div>
-      );
+    );
 }
 
 export default DesafioMatematico;
