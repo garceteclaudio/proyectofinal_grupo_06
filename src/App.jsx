@@ -6,6 +6,7 @@ import Home from './pages/Home.jsx';
 import AboutUs from './pages/AboutUs.jsx';
 import Games from './pages/Games.jsx';
 import IMC from './pages/IMC.jsx';
+import DESAFIOMATEMATICO from './pages/DesafioMatematico.jsx';
 import GestorDeTransacciones from './pages/GestorDeTransacciones.jsx';
 
 import '../src/stylesheets/App.css'
@@ -23,6 +24,7 @@ function App() {
             <Route path="/games" element={<Games />} />
             <Route path="/imc" element={<IMC />} />
             <Route path="/transacciones" element={<GestorDeTransacciones />} />
+            <Route path="/desafio-matematico" element={<DESAFIOMATEMATICO />} />
           </Routes>
         </main>
       </div>
