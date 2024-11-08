@@ -4,10 +4,7 @@ export default class GameOver extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image(
-      "fondoGameOver",
-      "/public/resources/images/game/fondoGameOver.png"
-    );
+    this.load.image("fondoGameOver", "/resources/images/games/fondoGameOver.png");
   }
 
   init(data) {

@@ -5,7 +5,8 @@
 
 .main-content {
   font-family: Pangolin;
-  margin-left: 100px;
+  margin: 0px 0px 0px 100px;
+  font-size: 20px;
   padding: 0px;
   transition: margin-left 400ms ease;
 }

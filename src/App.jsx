@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Sidebar from './components/Sidebar.jsx';
 import Home from './pages/Home.jsx';
 import AboutUs from './pages/AboutUs.jsx';
-import Games from './pages/Games.jsx';
+import EsquivandoMeteoros from './pages/EsquivandoMeteoros.jsx';
 import IMC from './pages/IMC.jsx';
-import DESAFIOMATEMATICO from './pages/DesafioMatematico.jsx';
+import DesafioMatematico from './pages/DesafioMatematico.jsx';
 import GestorDeTransacciones from './pages/GestorDeTransacciones.jsx';
 
 import '../src/stylesheets/App.css'
@@ -21,10 +21,10 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/games" element={<Games />} />
+            <Route path="/esquivando-meteoros" element={<EsquivandoMeteoros />} />
             <Route path="/imc" element={<IMC />} />
             <Route path="/transacciones" element={<GestorDeTransacciones />} />
-            <Route path="/desafio-matematico" element={<DESAFIOMATEMATICO />} />
+            <Route path="/desafio-matematico" element={<DesafioMatematico />} />
           </Routes>
         </main>
       </div>

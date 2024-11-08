@@ -5,12 +5,9 @@ export default class YouWin extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("espacio", "/public/resources/images/game/espacio.png");
-    this.load.image("gato", "/public/resources/images/game/gatoplaneta.png");
-    this.load.audio(
-      "musicaVictoria",
-      "/public/resources/sounds/musicaVictoria.mp3"
-    );
+    this.load.image("espacio", "/resources/images/games/espacio.png");
+    this.load.image("gato", "/resources/images/games/gatoplaneta.png");
+    this.load.audio("musicaVictoria", "/resources/sounds/musicaVictoria.mp3");
   }
 
   init(data) {

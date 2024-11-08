@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import "../stylesheets/DesafioMatematico.css";
+//import "../stylesheets/DesafioMatematico.css";
 
 function DesafioMatematico() {
     const [num1, setNumero1] = useState(0);

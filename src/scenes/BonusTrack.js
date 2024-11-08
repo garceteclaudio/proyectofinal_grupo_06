@@ -12,12 +12,9 @@ export default class BonusTrack extends Phaser.Scene {
   }
 
   preload() {
-    this.load.audio(
-      "musicaFondoBonustrack",
-      "/public/resources/sounds/bonustrack.mp3"
-    );
-    this.load.image("moneda", "/public/resources/images/game/moneda.png");
-    this.load.image("fondo", "/public/resources/images/game/espacio.png");
+    this.load.audio("musicaFondoBonustrack", "/resources/sounds/bonustrack.mp3");
+    this.load.image("moneda", "/resources/images/games/moneda.png");
+    this.load.image("fondo", "/resources/images/games/espacio.png");
   }
 
   create(data) {

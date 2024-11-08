@@ -351,34 +351,22 @@ export default class Escena2 extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("espacio", "/public/resources/images/game/espacio.png");
-    this.load.spritesheet("nave", "/public/resources/images/game/nave.png", {
+    this.load.image("espacio", "/resources/images/games/espacio.png");
+    this.load.spritesheet("nave", "/resources/images/games/nave.png", {
       frameWidth: 60,
       frameHeight: 60,
     });
-    this.load.image("vida", "/public/resources/images/game/vida.png");
-    this.load.image("meteoro", "/public/resources/images/game/meteoro.png");
-    this.load.image(
-      "bala2",
-      "/public/resources/images/game/balaHorizontal.png"
-    );
-    this.load.image(
-      "enemigoNave",
-      "/public/resources/images/game/enemigoNave.png"
-    );
-    this.load.image("boss", "/public/resources/images/game/boss.png");
-    this.load.audio("musicaFondo", "/public/resources/sounds/9.mp3");
-    this.load.audio("grito", "/public/resources/sounds/grito.mp3");
-    this.load.audio("balaSonido", "/public/resources/sounds/balaSonido.mp3");
-    this.load.audio(
-      "sonidoPierdeVida",
-      "/public/resources/sounds/sonidoPierdeVida.mp3"
-    );
-    this.load.audio(
-      "sonidoExplosion",
-      "/public/resources/sounds/sonidoExplosion.mp3"
-    );
-    this.load.image("contacto", "/public/resources/images/game/contacto.png");
+    this.load.image("vida", "/resources/images/games/vida.png");
+    this.load.image("meteoro", "/resources/images/games/meteoro.png");
+    this.load.image("bala2", "/resources/images/games/balaHorizontal.png");
+    this.load.image("enemigoNave", "/resources/images/games/enemigoNave.png");
+    this.load.image("boss", "/resources/images/games/boss.png");
+    this.load.image("contacto", "/resources/images/games/contacto.png");
+    this.load.audio("musicaFondo", "/resources/sounds/9.mp3");
+    this.load.audio("grito", "/resources/sounds/grito.mp3");
+    this.load.audio("balaSonido", "/resources/sounds/balaSonido.mp3");
+    this.load.audio("sonidoPierdeVida", "/resources/sounds/sonidoPierdeVida.mp3");
+    this.load.audio("sonidoExplosion", "/resources/sounds/sonidoExplosion.mp3");
   }
 
   create() {

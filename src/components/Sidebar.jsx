@@ -35,7 +35,7 @@ const Sidebar = () => {
                   </Link>
                 </li>
                 <li className="sidebar-item">
-                  <Link to="/games" className="sidebar-link">
+                  <Link to="/esquivando-meteoros" className="sidebar-link">
                     <img src="/resources/images/sidebar/icon5.png" className="item-icon"/>
                     <span className="item-text">Proyecto 03: Esquivando Meteoritos</span>
                   </Link>
