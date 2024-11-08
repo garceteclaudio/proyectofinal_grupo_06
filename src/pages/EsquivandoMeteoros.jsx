@@ -9,7 +9,7 @@ import AdminEscenas from "../models/adminEscenas.js";
 import YouWin from "../scenes/YouWin.js";
 import Bonustrack from "../scenes/BonusTrack.js";
 
-function Games() {
+function EsquivandoMeteoros() {
   const gameRef = useRef(null);
 
   useEffect(() => {
@@ -25,7 +25,7 @@ function Games() {
             debug: false,
           },
         },
-        scene: [Escena1,Escena2,Bonustrack, YouWin, GameOver],
+        scene: [Escena1, Escena2, Bonustrack, YouWin, GameOver],
         parent: "game-container",
       };
       
@@ -49,4 +49,4 @@ function Games() {
   );
 }
 
-export default Games;
+export default EsquivandoMeteoros;

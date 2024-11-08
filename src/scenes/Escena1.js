@@ -103,25 +103,22 @@ export default class Escena1 extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("espacio", "/public/resources/images/game/espacio.png");
-    this.load.spritesheet("nave", "/public/resources/images/game/nave.png", {
+    this.load.image("espacio", "/resources/images/games/espacio.png");
+    this.load.spritesheet("nave", "/resources/images/games/nave.png", {
       frameWidth: 60,
       frameHeight: 60,
     });
-    this.load.image("meteoro", "/public/resources/images/game/meteoro.png", {
+    this.load.image("meteoro", "/resources/images/games/meteoro.png", {
       frameWidth: 56,
       frameHeight: 60,
     });
-    this.load.image("bala", "/public/resources/images/game/bala.png");
-    this.load.audio("musicaFondo", "/public/resources/sounds/9.mp3");
-    this.load.audio("grito", "/public/resources/sounds/grito.mp3");
-    this.load.audio("balaSonido", "/public/resources/sounds/balaSonido.mp3");
-    this.load.audio(
-      "sonidoExplosion",
-      "/public/resources/sounds/sonidoExplosion.mp3"
-    );
-    this.load.image("destello", "/public/resources/images/game/destello.png");
-    this.load.audio("alerta", "/public/resources/sounds/alerta.mp3");
+    this.load.image("bala", "/resources/images/games/bala.png");
+    this.load.image("destello", "/resources/images/games/destello.png");
+    this.load.audio("musicaFondo", "/resources/sounds/9.mp3");
+    this.load.audio("grito", "/resources/sounds/grito.mp3");
+    this.load.audio("balaSonido", "/resources/sounds/balaSonido.mp3");
+    this.load.audio("sonidoExplosion", "/resources/sounds/sonidoExplosion.mp3");
+    this.load.audio("alerta", "/resources/sounds/alerta.mp3");
   }
 
   create() {

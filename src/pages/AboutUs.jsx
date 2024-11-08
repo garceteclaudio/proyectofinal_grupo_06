@@ -1,9 +1,9 @@
 import React from 'react';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import avatarClaudio from '../../public/resources/images/aboutUs/avatar-clau.png';
-import avatarMurillo from '../../public/resources/images/aboutUs/avatar-murillo.png';
-import avatarYani from '../../public/resources/images/aboutUs/avatar-yani.jpeg';
+import avatarClaudio from '/resources/images/aboutUs/avatar-clau.png';
+import avatarMurillo from '/resources/images/aboutUs/avatar-murillo.png';
+import avatarYani from '/resources/images/aboutUs/avatar-yani.jpeg';
 
 function AboutUs() {
   return (
