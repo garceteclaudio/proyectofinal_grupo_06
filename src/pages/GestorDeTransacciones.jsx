@@ -11,7 +11,7 @@ const GestorDeTransacciones = () => {
 
   //REGISTRAR LOS DATOS DE LAS TRANSACCIONES
   const registrarDatos = (event) => {
-    event.preventDefault(); //EVITAR REGISTROS INCOMPLETOS
+    event.preventDefault();
 
     setDatosCuentas([
       ...datosCuentas,
@@ -38,34 +38,37 @@ const GestorDeTransacciones = () => {
     );
   };
 
-  //MOSTRAR LAS TRANSACCIONES MÁS GRANDES POR BILLETERA
-  const mostrarResumen = () => {
-    const maxTransaccion = {};
+//MOSTRAR LAS TRANSACCIONES MÁS GRANDES POR USUARIO
+const mostrarResumen = () => {
+  const maxTransaccionPorUsuario = {};
 
-    //RECORRER CADA CONJUNTO DE DATOS DEL ARRAY 
-    datosCuentas.forEach((cuenta) => {
-      const billetera = cuenta.billetera;
-      
-      //REGISTRAR LA MAYOR TRANSACCIÓN DE CADA BILLETERA EN CASO DE EXISTIR
-      if (!maxTransaccion[billetera] || cuenta.transacciones > maxTransaccion[billetera].transacciones) {
-        maxTransaccion[billetera] = cuenta;
-      }
-    });
+  // Recorrer cada transacción y actualizar la transacción más alta para cada usuario
+  datosCuentas.forEach((cuenta) => {
+    const nombre = cuenta.nombre;
+    
+    // Si no hay transacción registrada o la actual es mayor, actualizamos
+    if (!maxTransaccionPorUsuario[nombre] || cuenta.transacciones > maxTransaccionPorUsuario[nombre].transacciones) {
+      maxTransaccionPorUsuario[nombre] = cuenta;
+    }
+  });
 
-    return (
-      <div id="resumenFinal">
-        {Object.keys(maxTransaccion).length === 0 ? "Todavía no se registraron transacciones." : Object.keys(maxTransaccion).map((billetera, index) => {
-            const cuenta = maxTransaccion[billetera];
+  return (
+    <div id="resumenFinal">
+      {Object.keys(maxTransaccionPorUsuario).length === 0
+        ? "Todavía no se registraron transacciones."
+        : Object.keys(maxTransaccionPorUsuario).map((nombre, index) => {
+            const cuenta = maxTransaccionPorUsuario[nombre];
             return (
-              //GENERAR UN ITEM PARA MOSTRAR LA MAYOR TRANSACCIÓN DE CADA BILLETERA
+              // Mostrar la mayor transacción de cada usuario
               <li key={index}>
                 {cuenta.nombre} - {cuenta.billetera} - {cuenta.transacciones}
               </li>
             );
           })}
-      </div>
-    );
-  };
+    </div>
+  );
+};
+
 
   return (
     <div className="project-container">
@@ -126,7 +129,7 @@ const GestorDeTransacciones = () => {
           </div>
           <div class="normal-box">
             <a href="#resumenListado"><button type="button" id="verListado" class="form-button">Ver Listado</button></a>
-            <a href="#resumenBilleteras"><button type="button" id="verResumen" class="form-button">Ver Resumen</button></a>
+            <a href="#resumenBilleteras"><button type="button" id="verResumen" class="form-button">Ver transacciones mas altas</button></a>
           </div>
         </div>
       </form>
