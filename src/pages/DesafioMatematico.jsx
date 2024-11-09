@@ -83,43 +83,45 @@ function DesafioMatematico() {
             <div className='challenge-effect'></div>
             <div className='challenge-box'>
                 {!dificultadSeleccionada ? (
-                    <div className="seleccion-dificultad">
+                    <div className="difficulty-box">
                         <h1>Selecciona la Dificultad</h1>
-                        {/* Botones para seleccionar dificultad */}
-                        <div className="botones-dificultad">
-                            <button onClick={() => { setDificultad('basico'); setDificultadSeleccionada(true); }}>
+                        <div className='difficulty-setter'>
+                            <button className='button-easy' onClick={() => { setDificultad('basico'); setDificultadSeleccionada(true); }}>
                                 Básico
                             </button>
-                            <button onClick={() => { setDificultad('intermedio'); setDificultadSeleccionada(true); }}>
+                            <button className='button-intermediate' onClick={() => { setDificultad('intermedio'); setDificultadSeleccionada(true); }}>
                                 Intermedio
                             </button>
-                            <button onClick={() => { setDificultad('avanzado'); setDificultadSeleccionada(true); }}>
+                            <button className='button-hard' onClick={() => { setDificultad('avanzado'); setDificultadSeleccionada(true); }}>
                                 Avanzado
                             </button>
                         </div>
                     </div>
                 ) : (
                     juegoTerminado ? (
-                        <div id="juego-terminado">
+                        <div className='results-box'>
                             <h1 id='juegoTerminado-titulo'>Juego Terminado.</h1>
                             <h2>Puntaje final: {puntaje}</h2>
                         </div>
                     ) : (
-                        <>
+                        <div className="scoring-box">
                             <h1>Desafío Matemático ({desafio}/5)</h1>
-                            <p id="numbers">
+                            <div className='scoring-setter'>
+                            <h2 id="numbers">
                                 {num1} {operacion} {num2}
-                            </p>
+                            </h2>
+                            <div className='scoring-form'>
                             <form onSubmit={handleSubmit}>
                                 <input
                                     type="number"
                                     value={respuesta}
                                     onChange={(e) => setRespuesta(e.target.value)}
-                                    placeholder="Tu respuesta"
+                                    placeholder="Tu respuesta..."
                                     disabled={mensaje !== ''}
                                 />
                                 <button type="submit" disabled={mensaje !== ''}>Comprobar</button>
                             </form>
+                            </div>
                             <p>{mensaje}</p>
                             {mensaje && (
                                 <button onClick={siguienteDesafio}>
@@ -127,7 +129,8 @@ function DesafioMatematico() {
                                 </button>
                             )}
                             <p>Puntaje: {puntaje}</p>
-                        </>
+                            </div>
+                        </div>
                     )
                 )}
             </div>
