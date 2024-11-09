@@ -9,8 +9,7 @@ export default class Escena1 extends Phaser.Scene {
     this.puntaje = 0;
     this.textoDePuntaje = null;
     this.juegoTerminado = false;
-    this.musicaFondo = null;
-    this.sonidoGrito = null;
+    this.musicaFondo1 = null;
     this.siguienteDisparo = 0;
     this.sonidoBala = null;
     this.sonidoExplosion = null;
@@ -82,7 +81,7 @@ export default class Escena1 extends Phaser.Scene {
 
       if (this.puntaje > 300) {
         // Pass the score to BonusTrack when starting the scene
-        this.musicaFondo.stop();
+        this.musicaFondo1.stop();
         this.scene.start("BonusTrack", { puntaje: this.puntaje });
       }
 
@@ -95,7 +94,7 @@ export default class Escena1 extends Phaser.Scene {
 
       //Cambiar a Escena2 cuando se alcancen los puntos establecidos
       if (this.puntaje >= 180) {
-        this.musicaFondo.stop();
+        this.musicaFondo1.stop();
         this.scene.stop("Escena 1");
         this.scene.start("Escena 2", { puntaje: this.puntaje });
       }*/
@@ -114,9 +113,8 @@ export default class Escena1 extends Phaser.Scene {
     });
     this.load.image("bala", "/resources/images/games/bala.png");
     this.load.image("destello", "/resources/images/games/destello.png");
-    this.load.audio("musicaFondo", "/resources/sounds/9.mp3");
-    this.load.audio("grito", "/resources/sounds/grito.mp3");
-    this.load.audio("balaSonido", "/resources/sounds/balaSonido.mp3");
+    this.load.audio("musicaFondo1", "/resources/sounds/musicaFondo1.mp3");
+    this.load.audio("sonidoBala", "/resources/sounds/sonidoBala.mp3");
     this.load.audio("sonidoExplosion", "/resources/sounds/sonidoExplosion.mp3");
     this.load.audio("alerta", "/resources/sounds/alerta.mp3");
   }
@@ -178,14 +176,14 @@ export default class Escena1 extends Phaser.Scene {
       space: Phaser.Input.Keyboard.KeyCodes.SPACE, // Barra espaciadora para disparar
     });
 
-    // aca tengo q poner esto: this.musicaFondo.stop();
+    // aca tengo q poner esto: this.musicaFondo1.stop();
     this.physics.add.collider(
       this.jugador,
       this.grupoMeteoros,
       (jugador, meteoro) => {
         meteoro.destroy(); // Destruye el meteoro
         this.scene.start("GameOver", { puntaje: this.puntaje }); // Inicia la escena GameOver y pasa el puntaje
-        this.musicaFondo.stop();
+        this.musicaFondo1.stop();
         this.puntaje = 0;
       },
       null,
@@ -206,10 +204,9 @@ export default class Escena1 extends Phaser.Scene {
       fill: "#fff",
     });
 
-    this.musicaFondo = this.sound.add("musicaFondo", { loop: true });
-    this.musicaFondo.play();
-    this.sonidoGrito = this.sound.add("grito");
-    this.sonidoBala = this.sound.add("balaSonido");
+    this.musicaFondo1 = this.sound.add("musicaFondo1", { loop: true });
+    this.musicaFondo1.play();
+    this.sonidoBala = this.sound.add("sonidoBala");
     this.sonidoExplosion = this.sound.add("sonidoExplosion");
   }
 

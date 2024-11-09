@@ -85,7 +85,7 @@ const GestorDeTransacciones = () => {
             onChange={(e) => setdatosFormulario({ ...datosFormulario, nombre: e.target.value })}
             required
           />
-          <img src="/public/resources/images/pages/user.png" className="form-image" alt="User" />
+          <img src="/resources/images/pages/user.png" className="form-image" alt="User" />
         </div>
         {/* TRANSACCIONES */}
         <div className="form-input">
@@ -97,7 +97,7 @@ const GestorDeTransacciones = () => {
             onChange={(e) => setdatosFormulario({ ...datosFormulario, cantidad: e.target.value })}
             required
           />
-          <img src="/public/resources/images/pages/payment.png" className="form-image" alt="Payment" />
+          <img src="/resources/images/pages/payment.png" className="form-image" alt="Payment" />
         </div>
         {/* MÉTODO DE PAGO */}
         <div className="form-input">
@@ -115,7 +115,7 @@ const GestorDeTransacciones = () => {
             <option value="Depósito">Depósito</option>
             <option value="Criptomonedas">Criptomonedas</option>
           </select>
-          <img src="/public/resources/images/pages/method.png" className="form-image" alt="Method" />
+          <img src="/resources/images/pages/method.png" className="form-image" alt="Method" />
         </div>
         {/* BOTONES */}
         <div className="button-container">

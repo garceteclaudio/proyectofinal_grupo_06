@@ -18,8 +18,7 @@ export default class Escena2 extends Phaser.Scene {
     this.grupoVidas = null;
     this.textoDePuntaje = null;
     this.juegoTerminado = false;
-    this.musicaFondo = null;
-    this.sonidoGrito = null;
+    this.musicaFondo2 = null;
     this.siguienteDisparo = 0;
     this.sonidoBala = null;
     this.sonidoExplosion = null;
@@ -108,7 +107,7 @@ export default class Escena2 extends Phaser.Scene {
 
     if (this.vidasJugador <= 0) {
       this.scene.start("GameOver", { puntaje: this.puntaje });
-      this.musicaFondo.stop();
+      this.musicaFondo2.stop();
       this.juegoTerminado = true;
       this.puntaje = 0;
     }
@@ -123,7 +122,7 @@ export default class Escena2 extends Phaser.Scene {
 
     if (this.vidasJugador <= 0) {
       this.scene.start("GameOver", { puntaje: this.puntaje });
-      this.musicaFondo.stop();
+      this.musicaFondo2.stop();
       this.juegoTerminado = true;
       this.puntaje = 0;
     }
@@ -223,7 +222,7 @@ export default class Escena2 extends Phaser.Scene {
       this.textoVidasBoss.destroy();
       this.textoVidasBoss = null;
 
-      this.musicaFondo.stop();
+      this.musicaFondo2.stop();
       this.scene.start("YouWin", { puntaje: this.puntaje });
     }
   }
@@ -248,7 +247,7 @@ export default class Escena2 extends Phaser.Scene {
 
     if (this.vidasJugador <= 0) {
       this.scene.start("GameOver", { puntaje: this.puntaje });
-      this.musicaFondo.stop();
+      this.musicaFondo2.stop();
       this.juegoTerminado = true;
     }
   }
@@ -362,9 +361,8 @@ export default class Escena2 extends Phaser.Scene {
     this.load.image("enemigoNave", "/resources/images/games/enemigoNave.png");
     this.load.image("boss", "/resources/images/games/boss.png");
     this.load.image("contacto", "/resources/images/games/contacto.png");
-    this.load.audio("musicaFondo", "/resources/sounds/9.mp3");
-    this.load.audio("grito", "/resources/sounds/grito.mp3");
-    this.load.audio("balaSonido", "/resources/sounds/balaSonido.mp3");
+    this.load.audio("musicaFondo2", "/resources/sounds/musicaFondo2.mp3");
+    this.load.audio("sonidoBala", "/resources/sounds/sonidoBala.mp3");
     this.load.audio("sonidoPierdeVida", "/resources/sounds/sonidoPierdeVida.mp3");
     this.load.audio("sonidoExplosion", "/resources/sounds/sonidoExplosion.mp3");
   }
@@ -479,10 +477,9 @@ export default class Escena2 extends Phaser.Scene {
       space: Phaser.Input.Keyboard.KeyCodes.SPACE,
     });
 
-    this.musicaFondo = this.sound.add("musicaFondo", { loop: true });
-    this.musicaFondo.play();
-    this.sonidoGrito = this.sound.add("grito");
-    this.sonidoBala = this.sound.add("balaSonido");
+    this.musicaFondo2 = this.sound.add("musicaFondo2", { loop: true });
+    this.musicaFondo2.play();
+    this.sonidoBala = this.sound.add("sonidoBala");
     this.sonidoPierdeVida = this.sound.add("sonidoPierdeVida");
     this.sonidoExplosion = this.sound.add("sonidoExplosion");
   } // fin crete()
