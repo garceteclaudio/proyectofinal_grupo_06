@@ -27,8 +27,8 @@ export default class BonusTrack extends Phaser.Scene {
       fill: "#fff",
     });
 
-    this.add.text(300, 40, "¡Bonustrack!", {
-      fontSize: "40px",
+    this.add.text(250, 75, "¡BONUSTRACK!", {
+      fontSize: "38px",
       fill: "#fff",
     });
 
