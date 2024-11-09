@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import React from 'react';
+
 //import "../stylesheets/DesafioMatematico.css";
 
 function DesafioMatematico() {
