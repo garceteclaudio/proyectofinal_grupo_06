@@ -1,122 +1,51 @@
 @font-face {
-  font-family: 'Pangolin';
-  src: url('../resources/fonts/Pangolin.ttf') format('truetype');
+  font-family: "Emerald";
+  src: url("../resources/fonts/Emerald.ttf") format("truetype");
 }
 
-/* Contenedor principal centrado */
-.Apper {
+.challenge-container {
+    position: relative;
+    height: 100vh;
+    width: auto;
+    overflow: hidden;
     display: flex;
-    align-items: center;
     justify-content: center;
-  height: 100vh;
-  background-color: #e0f7fa; /* Color de fondo suave y amigable */
-  font-family: 'Pangolin', sans-serif;
+    align-items: center;
+    background-size: cover;
+    background-image: url(/resources/images/pages/pokemon-background.png);
+    background-position: center;
 }
 
-
-#juego-terminado {
-  height: 100vh;
-  background-color: #e0f7fa;
-  font-family: 'Pangolin', sans-serif;
-  text-align: center;
-
-  /* Centrando con position y transform */
-  position: relative;
-}
-#juego-terminado > div {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+.challenge-effect {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+    background-size: cover;
+    background-image: url(/resources/images/pages/pokemon-frame-2.png);
+    background-position: center;
+    z-index: 1;
 }
 
-/* Contenedor del formulario centrado con estilo infantil */
-#contenedor-form {
-  text-align: center;
-  background-color: #ffecb3; /* Fondo colorido */
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  width: 90%;
-  max-width: 600px;
+.challenge-box {
+    position: absolute;
+    width: auto;
+    padding: 20px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    font-family: 'Emerald';
+    color: #38303b;
+    text-align: center;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 10px;
+    background-color: #fffbff;
+    z-index: 2;
+    border: 5px solid #8c92ff;
+    box-shadow: 0 0 0 10px #6e6882, 0 0 0 15px #2e3c3a;
 }
 
-
-#juegoTerminado-titulo{
-  color: blue;
-  font-size: 3rem;
-  margin-bottom: 25px;
-}
-
-#titulo-desafio-matematico{
-  color: #ff6f61;
-  font-size: 3rem;
-  margin-bottom: 25px;
-}
-
-/* Números del desafío */
-#numbers {
-  font-size: 1.8rem;
-  color: #42a5f5;
-  font-weight: bold;
-  margin: 15px 0;
-}
-
-/* Entrada de respuesta */
-input[type="number"] {
-  padding: 10px;
-  font-size: 1.2rem;
-  border: 2px solid #ffb74d;
-  border-radius: 10px;
-  width: 80%;
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-/* Botón principal */
-button[type="submit"] {
-  background-color: #4caf50;
-  color: white;
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button[type="submit"]:hover {
-  background-color: #388e3c;
-}
-
-/* Botón de siguiente desafío */
-button:not([type="submit"]) {
-  background-color: #ff7043;
-  color: white;
-  padding: 8px 15px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.3s ease;
-}
-
-button:not([type="submit"]):hover {
-  background-color: #e64a19;
-}
-
-/* Mensaje de respuesta */
-p {
-  font-size: 1.2rem;
-  color: #ff5252;
-  font-weight: bold;
-
-}
-
-/* Puntaje */
-p:last-of-type {
-  font-size: 1.4rem;
-  color: #ffca28;
-  font-weight: bold;
-}
