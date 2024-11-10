@@ -11,7 +11,6 @@ export default class Escena2 extends Phaser.Scene {
     this.vidasJugador = 3;
     this.textoVidasJugador = null;
     this.grupoMeteoros = null;
-    this.grupoBalas = null;
     this.grupoEnemigosNave = null;
     this.boss = null;
     this.cursors = null;
@@ -151,8 +150,8 @@ export default class Escena2 extends Phaser.Scene {
 
   aparecerBoss() {
     this.boss = this.physics.add.sprite(1000, 300, "boss");
-    this.boss.setDisplaySize(300, 400); // Ancho 300 y largo 400
-    this.boss.setVelocityX(0); // Detiene el movimiento horizontal
+    this.boss.setDisplaySize(300, 400);
+    this.boss.setVelocityX(0);
     this.bossAparecido = true;
 
     this.textoVidasBoss = this.add.text(
@@ -187,7 +186,7 @@ export default class Escena2 extends Phaser.Scene {
       callbackScope: this,
       loop: true,
     });
-    /**
+
     this.generarEnemigosEvento = this.time.addEvent({
       delay: 500,
       callback: this.generarEnemigosNave,
@@ -200,8 +199,6 @@ export default class Escena2 extends Phaser.Scene {
         this.iniciarMeteorosVerticales();
       }
     });
-
- */
   } // fin aparecerBoss()
 
   // Método para generar meteoros de manera vertical
@@ -220,6 +217,7 @@ export default class Escena2 extends Phaser.Scene {
     });
   }
   /* Metodo utilizado para la colision de la bala de la nave con el boss*/
+
   destruirBoss(bala, boss) {
     this.bossVidas--;
 
@@ -257,7 +255,6 @@ export default class Escena2 extends Phaser.Scene {
       this.scene.start("YouWin", { puntaje: this.puntaje });
     }
   }
-
   //Mostrar una pequeña explosión cuanod una bala colisione con el boss
   crearExplosion(x, y) {
     const explosion = this.add.sprite(x, y, "contacto");
@@ -432,7 +429,6 @@ export default class Escena2 extends Phaser.Scene {
       fill: "#fff",
     });
 
-    // Inicialización de grupos y jugador...
     this.grupoBalasBoss = this.physics.add.group({
       defaultKey: "bala2",
       maxSize: 20,
@@ -480,7 +476,7 @@ export default class Escena2 extends Phaser.Scene {
     });
 
     this.time.delayedCall(
-      4000,
+      15000,
       () => {
         if (!this.bossAparecido) {
           this.aparecerBoss();
