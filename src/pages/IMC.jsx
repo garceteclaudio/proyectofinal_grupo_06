@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import '../stylesheets/IMC.css';
+import BarChart from "../components/BarChart";
+import Form from 'react-bootstrap/Form';
 
 function IMC(){
     const [nombre, setNombre] = useState('');
@@ -7,6 +9,9 @@ function IMC(){
     const [peso, setPeso] = useState('');
     const [altura, setAltura] = useState('');
     const [resultado, setResultado] = useState('');
+    const [estadisticasAbiertas, setEstadisticasAbiertas] = useState(false);
+    const [historialPeso, setHistorialPeso] = useState ([]);
+    const [mes, setMes] = useState ('');
     
     const calcularIMC = () => {
         let calculo;
@@ -29,7 +34,26 @@ function IMC(){
             } else if (imc > 29.9) {
                 calculo = "Tienes obesidad. Haz dieta.";
             }
-    }
+         }
+
+        if (mes) {
+            const nuevoHistorial = { label: mes, value: parseFloat(peso) };
+    
+            setHistorialPeso(prevHistorial => {
+                const mesExistente = prevHistorial.find(item => item.label === mes);
+                    
+                if (mesExistente) {
+                    return prevHistorial.map(item => item.label === mes ? { ...item, value: parseFloat(peso) } : item);
+                } else {
+                    return [...prevHistorial, nuevoHistorial];
+                }
+            });
+        }
+
+        setHistorialPeso(prevHistorial => {
+            const mesesOrdenados = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio','Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+            return [...prevHistorial].sort((a, b) => mesesOrdenados.indexOf(a.label) - mesesOrdenados.indexOf(b.label));
+        });
 
         setResultado(
             `Paciente: ${nombre} ${apellido} \n` +
@@ -83,6 +107,24 @@ function IMC(){
                             onChange={(e) => setAltura(e.target.value)}
                         />
                     </div>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Mes: </Form.Label>
+                        <Form.Select value={mes} onChange={(e) => setMes(e.target.value)}>
+                            <option value="">Selecciona el mes</option>
+                            <option value="Enero">Enero</option>
+                            <option value="Febrero">Febrero</option>
+                            <option value="Marzo">Marzo</option>
+                            <option value="Abril">Abril</option>
+                            <option value="Mayo">Mayo</option>
+                            <option value="Junio">Junio</option>
+                            <option value="Julio">Julio</option>
+                            <option value="Agosto">Agosto</option>
+                            <option value="Septiembre">Septiembre</option>
+                            <option value="Octubre">Octubre</option>
+                            <option value="Noviembre">Noviembre</option>
+                            <option value="Diciembre">Diciembre</option>
+                        </Form.Select>
+                    </Form.Group>
                     <button
                         type="button"
                         className="btn btn-dark w-100"
@@ -91,6 +133,15 @@ function IMC(){
                 <div className="resultado mt-3 text-center">{resultado.split('\n').map((line, index) => (
                     <p key={index}>{line}</p>
                 ))}</div>
+
+            <button type="button" className="btn btn-primary mt-4" onClick={() => setEstadisticasAbiertas(!estadisticasAbiertas)}>
+                Ver Estadísticas
+            </button>
+            {estadisticasAbiertas && (
+                <div className="mt-4">
+                    <BarChart data={historialPeso} />
+                </div>
+            )}
             </div>
         </main>
     );
