@@ -12,7 +12,7 @@ function DesafioMatematico() {
     const [desafio, setDesafio] = useState(1);
     const [juegoTerminado, setJuegoTerminado] = useState(false);
     const [dificultad, setDificultad] = useState('basico');
-    const [dificultadSeleccionada, setDificultadSeleccionada] = useState(false); // Nuevo estado para seleccionar dificultad
+    const [dificultadSeleccionada, setDificultadSeleccionada] = useState(false);
 
     const generarProblema = () => {
         if (desafio > 5) {
@@ -80,6 +80,7 @@ function DesafioMatematico() {
 
     return (
         <div className='challenge-container'>
+            {/* FONDO */}
             <div className='challenge-pokemons'>
                 <div class="gyarados"></div>
                 <div class="altaria"></div>
@@ -101,6 +102,7 @@ function DesafioMatematico() {
             <div className='challenge-box'>
                 {!dificultadSeleccionada ? (
                     <div className="difficulty-box">
+                        {/* CONTENEDOR DEL SELECTOR DE DIFICULTAD */}
                         <h1>Selecciona la Dificultad</h1>
                         <div className='difficulty-setter'>
                             <button className='button-easy' onClick={() => { setDificultad('basico'); setDificultadSeleccionada(true); }}>
@@ -117,11 +119,13 @@ function DesafioMatematico() {
                 ) : (
                     juegoTerminado ? (
                         <div className='results-box'>
-                            <h1 id='juegoTerminado-titulo'>Juego Terminado.</h1>
+                            {/* CONTENEDOR DEL PUNTAJE FINAL */}
+                            <h1>Juego Terminado.</h1>
                             <h2>Puntaje final: {puntaje}</h2>
                         </div>
                     ) : (
                         <div className="scoring-box">
+                            {/* CONTENEDOR DE LOS DESAFÍOS MATEMÁTICOS */}
                             <h1>Desafío Matemático ({desafio}/5)</h1>
                             <div className='scoring-setter'>
                             <h2 id="numbers">
