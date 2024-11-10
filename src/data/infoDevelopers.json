@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "Garcete Claudio Rodolfo",
+        "description": "Estudiante TUDIVJ, vivo en Barrio Malvinas con Tokyo, Bigote y mi pareja. En mi tiempo libre me gusta jugar Argentum Online con amigos (es un juego 2D argentino creado en el 2000), salir a caminar, andar en bici, hacer musculacion o ir a comer a Lolo Pulus. En el futuro me gustaria estudiar profesorado de inglés y física-química.",
+        "repository": "https://github.com/garceteclaudio"
+    },
+    {
+        "id": 2,
+        "name": "Murillo Jose Omar",
+        "description": "Actualmente estudiante de TUDIVJ en la UNJU. Generalmente suelo perder el tiempo en la computadora, aunque a veces lo aprovecho trabajando.",
+        "repository": "https://github.com/JoseMurilloTS"
+    },
+    {
+        "id": 3,
+        "name": "Gonzalez Yanina Yasmin",
+        "description": "Estudiante de la TUDIVJ. Me gusta mucho la música, aparte de estudiar también toco la guitarra y estoy en un grupo de baile.",
+        "repository": "https://github.com/iz-yan"
+    }
+]

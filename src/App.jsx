@@ -10,6 +10,7 @@ import IndiceDeMasaCorporal from './pages/IndiceDeMasaCorporal.jsx';
 import DesafioMatematico from './pages/DesafioMatematico.jsx';
 import GestorDeTransacciones from './pages/GestorDeTransacciones.jsx';
 import '../src/stylesheets/App.css'
+import infoDeveloper from './data/infoDevelopers.json';
 
 function App() {
   return (
@@ -21,7 +22,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/proyectos" element={<Proyectos />} />
-            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/aboutus" element={<AboutUs developers={infoDeveloper} />} />
             <Route path="/esquivando-meteoros" element={<EsquivandoMeteoros />} />
             <Route path="/indice-de-masa-corporal" element={<IndiceDeMasaCorporal />} />
             <Route path="/transacciones" element={<GestorDeTransacciones />} />
