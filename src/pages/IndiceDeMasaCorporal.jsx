@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import '../stylesheets/IMC.css';
+import '../stylesheets/IndiceDeMasaCorporal.css';
 import BarChart from "../components/BarChart";
 import Form from 'react-bootstrap/Form';
 
-function IMC(){
+function IndiceDeMasaCorporal(){
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [peso, setPeso] = useState('');
@@ -145,4 +145,4 @@ function IMC(){
         </main>
     );
 }
-export default IMC;
+export default IndiceDeMasaCorporal;
