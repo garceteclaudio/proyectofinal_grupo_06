@@ -19,11 +19,17 @@ const Sidebar = () => {
                 <span className="item-text">Inicio</span>
               </Link>
             </li>
+            <li className="sidebar-item">
+              <Link to="/proyectos" className="sidebar-link">
+                <img src="/resources/images/sidebar/icon2.png" className="item-icon"/>
+                <span className="item-text">Proyectos</span>
+              </Link>
+            </li>
             {/* LISTA DE SUBITEMS DE LA SIDEBAR */}
             <li className="sidebar-item">
               <ul className="sidebar-subitem">
                 <li className="sidebar-item">
-                  <Link to="/imc" className="sidebar-link">
+                  <Link to="/indice-de-masa-corporal" className="sidebar-link">
                     <img src="/resources/images/sidebar/icon3.png" className="item-icon"/>
                     <span className="item-text">Proyecto 01: Índice de Masa Corporal</span>
                   </Link>

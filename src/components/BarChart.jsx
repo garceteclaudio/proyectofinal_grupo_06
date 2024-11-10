@@ -8,19 +8,19 @@ const BarChart = ({ data }) => {
       {data.map((d, i) => {
         const barHeight = (d.value / maxDataValue) * 250;
         return (
-          <g key={i} transform={`translate(${i * 50 + 50}, 0)`}>
+          <g key={i} transform={`translate(${i * 60 + 50}, 0)`}>
             <rect
               x="0"
               y={300 - barHeight - 30}
               width="40"
               height={barHeight}
-              fill="#4caf50"
+              fill="#F9CCB9"
             />
             <text
               x="20"
-              y={300 - barHeight - 35}
+              y={300 - barHeight - 10}
               textAnchor="middle"
-              fontSize="10"
+              fontSize="15"
               fill="#333"
             >
               {d.value || 0}
@@ -29,7 +29,7 @@ const BarChart = ({ data }) => {
               x="20"
               y="290"
               textAnchor="middle"
-              fontSize="10"
+              fontSize="15"
               fill="#333"
             >
               {d.label}
