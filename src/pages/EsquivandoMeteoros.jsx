@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import Phaser from 'phaser';
-/// Ejemplo
-//de codigo comentado
+
 import Escena1 from "../scenes/Escena1.js";
 import Escena2 from "../scenes/Escena2.js";
 import GameOver from "../scenes/GameOver.js";
