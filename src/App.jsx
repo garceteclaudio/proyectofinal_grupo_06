@@ -9,7 +9,6 @@ import EsquivandoMeteoros from './pages/EsquivandoMeteoros.jsx';
 import IndiceDeMasaCorporal from './pages/IndiceDeMasaCorporal.jsx';
 import DesafioMatematico from './pages/DesafioMatematico.jsx';
 import GestorDeTransacciones from './pages/GestorDeTransacciones.jsx';
-import Proyectos from './pages/Proyectos.jsx';
 import '../src/stylesheets/App.css'
 
 function App() {
