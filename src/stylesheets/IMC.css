@@ -15,6 +15,7 @@ body {
     width: 100%;
     padding: 20px;
     border-radius: 10px;
+    font-family: Asdaen;
     border-top: 0.5rem solid rgb(132, 137, 140);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     background-color: #F2F2F2;
@@ -24,7 +25,6 @@ body {
 .form-container, .estadisticas {
     flex: 1;
     max-width: 450px;
-    font-family: Asdaen;
     
 }
 
@@ -73,7 +73,7 @@ body {
     z-index: -1;
 }
 
-.IMC{
+h1 {
     font-family: Asdaen;
     padding: 25px;
     color: black;
