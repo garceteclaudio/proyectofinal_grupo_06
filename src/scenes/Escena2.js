@@ -4,6 +4,7 @@ import Meteoro from "../models/Meteoro";
 export default class Escena2 extends Phaser.Scene {
   constructor() {
     super({ key: "Escena 2" });
+    this.direccionBoss = 1; // 1 para mover hacia abajo, -1 para mover hacia arriba
     this.jugador = null;
     this.grupoBalas = null;
     this.grupoBalasBoss = null;
@@ -150,6 +151,8 @@ export default class Escena2 extends Phaser.Scene {
 
   aparecerBoss() {
     this.boss = this.physics.add.sprite(1000, 300, "boss");
+    this.boss.setDisplaySize(300, 400); // Ancho 300 y largo 400
+    this.boss.setVelocityX(0); // Detiene el movimiento horizontal
     this.bossAparecido = true;
 
     this.textoVidasBoss = this.add.text(
@@ -167,14 +170,6 @@ export default class Escena2 extends Phaser.Scene {
       this.generarEnemigosEvento.remove();
     }
 
-    this.generarEnemigosEvento = this.time.addEvent({
-      delay: 500,
-      callback: this.generarEnemigosNave,
-      callbackScope: this,
-      loop: true,
-    });
-
-    // Configura la colisión entre las balas del jugador y el boss
     setTimeout(() => {
       this.physics.add.collider(
         this.grupoBalas,
@@ -185,13 +180,29 @@ export default class Escena2 extends Phaser.Scene {
       );
     }, 5000);
 
-    // Iniciar generación de meteoros verticales si el jefe sigue vivo después de 10 segundos
+    // Evento de disparo de balas del boss
+    this.time.addEvent({
+      delay: 2000,
+      callback: this.dispararBalaBoss,
+      callbackScope: this,
+      loop: true,
+    });
+    /**
+    this.generarEnemigosEvento = this.time.addEvent({
+      delay: 500,
+      callback: this.generarEnemigosNave,
+      callbackScope: this,
+      loop: true,
+    });
+
     this.time.delayedCall(10000, () => {
       if (this.boss && this.boss.active) {
         this.iniciarMeteorosVerticales();
       }
     });
-  }
+
+ */
+  } // fin aparecerBoss()
 
   // Método para generar meteoros de manera vertical
   iniciarMeteorosVerticales() {
@@ -208,7 +219,7 @@ export default class Escena2 extends Phaser.Scene {
       loop: true,
     });
   }
-
+  /* Metodo utilizado para la colision de la bala de la nave con el boss*/
   destruirBoss(bala, boss) {
     this.bossVidas--;
 
@@ -271,14 +282,18 @@ export default class Escena2 extends Phaser.Scene {
       this.juegoTerminado = true;
     }
   }
-
+  /*Metodo utilizado para que el boss dispare*/
   dispararBalaBoss() {
     if (this.boss && this.boss.active) {
       const bala = this.grupoBalasBoss.get(this.boss.x, this.boss.y);
       if (bala) {
         bala.setActive(true);
         bala.setVisible(true);
-        bala.setVelocityX(-400);
+        bala.setVelocityX(-200);
+        bala.setVelocityY(
+          ((this.jugador.y - this.boss.y) / (this.jugador.x - this.boss.x)) *
+            -200
+        ); // Dirección hacia el jugador
       }
     }
   }
@@ -303,16 +318,15 @@ export default class Escena2 extends Phaser.Scene {
     });
   }
   generarVida() {
-    // Genera la vida en una posición aleatoria en el eje Y
     const y = Phaser.Math.Between(50, 550);
     const vida = this.grupoVidas.create(800, y, "vida");
-    vida.setVelocityX(-100); // Movimiento de derecha a izquierda
+    vida.setVelocityX(-100);
   }
 
   recogerVida(jugador, vida) {
-    vida.destroy(); // Elimina la imagen de vida al recogerla
-    this.vidasJugador += 1; // Incrementa la vida del jugador
-    this.textoVidasJugador.setText(`Vidas: ${this.vidasJugador}`); // Actualiza el texto de vidas en pantalla
+    vida.destroy();
+    this.vidasJugador += 1;
+    this.textoVidasJugador.setText(`Vidas: ${this.vidasJugador}`);
   }
   manejadorColisiones() {
     //INICIO | Colisiones
@@ -452,13 +466,6 @@ export default class Escena2 extends Phaser.Scene {
     });
 
     this.time.addEvent({
-      delay: 2000,
-      callback: this.dispararBalaBoss,
-      callbackScope: this,
-      loop: true,
-    });
-
-    this.time.addEvent({
       delay: 3000,
       callback: this.generarEnemigosNave,
       callbackScope: this,
@@ -473,7 +480,7 @@ export default class Escena2 extends Phaser.Scene {
     });
 
     this.time.delayedCall(
-      15000,
+      4000,
       () => {
         if (!this.bossAparecido) {
           this.aparecerBoss();
@@ -499,8 +506,20 @@ export default class Escena2 extends Phaser.Scene {
     this.sonidoExplosion = this.sound.add("sonidoExplosion");
   } // fin create()
 
-  update() {
+  update(time, delta) {
     if (this.juegoTerminado) return;
+
+    if (this.boss && this.boss.active) {
+      // Movimiento vertical del boss
+      this.boss.y += (this.direccionBoss * this.bossVelocidad * delta) / 1000;
+
+      // Cambiar dirección en límites superior e inferior
+      if (this.boss.y >= 550) {
+        this.direccionBoss = -1; // Mover hacia arriba
+      } else if (this.boss.y <= 50) {
+        this.direccionBoss = 1; // Mover hacia abajo
+      }
+    }
 
     this.fondoEspacio.tilePositionX -= 2;
 
