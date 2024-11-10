@@ -1,63 +1,83 @@
-
+@font-face {
+    font-family: "Asdaen";
+    src: url("../resources/fonts/Asdaen-Regular.ttf") format("truetype");
+}
 body {
-    background-color: #fff;
-}
-  
-#titulo{
-    font-weight: bold;
-    padding: 50px;
-
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-
-
-footer {
-    margin-top: 200px;
-    font-weight: bold;
-
-}
-
-.form-container {
-    background: hsl(200, 40%, 75%);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    border-top: 0.5rem solid hsl(200, 80%, 30%);
-    border-radius: 10px;
-    max-width: 600px;
+.main-container {
+    display: flex;
+    gap: 20px;
+    max-width: 1000px;
     width: 100%;
-    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    font-family: Asdaen;
+    border-top: 0.5rem solid rgb(132, 137, 140);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #F2F2F2;
+    justify-content: center;
 }
-  
 
-label {
-    color: black;
-    font-weight: bold;
-    font-size: 1.1rem;
+.form-container, .estadisticas {
+    flex: 1;
+    max-width: 450px;
+    
 }
-  
 
-input.form-control {
+/* Botones */
+.btn-estadisticas, .btn-calcular {
+    background-color: #D9BF8F;
+    color: white;
+    border: none;
     border-radius: 5px;
-    border: 5px solid hsl(200, 80%, 40%);
-    background-color: #fff;
-}
-  
-button.btn {
-    font-size: rem;
     padding: 10px;
-}
-  
-#resultado{
-    font-weight: bold;
-    font-size: 1.1rem;
-}
-.cuerpo{
-    background:linear-gradient(hsl(200, 30%, 85%),hsl(200, 80%, 25%));
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
 }
 
-.foot{
-    margin-bottom: 10vh;
-    color:#fff;
-    font-style: italic;
-    font-weight: 300;
+.btn-estadisticas:hover, .btn-calcular:hover {
+    background-color: #D9C5B4;
+}
+
+.form-container{
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.estadisticas {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+}
+
+.estadisticas-visible {
+    display: block;
+}
+
+
+.background-container {
+    background-image: url("./resources/images/backgroundIMC.png");
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+h1 {
+    font-family: Asdaen;
+    padding: 25px;
+    color: black;
+    position: relative;
+    z-index: 1;
+    margin-top: 0;
 }

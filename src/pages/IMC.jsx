@@ -62,18 +62,21 @@ function IMC(){
         );
     };
 
-    return(
+    return (
         <main className="d-flex flex-column justify-content-center align-items-center">
-            <div className="form-container w-50 mt-n3 formulario">
-                <div className="mb-3">
+            <h1>Indice de Masa Corporal</h1>
+            <div className="background-container"></div>
+            <div className="main-container">
+                <div className="form-container">
+                    <div className="mb-3">
                     <label htmlFor="nombre" className="form-label">Nombre:</label>
-                    <input
-                        type="text"
-                        id="nombre"
-                        className="form-control"
-                        value={nombre}
-                     onChange={(e) => setNombre(e.target.value)}
-                    />
+                        <input
+                            type="text"
+                            id="nombre"
+                            className="form-control"
+                            value={nombre}
+                            onChange={(e) => setNombre(e.target.value)}
+                        />
                     </div>
                     <div className="mb-3">
                         <label htmlFor="apellido" className="form-label">Apellido:</label>
@@ -125,24 +128,20 @@ function IMC(){
                             <option value="Diciembre">Diciembre</option>
                         </Form.Select>
                     </Form.Group>
-                    <button
-                        type="button"
-                        className="btn btn-dark w-100"
-                        onClick={calcularIMC}
-                    >Calcular IMC</button>
-                <div className="resultado mt-3 text-center">{resultado.split('\n').map((line, index) => (
-                    <p key={index}>{line}</p>
-                ))}</div>
-
-            <button type="button" className="btn btn-primary mt-4" onClick={() => setEstadisticasAbiertas(!estadisticasAbiertas)}>
-                Ver Estadísticas
-            </button>
-            {estadisticasAbiertas && (
-                <div className="mt-4">
-                    <BarChart data={historialPeso} />
+                    <button type="button" className="btn btn-calcular w-100" onClick={calcularIMC}>Calcular IMC</button>
+                    <div className="resultado mt-3 text-center">{resultado.split('\n').map((line, index) => (
+                        <p key={index}>{line}</p>
+                    ))}</div>
+                    <button type="button" className="btn btn-estadisticas mt-4" onClick={() => setEstadisticasAbiertas(!estadisticasAbiertas)}>
+                        Ver Estadísticas
+                    </button>
                 </div>
-            )}
-            </div>
+
+                <div className={`estadisticas ${estadisticasAbiertas ? 'estadisticas-visible' : ''}`} >
+                    <BarChart data={historialPeso} /> 
+                </div>
+
+                </div>
         </main>
     );
 }
