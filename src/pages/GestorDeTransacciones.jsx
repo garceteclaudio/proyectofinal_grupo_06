@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../stylesheets/GestorDeTransacciones.css";
 
-const GestorDeTransacciones = () => {
+function GestorDeTransacciones() {
   const [datosCuentas, setDatosCuentas] = useState([]);
   const [datosFormulario, setdatosFormulario] = useState({
     nombre: "",
@@ -127,9 +127,9 @@ const mostrarResumen = () => {
               Cargar
             </button>
           </div>
-          <div class="normal-box">
-            <a href="#resumenListado"><button type="button" id="verListado" class="form-button">Ver Listado</button></a>
-            <a href="#resumenBilleteras"><button type="button" id="verResumen" class="form-button">Ver transacciones mas altas</button></a>
+          <div className="normal-box">
+            <a href="#resumenListado"><button type="button" id="verListado" className="form-button">Ver Listado</button></a>
+            <a href="#resumenBilleteras"><button type="button" id="verResumen" className="form-button">Ver transacciones mas altas</button></a>
           </div>
         </div>
       </form>
