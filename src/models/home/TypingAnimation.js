@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const TypingAnimation = (messageText, typingSpeed) => {
+function TypingAnimation(messageText, typingSpeed) {
   const [displayedMessage, setDisplayedMessage] = useState("");
   const [currentCharacter, setCurrentCharacter] = useState(0);
 
@@ -16,9 +16,9 @@ const TypingAnimation = (messageText, typingSpeed) => {
       {/* ASEGURARSE DE QUE "typingSpeed" HAYA TERMINADO PARA SEGUIR CON EL PRÓXIMO CARACTER DE "currentCharacter" */}
       return () => clearTimeout(timeoutId);
     }
-  }, [currentCharacter]);
+  }, [currentCharacter, messageText, typingSpeed]);
 
   return displayedMessage;
-};
+}
 
 export default TypingAnimation;
