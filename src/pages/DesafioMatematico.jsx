@@ -80,6 +80,23 @@ function DesafioMatematico() {
 
     return (
         <div className='challenge-container'>
+            <div className='challenge-pokemons'>
+                <div class="gyarados"></div>
+                <div class="altaria"></div>
+                <div class="emolga"></div>
+                <div class="volcarona"></div>
+                <div class="lugia"></div>
+                <div class="espeon"></div>
+                <div class="umbreon"></div>
+                <div class="sylveon"></div>
+                <div class="meloetta"></div>
+                <div class="tyranitar"></div>
+                <div class="tyrantrum"></div>
+                <div class="lapras"></div>
+                <div class="froakie"></div>
+                <div class="gengar"></div>
+                <div class="pikachu"></div>
+            </div>
             <div className='challenge-effect'></div>
             <div className='challenge-box'>
                 {!dificultadSeleccionada ? (
