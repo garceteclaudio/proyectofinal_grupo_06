@@ -43,7 +43,7 @@
     width: 100%;
     height: 100%;
     background-size: cover;
-    background-image: url(../../public/resources/images/pages/fondo.jpg);
+    background-image: url(/resources/images/pages/fondo.jpg);
     background-position: center;
     z-index: 1;
 }

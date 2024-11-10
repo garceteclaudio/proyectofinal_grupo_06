@@ -1,0 +1,103 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(120deg, #ff0000, #ff7f00, #ffff00, #00ff00, #00ffff, #0000ff, #7f00ff);
+    background-size: 200% 325%;
+    animation: gradient 10s ease infinite;
+    font-family: 'Itim';
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    text-align: center;
+    background: #FFFFFF;
+    border-radius: 25px;
+    box-shadow: 0 8px 40px #00000046;
+    padding: 50px;
+    width: 700px;
+}
+
+input {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 20px 0px;
+    font-size: 25px;
+    padding: 15px 10px;
+    border-radius: 15px;
+    font-family: 'Itim';
+}
+
+button {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 30px;
+    font-family: 'Itim';
+    padding: 15px;
+    background: linear-gradient(120deg, #ff0000, #ff7f00, #ffff00, #00ff00, #00ffff, #0000ff, #7f00ff);
+    background-size: 175% 400%;
+    border: none;
+    border-radius: 15px;
+    color: #FFFFFF;
+    cursor: pointer;
+    animation: gradient 10s ease infinite;
+    transition: transform 0.3s ease;
+}
+
+button:hover {
+    transform: scale(1.02);
+}
+
+h1 {
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    font-size: 60px;
+    background: linear-gradient(120deg, #ff0000, #ff7f00, #ffff00, #00ff00, #00ffff, #0000ff, #7f00ff);
+    background-size: 175% 400%;
+    animation: gradient 10s ease infinite;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+p {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 30px;
+    COLOR: #585858;
+    margin: 10px 0px 30px;
+}
+
+#numbers {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 45px; 
+    color: #585858;
+    text-decoration: underline;
+    margin: 10px 0px;
+    padding: 10px 0px;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 25%;
+    }
+    25% {
+        background-position: 25% 50%;
+    }
+    50% {
+        background-position: 50% 75%;
+    }
+    75% {
+        background-position: 75% 100%;
+    }
+    100% {
+        background-position: 0% 25%;
+    }
+}

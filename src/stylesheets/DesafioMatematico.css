@@ -1,122 +1,451 @@
 @font-face {
-  font-family: 'Pangolin';
-  src: url('../resources/fonts/Pangolin.ttf') format('truetype');
+    font-family: "Emerald";
+    src: url("../resources/fonts/Emerald.ttf") format("truetype");
 }
 
-/* Contenedor principal centrado */
-.Apper {
+/* CONTENEDOR PRINCIPAL */
+
+.challenge-container {
+    position: relative;
+    height: 100vh;
+    width: auto;
+    overflow: hidden;
     display: flex;
-    align-items: center;
     justify-content: center;
-  height: 100vh;
-  background-color: #e0f7fa; /* Color de fondo suave y amigable */
-  font-family: 'Pangolin', sans-serif;
+    align-items: center;
+    background-size: cover;
+    background-image: url(/resources/images/pages/pokemon-background.png);
+    background-position: center;
 }
 
+/* ANIMACIONES DEL ...↑↑↑ */
 
-#juego-terminado {
-  height: 100vh;
-  background-color: #e0f7fa;
-  font-family: 'Pangolin', sans-serif;
-  text-align: center;
-
-  /* Centrando con position y transform */
-  position: relative;
+.challenge-pokemons {
+    position: absolute;
+    width: 100%;
+    height: 100%; 
+    overflow: hidden;
+    background-color: transparent;
+    z-index: 1;
 }
-#juego-terminado > div {
+
+/* EFECTO SOLEADO DEL ...↑↑↑ */
+
+.challenge-effect {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: transparent;
+    background-size: cover;
+    background-image: url(/resources/images/pages/pokemon-frame-2.png);
+    background-position: center;
+    z-index: 2;
+}
+
+/* CONTENEDOR DEL DESAFÍO MATEMÁTICO */
+
+.challenge-box {
+    position: absolute;
+    width: 45%;
+    padding: 20px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: 'Emerald';
+    color: #38303b;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 10px;
+    border: 5px solid #8c92ff;
+    box-shadow: 0 0 0 10px #6e6882, 0 0 0 15px #2e3c3a;
+    background-color: #fffbff;
+    z-index: 3;
+}
+
+/* TÍTULOS DEL ...↑↑↑ */ 
+
+.challenge-box h1 {
+    width: 100%;
+    padding: 0px 0px 20px;
+    margin-bottom: 20px;
+    font-size: 90px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    line-height: 70px;
+    color: #616461;
+    text-shadow: 4px 0 0 #b6b9b6;
+    flex-wrap: wrap;
+}
+
+.challenge-box h2 {
+  width: 100%;
+  padding: 0px;
+  margin: -10px 0px 10px;
+  font-size: 65px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: #505050;
+  text-shadow: 3px 0 0 #d6d6d6;
+  flex-wrap: wrap;
+}
+
+/* TEXTO DEL ...↑↑↑ */
+
+.challenge-box p {
+    width: 100%;
+    padding: 0px;
+    margin: 5px 0px 10px;
+    font-size: 45px;
+    letter-spacing: 2px;
+    color: #616461;
+    text-shadow: 3px 0 0 #b6b9b6;
+    flex-wrap: wrap;
+}
+
+/* CONTENEDOR DEL SELECTOR DE DIFICULTAD */
+
+.difficulty-box {
+    padding: 15px 15px 0px;
+    min-height: 500px;
+}
+
+/* CONTENEDOR DE LOS ELEMENTOS DEL ...↑↑↑ */
+
+.difficulty-setter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+/* BOTONES DEL ...↑↑↑ */
+
+.difficulty-setter button {
+    width: 100%;
+    margin-bottom: 30px;
+    font-size: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #f1fbf2;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 5px solid #f4feef;
+    box-shadow: 0 0 0 6px #32322a, 0 0 0 7px #a6a698;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.difficulty-setter button:hover {
+    border: 6px solid #f4f7f6;
+    box-shadow: 0 0 0 3px #dddddd, 0 0 0 7px #32322a;
+}
+
+.button-easy {
+    text-shadow: 4px 0 0 #659635;
+    background-color: #90b862;
+}
+
+.button-intermediate {
+    text-shadow: 4px 0 0 #a98d21;
+    background-color: #dcdb55;
+}
+
+.button-hard {
+    text-shadow: 4px 0 0 #9b6b56;
+    background-color: #ca8667;
+}
+
+/* CONTENEDOR DE LOS DESAFÍUOS */
+
+.scoring-box {
+    padding: 15px 15px 0px;
+    min-height: 500px;
+}
+
+/* CONTENEDOR DE LOS ELEMENTOS DEL ...↑↑↑ */
+
+.scoring-setter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+/* BOTONES DEL ...↑↑↑ */
+
+.scoring-setter button {
+    width: 100%;
+    margin: 5px 0px;
+    font-size: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #f1fbf2;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 5px solid #f4feef;
+    box-shadow: 0 0 0 6px #32322a, 0 0 0 7px #a6a698;
+    text-shadow: 4px 0 0 #4f4a57;
+    background-color: #507e81;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.scoring-setter button:hover {
+    border: 6px solid #f4f7f6;
+    box-shadow: 0 0 0 3px #dddddd, 0 0 0 7px #32322a;
+}
+
+/* FORMULARIO DEL ...↑↑↑ */
+
+.scoring-form {
+    width: 100%;
+}
+
+.scoring-form input {
+    width: 100%;
+    margin: 0px 0px 15px;
+    padding: 5px 10px;
+    font-size: 30px;
+    letter-spacing: 2px;
+    color: #616461;
+    opacity: 50%;
+    text-shadow: 2px 0 0 #b6b9b6;
+}
+
+/* CONTENEDOR DEL PUNTAJE */
+
+.results-box {
+    padding: 15px 15px 0px;
+    min-height: 500px;
+    gap: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ... ... ... ... ... ... ... ... ... ... ... ... ... */
+/* ... ... ... ... ... ... ... ... ... ... ... ... ... */
+/* ANIMACIONES DE LOS POKEMNONES QUE RECORREN EL FONDO */
+/* ... ... ... ... ... ... ... ... ... ... ... ... ... */
+/* ... ... ... ... ... ... ... ... ... ... ... ... ... */
+
+.pikachu {
+    position: absolute;
+    background-image: url('/resources/gifs/pikachu.gif');
+    background-size: contain;
+    top: 90%;
+    width: 112px;
+    height: 80px;
+    animation: left-to-right 9s linear infinite;
+}
+
+.pikachu {
   position: absolute;
+    background-image: url('/resources/gifs/pikachu.gif');
+    background-size: contain;
+    top: 89%;
+    width: 133px;
+    height: 95px;
+    animation: left-to-right 9s linear infinite;
+}
+
+.gyarados {
+    position: absolute;
+    background-image: url('/resources/gifs/gyarados.gif');
+    background-size: contain;
+    top: 51%;
+    left: 10%;
+    width: 162px;
+    height: 100px;
+    animation: left-to-right 16s linear infinite;
+}
+
+.lugia {
+    position: absolute;
+    background-image: url('/resources/gifs/lugia.gif');
+    background-size: contain;
+    top: -10%;
+    left: 76%;
+    width: 449px;
+    height: 280px;
+    animation: circle-to-right 8s linear infinite;
+}
+
+.altaria {
+    position: absolute;
+    background-image: url('/resources/gifs/altaria.gif');
+    background-size: contain;
+    top: 26%;
+    width: 160px;
+    height: 160px;
+    animation: right-to-left 12s linear infinite;
+}
+
+.volcarona {
+  position: absolute;
+  background-image: url('/resources/gifs/volcarona.gif');
+  background-size: contain;
+  top: 11%;
+  left: 4%;
+  width: 180px;
+  height: 180px;
+  animation: circle-to-left 5s linear infinite;
+}
+
+.emolga {
+  position: absolute;
+  background-image: url('/resources/gifs/emolga.gif');
+  background-size: contain;
+  top: 42%;
+  width: 120px;
+  height: 120px;
+  animation: left-to-right 9s linear infinite;
+}
+
+.espeon {
+  position: absolute;
+  background-image: url('/resources/gifs/espeon.gif');
+  background-size: contain;
+  top: 64%;
+  left: 7%;
+  width: 190px;
+  height: 190px;
+}
+
+.umbreon {
+  position: absolute;
+  background-image: url('/resources/gifs/umbreon.gif');
+  background-size: contain;
+  top: 62%;
+  left: 14%;
+  width: 190px;
+  height: 190px;
+}
+
+.sylveon {
+  position: absolute;
+  background-image: url('/resources/gifs/sylveon.gif');
+  background-size: contain;
+  top: 72%;
+  left: 12%;
+  width: 170px;
+  height: 170px;
+}
+
+.meloetta {
+  position: absolute;
+  background-image: url('/resources/gifs/meloetta.gif');
+  background-size: contain;
+  top: 76%;
+  left: 19%;
+  width: 110px;
+  height: 110px;
+}
+
+.tyranitar {
+  position: absolute;
+  background-image: url('/resources/gifs/tyranitar.gif');
+  background-size: contain;
+  top: 62%;
+  left: 73%;
+  width: 235px;
+  height: 235px;
+}
+
+.tyrantrum {
+  position: absolute;
+  background-image: url('/resources/gifs/tyrantrum.gif');
+  background-size: contain;
+  top: 49%;
+  left: 83%;
+  width: 350px;
+  height: 350px;
+}
+
+.lapras {
+  position: absolute;
+  background-image: url('/resources/gifs/lapras.gif');
+  background-size: contain;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  left: 2%;
+  width: 185px;
+  height: 185px;
 }
 
-/* Contenedor del formulario centrado con estilo infantil */
-#contenedor-form {
-  text-align: center;
-  background-color: #ffecb3; /* Fondo colorido */
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  width: 90%;
-  max-width: 600px;
+.froakie {
+  position: absolute;
+  background-image: url('/resources/gifs/froakie.gif');
+  background-size: contain;
+  top: 84%;
+  left: 18%;
+  width: 100px;
+  height: 100px;
 }
 
-
-#juegoTerminado-titulo{
-  color: blue;
-  font-size: 3rem;
-  margin-bottom: 25px;
+.gengar {
+  position: absolute;
+  background-image: url('/resources/gifs/gengar.gif');
+  background-size: contain;
+  top: 74%;
+  left: 82%;
+  width: 195px;
+  height: 195px;
 }
 
-#titulo-desafio-matematico{
-  color: #ff6f61;
-  font-size: 3rem;
-  margin-bottom: 25px;
+@keyframes left-to-right {
+    0% {
+    left: -100px;
+    }
+    100% {
+      left: 100%;
+    }
 }
 
-/* Números del desafío */
-#numbers {
-  font-size: 1.8rem;
-  color: #42a5f5;
-  font-weight: bold;
-  margin: 15px 0;
+@keyframes right-to-left {
+    0% {
+      right: -100px;
+    }
+    100% {
+      right: 100%;
+    }
 }
 
-/* Entrada de respuesta */
-input[type="number"] {
-  padding: 10px;
-  font-size: 1.2rem;
-  border: 2px solid #ffb74d;
-  border-radius: 10px;
-  width: 80%;
-  text-align: center;
-  margin-bottom: 10px;
+@keyframes circle-to-right {
+    0% {
+      transform: translate(50px, 0px) rotate(0deg);
+    }
+    25% {
+      transform: translate(0px, 50px) rotate(45deg);
+    }
+    50% {
+      transform: translate(-50px, 0px) rotate(-45deg);
+    }
+    75% {
+      transform: translate(0px, -50px) rotate(45deg);
+    }
+    100% {
+      transform: translate(50px, 0px) rotate(0deg);
+    }
 }
 
-/* Botón principal */
-button[type="submit"] {
-  background-color: #4caf50;
-  color: white;
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button[type="submit"]:hover {
-  background-color: #388e3c;
-}
-
-/* Botón de siguiente desafío */
-button:not([type="submit"]) {
-  background-color: #ff7043;
-  color: white;
-  padding: 8px 15px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  margin-top: 10px;
-  transition: background-color 0.3s ease;
-}
-
-button:not([type="submit"]):hover {
-  background-color: #e64a19;
-}
-
-/* Mensaje de respuesta */
-p {
-  font-size: 1.2rem;
-  color: #ff5252;
-  font-weight: bold;
-
-}
-
-/* Puntaje */
-p:last-of-type {
-  font-size: 1.4rem;
-  color: #ffca28;
-  font-weight: bold;
+@keyframes circle-to-left {
+    0% {
+      transform: translate(50px, 0px) rotate(0deg);
+    }
+    25% {
+      transform: translate(0px, -50px) rotate(-45deg);
+    }
+    50% {
+      transform: translate(-50px, 0px) rotate(45deg);
+    }
+    75% {
+      transform: translate(0px, 50px) rotate(-45deg);
+    }
+    100% {
+      transform: translate(50px, 0px) rotate(0deg);
+    }
 }

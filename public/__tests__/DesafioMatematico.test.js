@@ -22,7 +22,7 @@ describe("DesafioMatematico Component", () => {
       );
     }
 
-    // Check that game-over screen is displayed
+    // Comprueba que se muestra la pantalla de fin del juego
     expect(screen.getByText("Juego Terminado.")).toBeInTheDocument();
   });
 });
