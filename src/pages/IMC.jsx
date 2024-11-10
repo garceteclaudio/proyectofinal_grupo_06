@@ -64,7 +64,10 @@ function IMC(){
 
     return (
         <main className="d-flex flex-column justify-content-center align-items-center">
-            <h1>Indice de Masa Corporal</h1>
+            <div className="IMC">
+                <h1>Indice de Masa Corporal</h1>
+            </div>
+
             <div className="background-container"></div>
             <div className="main-container">
                 <div className="form-container">
