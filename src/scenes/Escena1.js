@@ -41,12 +41,32 @@ export default class Escena1 extends Phaser.Scene {
   }
 
   destruirMeteoro(bala, meteoro) {
-    // Destruir meteoro y bala
     meteoro.destroy();
     bala.destroy();
-
-    // Reproducir el sonido de la bala
+    this.incrementarPuntajePorColision();
     this.sonidoExplosion.play();
+  }
+
+  incrementarPuntajePorColision() {
+    /*
+    this.puntaje += 15;
+    this.textoDePuntaje.setText(`Puntaje: ${this.puntaje}`);
+
+  
+    const textoBonus = this.add.text(
+      this.jugador.x,
+      this.jugador.y - 30,
+      "+15",
+      {
+        fontSize: "20px",
+        fill: "#ffd700",
+      }
+    );
+
+    this.time.delayedCall(500, () => {
+      textoBonus.destroy();
+    });
+    */
   }
 
   activarDestello() {
@@ -75,29 +95,15 @@ export default class Escena1 extends Phaser.Scene {
       this.puntaje += 1;
       this.textoDePuntaje.setText(`Puntaje: ${this.puntaje}`);
 
-      if (this.puntaje === 230) {
+      if (this.puntaje === 220) {
         this.activarDestello();
       }
 
       if (this.puntaje > 300) {
-        // Pass the score to BonusTrack when starting the scene
+        // Pass the score to BonusTrack when starting the scen e
         this.musicaFondo1.stop();
         this.scene.start("BonusTrack", { puntaje: this.puntaje });
       }
-
-      /**
-
-      //Efecto de destello al alcanzar los puntos establecidos
-      if (this.puntaje === 150) {
-        this.activarDestello();
-      }
-
-      //Cambiar a Escena2 cuando se alcancen los puntos establecidos
-      if (this.puntaje >= 180) {
-        this.musicaFondo1.stop();
-        this.scene.stop("Escena 1");
-        this.scene.start("Escena 2", { puntaje: this.puntaje });
-      }*/
     }
   }
 
@@ -173,15 +179,14 @@ export default class Escena1 extends Phaser.Scene {
       left: Phaser.Input.Keyboard.KeyCodes.A,
       down: Phaser.Input.Keyboard.KeyCodes.S,
       right: Phaser.Input.Keyboard.KeyCodes.D,
-      space: Phaser.Input.Keyboard.KeyCodes.SPACE, // Barra espaciadora para disparar
+      space: Phaser.Input.Keyboard.KeyCodes.SPACE,
     });
 
-    // aca tengo q poner esto: this.musicaFondo1.stop();
     this.physics.add.collider(
       this.jugador,
       this.grupoMeteoros,
       (jugador, meteoro) => {
-        meteoro.destroy(); // Destruye el meteoro
+        meteoro.destroy();
         this.scene.start("GameOver", { puntaje: this.puntaje }); // Inicia la escena GameOver y pasa el puntaje
         this.musicaFondo1.stop();
         this.puntaje = 0;
@@ -190,7 +195,6 @@ export default class Escena1 extends Phaser.Scene {
       this
     );
 
-    // Colisión entre balas y meteoros
     this.physics.add.collider(
       this.grupoBalas,
       this.grupoMeteoros,
@@ -231,7 +235,6 @@ export default class Escena1 extends Phaser.Scene {
       this.jugador.anims.play("normal", true);
     }
 
-    // Disparar balas cuando se presiona la barra espaciadora
     if (this.teclas.space.isDown) {
       this.dispararBala();
     }
