@@ -1,0 +1,69 @@
+@font-face {
+    font-family: "Press Start 2P";
+    src: url("../resources/fonts/PressStart2P-Regular.ttf") format("truetype");
+}
+
+.game-title{
+    font-family: "Press Start 2P";
+    text-align: center;
+    padding: 10px;
+    background-color: #18181860;
+    border-bottom: 4px solid #6D00D360;
+    width: 100%;
+    font-size: 40px;
+    color: #FFFFFFC7;
+    text-shadow: 0 0 10px #9E9E9E;
+    animation: brillar 1.5s ease-in-out infinite alternate;
+    margin-bottom: 20px;
+}
+
+.game-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    background-image: url('public/resources/images/games/nebulosa.png');
+    background-size: c;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+#game-container {
+    width: 800px;
+    height: 600px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('public/resources/images/games/estrellas.jpg');
+    z-index: -1;
+    opacity: 0.4;
+    animation: estrellas 50s linear infinite;
+}
+
+@keyframes estrellas {
+    from {
+        background-position: 0 0;
+    }
+    to {
+        background-position: 5000px 2500px;
+    }
+}
+
+@keyframes brillar {
+    from {
+        text-shadow: 0 0 20px #FFFFFF, 0 0 40px #6D00D3, 0 0 20px #FFFFFF;
+    }
+    to {
+        text-shadow: 0 0 40px #6D00D3, 0 0 60px #FFFFFF, 0 0 40px #6D00D3;
+    }
+}

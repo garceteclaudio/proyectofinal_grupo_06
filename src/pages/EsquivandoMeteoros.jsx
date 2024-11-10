@@ -8,6 +8,8 @@ import AdminEscenas from "../models/adminEscenas.js";
 import YouWin from "../scenes/YouWin.js";
 import Bonustrack from "../scenes/BonusTrack.js";
 
+import '../stylesheets/EsquivandoMeteoros.css';
+
 function EsquivandoMeteoros() {
   const gameRef = useRef(null);
 
@@ -41,10 +43,12 @@ function EsquivandoMeteoros() {
   }, []);
 
   return (
-    <div>
-      <h1>Bienvenida a la sección Games</h1>
-      <div id="game-container"></div> {/* Contenedor para el juego */}
-    </div>
+    <main className='game-page'>
+      <div className='game-title'>
+      <h1>Esquivando Meteoros</h1>
+      </div>
+      <div id="game-container"></div> { }
+    </main>
   );
 }
 
