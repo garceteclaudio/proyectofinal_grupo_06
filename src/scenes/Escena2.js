@@ -31,6 +31,25 @@ export default class Escena2 extends Phaser.Scene {
     this.sonidoPierdeVida = null;
   }
 
+  incrementarPuntajePorColision() {
+    this.puntaje += 15;
+    this.textoDePuntaje.setText(`Puntaje: ${this.puntaje}`);
+
+    const textoBonus = this.add.text(
+      this.jugador.x,
+      this.jugador.y - 30,
+      "+15",
+      {
+        fontSize: "20px",
+        fill: "#ffd700",
+      }
+    );
+
+    this.time.delayedCall(500, () => {
+      textoBonus.destroy();
+    });
+  }
+
   init(data) {
     // Asignar el puntaje recibido de Escena1
     this.puntaje = data.puntaje || 0;
@@ -81,6 +100,7 @@ export default class Escena2 extends Phaser.Scene {
   destruirMeteoro(bala, meteoro) {
     meteoro.destroy();
     bala.destroy();
+    this.incrementarPuntajePorColision();
     this.sonidoExplosion.play();
   }
 
@@ -91,10 +111,10 @@ export default class Escena2 extends Phaser.Scene {
     }
   }
 
-  colisionBalaEnemigo(bala, enemigoNave) {
+  destruirEnemigoConBala(bala, enemigoNave) {
     enemigoNave.destroy();
     bala.destroy();
-
+    this.incrementarPuntajePorColision();
     this.sonidoExplosion.play();
   }
 
@@ -341,7 +361,7 @@ export default class Escena2 extends Phaser.Scene {
     this.physics.add.collider(
       this.grupoBalas,
       this.grupoEnemigosNave,
-      this.colisionBalaEnemigo,
+      this.destruirEnemigoConBala,
       null,
       this
     );
@@ -363,7 +383,10 @@ export default class Escena2 extends Phaser.Scene {
     this.load.image("contacto", "/resources/images/games/contacto.png");
     this.load.audio("musicaFondo2", "/resources/sounds/musicaFondo2.mp3");
     this.load.audio("sonidoBala", "/resources/sounds/sonidoBala.mp3");
-    this.load.audio("sonidoPierdeVida", "/resources/sounds/sonidoPierdeVida.mp3");
+    this.load.audio(
+      "sonidoPierdeVida",
+      "/resources/sounds/sonidoPierdeVida.mp3"
+    );
     this.load.audio("sonidoExplosion", "/resources/sounds/sonidoExplosion.mp3");
   }
 
@@ -412,14 +435,6 @@ export default class Escena2 extends Phaser.Scene {
 
     this.animacionNave();
     this.manejadorColisiones();
-
-    /* 
-    this.time.addEvent({
-      delay: 1000, // Intervalo para generar meteoros
-      callback: () => Meteoro.generarMeteoros(this, this.grupoMeteoros), // Llama al método de generación de meteoros
-      callbackScope: this,
-      loop: true,
-    });*/
 
     // Evento para generar la imagen de vida cada 3 segundos
     this.time.addEvent({
@@ -482,7 +497,7 @@ export default class Escena2 extends Phaser.Scene {
     this.sonidoBala = this.sound.add("sonidoBala");
     this.sonidoPierdeVida = this.sound.add("sonidoPierdeVida");
     this.sonidoExplosion = this.sound.add("sonidoExplosion");
-  } // fin crete()
+  } // fin create()
 
   update() {
     if (this.juegoTerminado) return;
