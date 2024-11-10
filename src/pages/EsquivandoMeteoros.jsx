@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import Phaser from 'phaser';
 /// Ejemplo
 //de codigo comentado
