@@ -35,7 +35,7 @@ const Sidebar = () => {
                   </Link>
                 </li>
                 <li className="sidebar-item">
-                  <Link to="/transacciones" className="sidebar-link">
+                  <Link to="/gestor-de-transacciones" className="sidebar-link">
                     <img src="/resources/images/sidebar/icon4.png" className="item-icon"/>
                     <span className="item-text">Proyecto 02: Gestor de Transacciones</span>
                   </Link>
