@@ -27,7 +27,7 @@ function EsquivandoMeteoros() {
             debug: false,
           },
         },
-        scene: [Escena2, Bonustrack, YouWin,Ranking, GameOver],
+        scene: [Escena1,Escena2, Bonustrack, YouWin,Ranking, GameOver],
         parent: "game-container",
       };
       
