@@ -7,6 +7,7 @@ import GameOver from "../scenes/GameOver.js";
 import AdminEscenas from "../models/adminEscenas.js";
 import YouWin from "../scenes/YouWin.js";
 import Bonustrack from "../scenes/BonusTrack.js";
+import Ranking from "../scenes/Ranking.js";
 
 import '../stylesheets/EsquivandoMeteoros.css';
 
@@ -26,7 +27,7 @@ function EsquivandoMeteoros() {
             debug: false,
           },
         },
-        scene: [Escena1, Escena2, Bonustrack, YouWin, GameOver],
+        scene: [Escena1,Escena2, Bonustrack, YouWin,Ranking, GameOver],
         parent: "game-container",
       };
       
