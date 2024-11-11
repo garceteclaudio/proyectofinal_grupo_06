@@ -24,7 +24,7 @@ function App() {
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/esquivando-meteoros" element={<EsquivandoMeteoros />} />
             <Route path="/indice-de-masa-corporal" element={<IndiceDeMasaCorporal />} />
-            <Route path="/transacciones" element={<GestorDeTransacciones />} />
+            <Route path="/gestor-de-transacciones" element={<GestorDeTransacciones />} />
             <Route path="/desafio-matematico" element={<DesafioMatematico />} />
             <Route path="/proyectos" element={<Proyectos />} />
           </Routes>

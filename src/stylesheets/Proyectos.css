@@ -1,8 +1,10 @@
+/* CONTENEDOR PRINCIPAL DEL PROYECTO */
+
 .presentation-container {
     width: 100%;
-
-    background-color: chartreuse;
 }
+
+/* ESTILOS GLOBALES DE LAS DESCRIPCIONES */
 
 .description-container {
     display: flex;
@@ -12,60 +14,243 @@
     height: fit-content;
     min-height: 100vh;
     margin: 0px;
-    padding: 100px 0px; 
-    gap: 50px;
-
-    background: linear-gradient(120deg, #230b17, #692e49, #49344e, #230b17, #49344e, #290e1d, #230b17);
-    background-size: 175% 400%;
-    animation: gradient 10s ease infinite;
-
-    background-color: slategray;
+    padding: 0px; 
+    text-align: center;
+    background: linear-gradient(90deg, #230b17, #692e49, #49344e, #692e49, #230b17);
 }
 
-.first-container {
-    min-height: 100vh;
-    background-image: url("/resources/images/backgroundIMC.png");
+.description-container h2 {
+    padding: 50px 0px 25px;
+}
 
+.description-container p {
+    padding: 0px 25px;
+}
+
+/* CONTENEDOR DEL PRIMERO PROYECTO */
+
+.first-container {
+    display: block;
+    align-content: center;
+    padding-bottom: 50px;
+    min-height: 100vh;
+    font-family: 'Asdaen';
+    background-image: url("/resources/images/backgroundIMC.png");
+    background-position: center;
+    background-size: cover;
     animation: appear linear;
     animation-timeline: view();
     animation-range: entry 0% cover 25%;
-}   
+}
+
+.first-container h2 {
+    font-size: 55px;
+    font-weight: bold;
+    color: #49344e;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+
+.first-container p {
+    font-size: 26px;
+    color: #49344e;
+    letter-spacing: 0.5px;
+}
+
+.first-container .preview-container {
+    width: 50%;
+    height: auto;
+    margin: 30px auto;
+    padding: 0px;
+    border-radius: 50px;
+    background-color: #F2F2F2;
+    box-shadow: 0 0 0 7px #E7E7E7;
+}
+
+.first-container button {
+    width: 98%;
+    margin: 20px 10px;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 5px;
+}
+
+/* CONTENEDOR DEL SEGUNDO PROYECTO */
 
 .second-container {
     display: block;
     align-content: center;
-
-    min-height: 100vh;
+    padding-bottom: 50px;
+    min-height: 110vh;
     background-image: url("/resources/images/pages/fondo.jpg");
-
+    background-position: center;
+    background-size: cover;
     animation: appear linear;
     animation-timeline: view();
     animation-range: entry 0% cover 25%;
+}
 
-    background-color: yellowgreen;
-}  
+.second-container h2 {
+    font-size: 55px;
+    font-family: 'IndieFlower';
+    font-weight: bold;
+    color: #dddddd;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+}
+
+.second-container p {
+    font-size: 24px;
+    font-family: 'Pangolin';
+    color: #dddddd;
+    letter-spacing: 1.5px;
+}
+
+.second-container .preview-container {
+    width:max-content;
+    height: auto;
+    margin: 30px auto;
+    padding: 0px;
+    background-color: #F2F2F2;
+    box-shadow: 0 0 0 7px #E7E7E7;
+}
+
+.second-container button {
+    width: 98%;
+    margin: 20px 10px;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 5px;
+}
+
+/* CONTENEDOR DEL TERCER PROYECTO */
 
 .third-container {
-    min-height: 100vh;
+    display: block;
+    align-content: center;
+    padding-bottom: 50px;
+    min-height: 110vh;
+    font-family: 'Press Start 2P';
     background-image: url('/resources/images/games/estrellas.jpg');
-
+    background-position: center;
+    background-size: cover;
     animation: appear linear;
     animation-timeline: view();
     animation-range: entry 0% cover 25%;
+}
 
-    background-color: cornflowerblue;
-}  
+.third-container h2 {
+    font-size: 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-align: center;
+    background-color: #18181860;
+    border-bottom: 4px solid #6D00D360;
+    width: 100%;
+    color: #FFFFFFC7;
+    text-shadow: 0 0 10px #9E9E9E;
+    animation: brillar 1.5s ease-in-out infinite alternate;
+    margin-bottom: 20px;
+}
+
+.third-container p {
+    font-size: 17px;
+    color: #FFFFFFC7;
+    text-shadow: 0 0 1px #9E9E9E;
+    animation: brillar 1.5s ease-in-out infinite alternate;
+    letter-spacing: 0px;
+    line-height: 32px;
+}
+
+.third-container .preview-container {
+    width: 50%;
+    height: auto;
+    margin: 40px auto 35px;
+    padding: 0px;
+}
+
+.third-container button {
+    width: 98%;
+    margin: 20px 10px;
+    font-size: 25px;
+    font-weight: bold;
+    letter-spacing: 5px;
+}
+
+/* CONTENEDOR DEL CUARTO PROYECTO */
 
 .fourth-container {
-    min-height: 100vh;
+    display: block;
+    align-content: center;
+    padding-bottom: 50px;
+    min-height: 110vh;
+    font-family: 'Emerald';
     background-image: url('/resources/images/pages/pokemon-background.png');
-    
+    background-position: center;
+    background-size: cover;
     animation: appear linear;
     animation-timeline: view();
     animation-range: entry 0% cover 25%;
+}
 
-    background-color: sandybrown;
-}  
+.fourth-description {
+    margin: 20px auto 25px;
+    width: 98%;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 5px solid #f4feef;
+    box-shadow: 0 0 0 6px #32322a, 0 0 0 7px #a6a698;
+    background-color: #fffbff;
+}
+
+.fourth-container h2 {
+    padding: 0px 0px 5px;
+    font-size: 90px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #616461;
+    text-shadow: 4px 0 0 #b6b9b6;
+
+}
+
+.fourth-container p {
+    font-size: 35px;
+    letter-spacing: 2px;
+    color: #616461;
+    text-shadow: 2px 0 0 #b6b9b6;
+    line-height: 40px;
+}
+
+.fourth-container .preview-container {
+    width: 50%;
+    height: auto;
+    margin: 30px auto;
+    padding: 0px;
+}
+
+.fourth-container button {
+    width: 98%;
+    margin: 20px 10px;
+
+    font-size: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #f1fbf2;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 5px solid #f4feef;
+    box-shadow: 0 0 0 6px #32322a, 0 0 0 7px #a6a698;
+    text-shadow: 4px 0 0 #4f4a57;
+    background-color: #507e81;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.fourth-container button:hover {
+    border: 6px solid #f4f7f6;
+    box-shadow: 0 0 0 3px #dddddd, 0 0 0 7px #32322a;
+}
 
 @keyframes appear {
     from {
@@ -75,23 +260,5 @@
     to {
       opacity: 1;
       scale: 1;
-    }
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 25%;
-    }
-    25% {
-        background-position: 25% 50%;
-    }
-    50% {
-        background-position: 50% 75%;
-    }
-    75% {
-        background-position: 75% 100%;
-    }
-    100% {
-        background-position: 0% 25%;
     }
 }
