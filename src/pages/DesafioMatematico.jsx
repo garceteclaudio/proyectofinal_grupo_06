@@ -33,10 +33,15 @@ function DesafioMatematico() {
                 correctAnswer = newOperacion === '+' ? newNum1 + newNum2 : newNum1 - newNum2;
                 break;
             case 'intermedio':
-                newNum1 = Math.floor(Math.random() * 11);
-                newNum2 = Math.floor(Math.random() * 11) + 1;
+                newNum2 = Math.floor(Math.random() * 10) + 1; // Evita cero
                 newOperacion = Math.random() > 0.5 ? '×' : '÷';
-                correctAnswer = newOperacion === '×' ? newNum1 * newNum2 : Math.floor(newNum1 / newNum2);
+                if (newOperacion === '×') {
+                    newNum1 = Math.floor(Math.random() * 11);
+                    correctAnswer = newNum1 * newNum2;
+                } else {
+                    newNum1 = newNum2 * Math.floor(Math.random() * 11); // Asegura división entera
+                    correctAnswer = newNum1 / newNum2;
+                }
                 break;
             case 'avanzado':
                 const decimalNum1 = (Math.random() * 10).toFixed(1);
@@ -82,21 +87,21 @@ function DesafioMatematico() {
         <div className='challenge-container'>
             {/* FONDO */}
             <div className='challenge-pokemons'>
-                <div class="gyarados"></div>
-                <div class="altaria"></div>
-                <div class="emolga"></div>
-                <div class="volcarona"></div>
-                <div class="lugia"></div>
-                <div class="espeon"></div>
-                <div class="umbreon"></div>
-                <div class="sylveon"></div>
-                <div class="meloetta"></div>
-                <div class="tyranitar"></div>
-                <div class="tyrantrum"></div>
-                <div class="lapras"></div>
-                <div class="froakie"></div>
-                <div class="gengar"></div>
-                <div class="pikachu"></div>
+                <div className="gyarados"></div>
+                <div className="altaria"></div>
+                <div className="emolga"></div>
+                <div className="volcarona"></div>
+                <div className="lugia"></div>
+                <div className="espeon"></div>
+                <div className="umbreon"></div>
+                <div className="sylveon"></div>
+                <div className="meloetta"></div>
+                <div className="tyranitar"></div>
+                <div className="tyrantrum"></div>
+                <div className="lapras"></div>
+                <div className="froakie"></div>
+                <div className="gengar"></div>
+                <div className="pikachu"></div>
             </div>
             <div className='challenge-effect'></div>
             <div className='challenge-box'>
