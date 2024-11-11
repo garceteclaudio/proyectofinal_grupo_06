@@ -51,7 +51,6 @@ export default class Escena2 extends Phaser.Scene {
   }
 
   init(data) {
-    // Asignar el puntaje recibido de Escena1
     this.puntaje = data.puntaje || 0;
   }
 
