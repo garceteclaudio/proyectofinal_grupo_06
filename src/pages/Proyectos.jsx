@@ -5,8 +5,8 @@ import TypingAnimation from "../models/home/TypingAnimation";
 
 function Proyectos() {
 
-  const messageText = "[AQUI VA OTRO MENSAJE SINO TAMBIÉN QUEDABA VACIO ASAJSJ 🤙]";
-  const typingSpeed = 100;
+  const messageText = "SECCIÓN PROYECTOS INICIADA... RECOPILANDO INFO... ¡TODO LISTO!";
+  const typingSpeed = 200;
 
   const displayedMessage = TypingAnimation(messageText, typingSpeed);
 

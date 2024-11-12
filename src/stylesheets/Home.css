@@ -24,13 +24,12 @@
 
 /* CONTENEDOR DEL TEXTO DE FONDO */
 .text-container {
-    width: 35%;
-    color: #ffffff; /* solo era para el ascii, cambiar a #ffffffC0; */
-    font-family: 'Mononiki';
+    width: 45%;
+    color: #ffffffC0;
+    font-family: 'Press Start 2P';
     text-align: center;
     white-space: wrap;
     z-index: 2;
-    line-height: 40px; /* solo era para el ascii, eliminar más adelante */
 }
 
 /* ESTILOS DE LAS LÍNEAS DEL TEXTO */
