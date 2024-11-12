@@ -20,7 +20,7 @@ function AboutUs({ developers }) {
       <h1 className="text-center mb-4">GRUPO 6: Desarrolladores de la materia fundamentos de programación web.</h1>
       <Row>
         {developers.map((dev) => (
-          <Col xs={12} sm={6} md={4} key={dev.id}>
+          <Col md={4} key={dev.id}>
             <Card>
               <Card.Img variant="top" src={avatars[dev.id]} alt={`Avatar ${dev.name}`} />
               <Card.Body>
