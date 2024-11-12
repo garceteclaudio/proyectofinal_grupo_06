@@ -16,7 +16,8 @@ function IndiceDeMasaCorporal(){
     const calcularIMC = () => {
         let calculo;
         let imc;
-        
+
+        //VALIDACIÓN INICIAL DE LOS DATOS NECESARIOS        
         if (!nombre) {
             calculo = "Campo nombre obligatorio";
             imc = null;
@@ -24,6 +25,7 @@ function IndiceDeMasaCorporal(){
             calculo = "Peso y altura incorrectos";
              imc = null;
         } else {
+            //REALIZACIÓN DEL CÁLCULO DEL IMC CON DATOS VÁLIDOS
              imc = peso / (altura * altura);
              if (imc < 18.5) {
              calculo = "Estás delgado/a.";
@@ -36,25 +38,30 @@ function IndiceDeMasaCorporal(){
             }
          }
 
+        //CREAR UN HISTORIAL EN CASO DE HABER INGRESADO EL MES
         if (mes) {
             const nuevoHistorial = { label: mes, value: parseFloat(peso) };
     
             setHistorialPeso(prevHistorial => {
                 const mesExistente = prevHistorial.find(item => item.label === mes);
                     
+                //SI EL MES EXISTE ACTUALIZARLO..
                 if (mesExistente) {
                     return prevHistorial.map(item => item.label === mes ? { ...item, value: parseFloat(peso) } : item);
                 } else {
+                    //DE LO CONTRARIO CREAR UN NUEVO REGISTRO
                     return [...prevHistorial, nuevoHistorial];
                 }
             });
         }
 
+        //ORDENAR EL HISTORIAL EN TORNO A LOS MESES DEL AÑO
         setHistorialPeso(prevHistorial => {
             const mesesOrdenados = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio','Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
             return [...prevHistorial].sort((a, b) => mesesOrdenados.indexOf(a.label) - mesesOrdenados.indexOf(b.label));
         });
 
+        //MOSTRAR EL MENSAJE AL USUARIO CON EL CÁLCULO DEL IMC
         setResultado(
             `Paciente: ${nombre} ${apellido} \n` +
             `Tu IMC es: ${imc ? imc.toFixed(2) : "N/A"} \n` +
@@ -63,12 +70,11 @@ function IndiceDeMasaCorporal(){
     };
 
     return (
-        <main className="d-flex flex-column justify-content-center align-items-center">
-            <div className="IMC">
+        <div className="imc-container">
+            <div className="background-container"></div>
+            <div className="imc-title">
                 <h1>Indice de Masa Corporal</h1>
             </div>
-
-            <div className="background-container"></div>
             <div className="main-container">
                 <div className="form-container">
                     <div className="mb-3">
@@ -145,7 +151,7 @@ function IndiceDeMasaCorporal(){
                 </div>
 
                 </div>
-        </main>
+        </div>
     );
 }
 export default IndiceDeMasaCorporal;
