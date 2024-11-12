@@ -46,9 +46,12 @@ function EsquivandoMeteoros() {
   return (
     <div className='game-page'>
       <div className='game-title'>
-      <h1>Esquivando Meteoros</h1>
+        <h1>Esquivando Meteoros</h1>
       </div>
-      <div id="game-container"></div> { }
+      <div id='game-container'></div>
+      <div className='game-footer'>
+        <p>&copy; 2024 Grupo 6. Fundamentos de Programación Web.</p>
+      </div>
     </div>
   );
 }

@@ -4,13 +4,12 @@
 }
 
 .game-title {
-    position: fixed;
+    position: absolute;
     top: 0; 
     left: 0; 
-    margin-left: 100px;
     font-family: "Press Start 2P";
     text-align: center;
-    padding: 10px;
+    padding: 30px 0px 20px;
     background-color: #18181860;
     border-bottom: 4px solid #6D00D360;
     width: 100%;
@@ -51,6 +50,21 @@
     z-index: -1;
     opacity: 1;
     animation: estrellas 50s linear infinite;
+}
+
+.game-footer {
+    position: absolute;
+    top: 93%; 
+    left: 0; 
+    font-family: "Press Start 2P";
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    font-size: 15px;
+    color: #FFFFFFC7;
+    animation: brillar 1.5s ease-in-out infinite alternate;
+    background-color: #18181860;
+    border-top: 4px solid #6D00D360;
 }
 
 @keyframes estrellas {

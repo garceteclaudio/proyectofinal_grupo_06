@@ -227,6 +227,28 @@
     justify-content: center;
 }
 
+.results-box button {
+    width: 100%;
+    margin: 5px 0px;
+    font-size: 40px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #f1fbf2;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 5px solid #f4feef;
+    box-shadow: 0 0 0 6px #32322a, 0 0 0 7px #a6a698;
+    text-shadow: 4px 0 0 #4f4a57;
+    background-color: #507e81;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.results-box button:hover {
+  border: 6px solid #f4f7f6;
+  box-shadow: 0 0 0 3px #dddddd, 0 0 0 7px #32322a;
+}
+
 /* ... ... ... ... ... ... ... ... ... ... ... ... ... */
 /* ... ... ... ... ... ... ... ... ... ... ... ... ... */
 /* ANIMACIONES DE LOS POKEMNONES QUE RECORREN EL FONDO */

@@ -15,6 +15,7 @@ function DesafioMatematico() {
     const [dificultadSeleccionada, setDificultadSeleccionada] = useState(false);
 
     const generarProblema = () => {
+        //TERMINAR EL JUEGO UNA VEZ TERMINADO EL QUINTO DESAFÍO
         if (desafio > 5) {
             setJuegoTerminado(true);
             return;
@@ -23,6 +24,7 @@ function DesafioMatematico() {
         let newNum1, newNum2, newOperacion, correctAnswer;
 
         switch (dificultad) {
+            //GENERAR DESAFÍOS EN BASE A LA DIFICULTAD SELECCIONADA
             case 'basico':
                 newNum1 = Math.floor(Math.random() * 11);
                 newNum2 = Math.floor(Math.random() * 11);
@@ -66,6 +68,7 @@ function DesafioMatematico() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        //COMPARA LA RESPUESTA INGRESADA CON LA CORRECTA
         if (parseFloat(respuesta) === parseFloat(respuestaCorrecta)) {
             setMensaje('¡Correcto!');
             setPuntaje(puntaje + 1);

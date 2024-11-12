@@ -42,11 +42,11 @@ function GestorDeTransacciones() {
 const mostrarResumen = () => {
   const maxTransaccionPorUsuario = {};
 
-  // Recorrer cada transacción y actualizar la transacción más alta para cada usuario
+  //RECORRER CADA TRANSACCIÓN Y ACTUALIZAR LA MÁS ALTA PARA CADA USUARIO
   datosCuentas.forEach((cuenta) => {
     const nombre = cuenta.nombre;
     
-    // Si no hay transacción registrada o la actual es mayor, actualizamos
+    //SI NO HAY TRANSACCIÓN REGISTRADA O LA ACTUAL ES MAYOR, ACTUALIZAMOS
     if (!maxTransaccionPorUsuario[nombre] || cuenta.transacciones > maxTransaccionPorUsuario[nombre].transacciones) {
       maxTransaccionPorUsuario[nombre] = cuenta;
     }
@@ -59,7 +59,7 @@ const mostrarResumen = () => {
         : Object.keys(maxTransaccionPorUsuario).map((nombre, index) => {
             const cuenta = maxTransaccionPorUsuario[nombre];
             return (
-              // Mostrar la mayor transacción de cada usuario
+              //MOSTRAR LA MAYOR TRANSACCIÓN DE CADA USUARIO
               <li key={index}>
                 {cuenta.nombre} - {cuenta.billetera} - {cuenta.transacciones}
               </li>
