@@ -3,33 +3,91 @@
     src: url("../resources/fonts/Asdaen-Regular.ttf") format("truetype");
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+.imc-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    height: 100vh;
+    width: auto;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.imc-title {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Asdaen';
+    color: black;
+}
+
+.background-container {
+    position: absolute;
+    background-image: url("./resources/images/backgroundIMC.png");
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 }
 
 .main-container {
+    position: relative;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     gap: 20px;
-    max-width: 1000px;
-    width: 100%;
-    padding: 20px;
+    min-width: 30%;
+    max-width: 95vw;
+    padding: 10px;
     border-radius: 10px;
-    font-family: Asdaen;
+    font-family: 'Asdaen';
     border-top: 0.5rem solid rgb(132, 137, 140);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    background-color: #F2F2F2;
-    justify-content: center;
+    background-color: green;
+    z-index: 1;
+}
+
+/* FORMULARIO */
+
+.form-container {
+    display: inline-block;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    flex-grow: 0;
+    min-width: 450px;
+    width: 100%;
+}
+
+/* ESTADÍSTICAS */
+
+.estadisticas {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-grow: 0;
+    max-width: 450px;
+    width: 100%;
+}
+
+.estadisticas-visible {
+    display: inline-block;
 }
 
 .form-container, .estadisticas {
     flex: 1;
     max-width: 450px;
-    
 }
 
-/* Botones */
+/* BOTONES */
+
 .btn-estadisticas, .btn-calcular {
     background-color: #D9BF8F;
     color: white;
@@ -43,43 +101,4 @@ body {
 
 .btn-estadisticas:hover, .btn-calcular:hover {
     background-color: #D9C5B4;
-}
-
-.form-container{
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.estadisticas {
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: none;
-}
-
-.estadisticas-visible {
-    display: block;
-}
-
-
-.background-container {
-    background-image: url("./resources/images/backgroundIMC.png");
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-}
-
-.IMC{
-    font-family: Asdaen;
-    padding: 25px;
-    color: black;
-    position: relative;
-    z-index: 1;
-    margin-top: 0;
 }
