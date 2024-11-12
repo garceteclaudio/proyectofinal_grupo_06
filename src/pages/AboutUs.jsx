@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import avatarClaudio from '/resources/images/aboutUs/avatar-clau.jpeg';
 import avatarMurillo from '/resources/images/aboutUs/avatar-murillo.png';
 import avatarYani from '/resources/images/aboutUs/avatar-yani.jpeg';
+import '../stylesheets/AboutUs.css';
+
 
 function AboutUs({ developers }) {
   const avatars = {
@@ -13,11 +15,12 @@ function AboutUs({ developers }) {
   };
 
   return (
-    <Container className="my-5">
+    <div className='aboutus-page'>
+      <Container className="my-5">
       <h1 className="text-center mb-4">GRUPO 6: Desarrolladores de la materia fundamentos de programación web.</h1>
       <Row>
         {developers.map((dev) => (
-          <Col md={4} key={dev.id}>
+          <Col xs={12} sm={6} md={4} key={dev.id}>
             <Card>
               <Card.Img variant="top" src={avatars[dev.id]} alt={`Avatar ${dev.name}`} />
               <Card.Body>
@@ -32,6 +35,8 @@ function AboutUs({ developers }) {
         ))}
       </Row>
     </Container>
+    </div>
+    
   );
 }
 
