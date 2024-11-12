@@ -208,7 +208,10 @@ export default class Escena1 extends Phaser.Scene {
       fill: "#fff",
     });
 
-    this.musicaFondo1 = this.sound.add("musicaFondo1", { loop: true });
+    this.musicaFondo1 = this.sound.add("musicaFondo1", {
+      volume: 0.3,
+      loop: true,
+    });
     this.musicaFondo1.play();
     this.sonidoBala = this.sound.add("sonidoBala");
     this.sonidoExplosion = this.sound.add("sonidoExplosion");
