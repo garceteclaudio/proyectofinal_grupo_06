@@ -16,7 +16,7 @@ function EsquivandoMeteoros() {
 
   useEffect(() => {
     if (gameRef.current === null) { // Crear el juego solo si no existe
-      let config = {
+      const config = {
         type: Phaser.AUTO,
         width: 800,
         height: 600,
@@ -44,12 +44,12 @@ function EsquivandoMeteoros() {
   }, []);
 
   return (
-    <main className='game-page'>
+    <div className='game-page'>
       <div className='game-title'>
       <h1>Esquivando Meteoros</h1>
       </div>
       <div id="game-container"></div> { }
-    </main>
+    </div>
   );
 }
 
