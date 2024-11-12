@@ -47,8 +47,8 @@ function Proyectos() {
           almacenar un sinfín de transacciones junto a sus datos —nombre y apellido, cantidad de movimientos, método de pago— con tan solo escribirlos en los campos correspondientesm,
           aunque eso no es todo. ¡También podrás acceder a resúmenes personalizados que abarcan todas las transacciones ingresadas previamente desde el formulario!  
           </p>
-          <div className="preview-container">
-            <img src="/resources/images/ta-bien.jpg"></img>
+          <div>
+            <img src="/resources/images/pages/preview-gestor-de-transacciones.png"></img>
           </div>
           <Link to="/gestor-de-transacciones">
             <button className="form-button">IR AL PROYECTO</button>

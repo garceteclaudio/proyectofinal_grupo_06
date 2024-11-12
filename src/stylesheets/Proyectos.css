@@ -58,7 +58,7 @@
 }
 
 .first-container .preview-container {
-    width: 50%;
+    width: 45%;
     height: auto;
     margin: 30px auto;
     padding: 0px;
@@ -106,15 +106,6 @@
     letter-spacing: 1.5px;
 }
 
-.second-container .preview-container {
-    width:max-content;
-    height: auto;
-    margin: 30px auto;
-    padding: 0px;
-    background-color: #F2F2F2;
-    box-shadow: 0 0 0 7px #E7E7E7;
-}
-
 .second-container button {
     width: 98%;
     margin: 20px 10px;
@@ -160,13 +151,6 @@
     animation: brillar 1.5s ease-in-out infinite alternate;
     letter-spacing: 0px;
     line-height: 32px;
-}
-
-.third-container .preview-container {
-    width: 50%;
-    height: auto;
-    margin: 40px auto 35px;
-    padding: 0px;
 }
 
 .third-container button {
@@ -238,13 +222,6 @@
     color: #616461;
     text-shadow: 2px 0 0 #b6b9b6;
     line-height: 40px;
-}
-
-.fourth-container .preview-container {
-    width: 50%;
-    height: auto;
-    margin: 30px auto;
-    padding: 0px;
 }
 
 .fourth-container button {

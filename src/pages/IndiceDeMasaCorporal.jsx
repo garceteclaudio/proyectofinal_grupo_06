@@ -138,10 +138,10 @@ function IndiceDeMasaCorporal(){
                         </Form.Select>
                     </Form.Group>
                     <button type="button" className="btn btn-calcular w-100" onClick={calcularIMC}>Calcular IMC</button>
-                    <div className="resultado mt-3 text-center">{resultado.split('\n').map((line, index) => (
+                    <div className="resultado">{resultado.split('\n').map((line, index) => (
                         <p key={index}>{line}</p>
                     ))}</div>
-                    <button type="button" className="btn btn-estadisticas mt-4" onClick={() => setEstadisticasAbiertas(!estadisticasAbiertas)}>
+                    <button type="button" className="btn btn-estadisticas" onClick={() => setEstadisticasAbiertas(!estadisticasAbiertas)}>
                         Ver Estadísticas
                     </button>
                 </div>
@@ -149,7 +149,6 @@ function IndiceDeMasaCorporal(){
                 <div className={`estadisticas ${estadisticasAbiertas ? 'estadisticas-visible' : ''}`} >
                     <BarChart data={historialPeso} /> 
                 </div>
-
                 </div>
         </div>
     );
