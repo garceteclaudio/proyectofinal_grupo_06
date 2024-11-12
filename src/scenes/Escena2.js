@@ -320,10 +320,31 @@ export default class Escena2 extends Phaser.Scene {
   }
 
   recogerVida(jugador, vida) {
+    // Destruye el objeto vida y aumenta las vidas del jugador
     vida.destroy();
     this.vidasJugador += 1;
     this.textoVidasJugador.setText(`Vidas: ${this.vidasJugador}`);
+
+    this.sound.play("gana-vida");
+
+    // Cambia el color de la nave a verde
+    this.jugador.setTint(0x00ff00);
+
+    // Muestra el texto "+1" cerca de la nave
+    const textoBonus = this.add.text(
+      this.jugador.x,
+      this.jugador.y - 30,
+      "+1",
+      { fontSize: "20px", fill: "#00ff00" }
+    );
+
+    // Después de 500 ms, quita el tinte verde y elimina el texto "+1"
+    this.time.delayedCall(500, () => {
+      this.jugador.clearTint();
+      textoBonus.destroy();
+    });
   }
+
   manejadorColisiones() {
     //INICIO | Colisiones
 
@@ -398,6 +419,7 @@ export default class Escena2 extends Phaser.Scene {
       "/resources/sounds/sonidoPierdeVida.mp3"
     );
     this.load.audio("sonidoExplosion", "/resources/sounds/sonidoExplosion.mp3");
+    this.load.audio("gana-vida", "/resources/sounds/gana-vida.mp3");
   }
 
   create() {
@@ -494,7 +516,10 @@ export default class Escena2 extends Phaser.Scene {
       space: Phaser.Input.Keyboard.KeyCodes.SPACE,
     });
 
-    this.musicaFondo2 = this.sound.add("musicaFondo2", { loop: true });
+    this.musicaFondo2 = this.sound.add("musicaFondo2", {
+      volume: 0.3,
+      loop: true,
+    });
     this.musicaFondo2.play();
     this.sonidoBala = this.sound.add("sonidoBala");
     this.sonidoPierdeVida = this.sound.add("sonidoPierdeVida");

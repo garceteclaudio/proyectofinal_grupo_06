@@ -9,13 +9,22 @@ export default class BonusTrack extends Phaser.Scene {
     this.cantidadMonedasPorIntervalo = 5;
     this.tiempoMonedas = 0;
     this.musicaFondoBonustrack = null;
+    this.sonidoRecolectarMoneda = null;
   }
 
   preload() {
     this.load.audio(
+      "sonidoRecolectarMoneda",
+      "/resources/sounds/recolectar-moneda.mp3"
+    );
+    this.load.audio(
       "musicaFondoBonustrack",
       "/resources/sounds/bonustrack.mp3"
     );
+    this.load.spritesheet("nave", "/resources/images/games/nave.png", {
+      frameWidth: 60,
+      frameHeight: 60,
+    });
     this.load.image("moneda", "/resources/images/games/moneda.png");
     this.load.image("fondo", "/resources/images/games/espacio.png");
   }
@@ -39,6 +48,23 @@ export default class BonusTrack extends Phaser.Scene {
 
     this.jugador = this.physics.add.sprite(400, 550, "nave", 0);
     this.jugador.setCollideWorldBounds(true);
+    this.anims.create({
+      key: "izquierda",
+      frames: [{ key: "nave", frame: 1 }],
+      frameRate: 20,
+    });
+
+    this.anims.create({
+      key: "normal",
+      frames: [{ key: "nave", frame: 0 }],
+      frameRate: 20,
+    });
+
+    this.anims.create({
+      key: "derecha",
+      frames: [{ key: "nave", frame: 2 }],
+      frameRate: 20,
+    });
 
     this.teclas = this.input.keyboard.addKeys({
       up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -69,8 +95,12 @@ export default class BonusTrack extends Phaser.Scene {
 
     this.musicaFondoBonustrack = this.sound.add("musicaFondoBonustrack", {
       loop: true,
+      volume: 0.3,
     });
     this.musicaFondoBonustrack.play();
+
+    // Cargar sonido de recolección de moneda
+    this.sonidoRecolectarMoneda = this.sound.add("sonidoRecolectarMoneda");
   }
 
   crearMonedas() {
@@ -86,6 +116,9 @@ export default class BonusTrack extends Phaser.Scene {
     moneda.destroy();
     this.puntaje += 200;
     this.textoDePuntaje.setText(`Puntaje: ${this.puntaje}`);
+
+    // Reproducir sonido de recolección de moneda
+    this.sonidoRecolectarMoneda.play();
 
     const textoBonus = this.add.text(jugador.x, jugador.y - 30, "+200", {
       fontSize: "20px",
@@ -105,17 +138,20 @@ export default class BonusTrack extends Phaser.Scene {
   update() {
     this.jugador.setVelocity(0);
 
-    // Movimiento con teclas WASD y flechas
-    if (this.teclas.left.isDown || this.cursors.left.isDown) {
+    if (this.cursors.left.isDown || this.teclas.left.isDown) {
       this.jugador.setVelocityX(-300);
-    } else if (this.teclas.right.isDown || this.cursors.right.isDown) {
+      this.jugador.anims.play("izquierda", true);
+    } else if (this.cursors.right.isDown || this.teclas.right.isDown) {
       this.jugador.setVelocityX(300);
-    }
-
-    if (this.teclas.up.isDown || this.cursors.up.isDown) {
+      this.jugador.anims.play("derecha", true);
+    } else if (this.cursors.up.isDown || this.teclas.up.isDown) {
       this.jugador.setVelocityY(-300);
-    } else if (this.teclas.down.isDown || this.cursors.down.isDown) {
+      this.jugador.anims.play("normal", true);
+    } else if (this.cursors.down.isDown || this.teclas.down.isDown) {
       this.jugador.setVelocityY(300);
+      this.jugador.anims.play("normal", true);
+    } else {
+      this.jugador.anims.play("normal", true);
     }
   }
 }
