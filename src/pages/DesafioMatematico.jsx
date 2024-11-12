@@ -33,13 +33,13 @@ function DesafioMatematico() {
                 correctAnswer = newOperacion === '+' ? newNum1 + newNum2 : newNum1 - newNum2;
                 break;
             case 'intermedio':
-                newNum2 = Math.floor(Math.random() * 10) + 1; // Evita cero
+                newNum2 = Math.floor(Math.random() * 10) + 1;
                 newOperacion = Math.random() > 0.5 ? '×' : '÷';
                 if (newOperacion === '×') {
                     newNum1 = Math.floor(Math.random() * 11);
                     correctAnswer = newNum1 * newNum2;
                 } else {
-                    newNum1 = newNum2 * Math.floor(Math.random() * 11); // Asegura división entera
+                    newNum1 = newNum2 * Math.floor(Math.random() * 11);
                     correctAnswer = newNum1 / newNum2;
                 }
                 break;
@@ -77,6 +77,20 @@ function DesafioMatematico() {
     const siguienteDesafio = () => {
         setDesafio(desafio + 1);
         generarProblema();
+    };
+
+    const reiniciarJuego = () => {
+        setNumero1(0);
+        setNumero2(0);
+        setOperacion('+');
+        setRespuesta('');
+        setRespuestaCorrecta(0);
+        setPuntaje(0);
+        setMensaje('');
+        setDesafio(1);
+        setJuegoTerminado(false);
+        setDificultad('basico');
+        setDificultadSeleccionada(false);
     };
 
     useEffect(() => {
@@ -127,34 +141,35 @@ function DesafioMatematico() {
                             {/* CONTENEDOR DEL PUNTAJE FINAL */}
                             <h1>Juego Terminado.</h1>
                             <h2>Puntaje final: {puntaje}</h2>
+                            <button onClick={reiniciarJuego}>Volver a Jugar</button>
                         </div>
                     ) : (
                         <div className="scoring-box">
                             {/* CONTENEDOR DE LOS DESAFÍOS MATEMÁTICOS */}
                             <h1>Desafío Matemático ({desafio}/5)</h1>
                             <div className='scoring-setter'>
-                            <h2 id="numbers">
-                                {num1} {operacion} {num2}
-                            </h2>
-                            <div className='scoring-form'>
-                            <form onSubmit={handleSubmit}>
-                                <input
-                                    type="number"
-                                    value={respuesta}
-                                    onChange={(e) => setRespuesta(e.target.value)}
-                                    placeholder="Tu respuesta..."
-                                    disabled={mensaje !== ''}
-                                />
-                                <button type="submit" disabled={mensaje !== ''}>Comprobar</button>
-                            </form>
-                            </div>
-                            <p>{mensaje}</p>
-                            {mensaje && (
-                                <button onClick={siguienteDesafio}>
-                                    {desafio < 5 ? 'Siguiente desafío' : 'Ver resultado final'}
-                                </button>
-                            )}
-                            <p>Puntaje: {puntaje}</p>
+                                <h2 id="numbers">
+                                    {num1} {operacion} {num2}
+                                </h2>
+                                <div className='scoring-form'>
+                                    <form onSubmit={handleSubmit}>
+                                        <input
+                                            type="number"
+                                            value={respuesta}
+                                            onChange={(e) => setRespuesta(e.target.value)}
+                                            placeholder="Tu respuesta..."
+                                            disabled={mensaje !== ''}
+                                        />
+                                        <button type="submit" disabled={mensaje !== ''}>Comprobar</button>
+                                    </form>
+                                </div>
+                                <p>{mensaje}</p>
+                                {mensaje && (
+                                    <button onClick={siguienteDesafio}>
+                                        {desafio < 5 ? 'Siguiente desafío' : 'Ver resultado final'}
+                                    </button>
+                                )}
+                                <p>Puntaje: {puntaje}</p>
                             </div>
                         </div>
                     )
