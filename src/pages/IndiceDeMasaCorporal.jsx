@@ -3,71 +3,86 @@ import '../stylesheets/IndiceDeMasaCorporal.css';
 import BarChart from "../components/BarChart";
 import Form from 'react-bootstrap/Form';
 
-function IndiceDeMasaCorporal(){
+function IndiceDeMasaCorporal() {
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [peso, setPeso] = useState('');
     const [altura, setAltura] = useState('');
-    const [resultado, setResultado] = useState('');
+    const [resultado, setResultado] = useState([]);
     const [estadisticasAbiertas, setEstadisticasAbiertas] = useState(false);
-    const [historialPeso, setHistorialPeso] = useState ([]);
-    const [mes, setMes] = useState ('');
-    
-    const calcularIMC = () => {
-        let calculo;
-        let imc;
+    const [historialPeso, setHistorialPeso] = useState([]);
+    const [mes, setMes] = useState('');
 
-        //VALIDACIÓN INICIAL DE LOS DATOS NECESARIOS        
+    const calcularIMC = () => {
+        let calculo = '';
+        let imc = null;
+    
+        const pesoNum = parseFloat(peso);
+        const alturaNum = parseFloat(altura);
+    
         if (!nombre) {
             calculo = "Campo nombre obligatorio";
-            imc = null;
-        } else if (peso < 3 || altura < 0.3) {
-            calculo = "Peso y altura incorrectos";
-             imc = null;
+        } else if (isNaN(pesoNum) || isNaN(alturaNum)) {
+            calculo = "Peso y altura deben ser números válidos";
+        } else if (pesoNum <= 0 || alturaNum <= 0) {
+            calculo = "Peso y altura deben ser mayores a cero";
+        } else if (pesoNum > 300) {
+            calculo = "Peso inválido - debe ingresar 300 kilos o menos";
+        } else if (alturaNum > 3) {
+            calculo = "Dato incorrecto - debe ingresar altura menor a 3 metros";
         } else {
-            //REALIZACIÓN DEL CÁLCULO DEL IMC CON DATOS VÁLIDOS
-             imc = peso / (altura * altura);
-             if (imc < 18.5) {
-             calculo = "Estás delgado/a.";
-            } else if (imc >= 18.5 && imc < 24.9) {
+            // Cálculo del IMC
+            imc = pesoNum / (alturaNum * alturaNum);
+            if (imc < 18.5) {
+                calculo = "Estás delgado/a.";
+            } else if (imc >= 18.5 && imc < 25) {
                 calculo = "Estás en el peso ideal.";
-            } else if (imc >= 25 && imc < 29.9) {
+            } else if (imc >= 25 && imc < 30) {
                 calculo = "Tienes sobrepeso.";
-            } else if (imc > 29.9) {
+            } else {
                 calculo = "Tienes obesidad. Haz dieta.";
             }
-         }
-
-        //CREAR UN HISTORIAL EN CASO DE HABER INGRESADO EL MES
-        if (mes) {
-            const nuevoHistorial = { label: mes, value: parseFloat(peso) };
+        }
+    
+        // Crear un historial si el mes está especificado
+        if (mes && imc) {
+            const nuevoHistorial = { label: mes, value: pesoNum };
     
             setHistorialPeso(prevHistorial => {
                 const mesExistente = prevHistorial.find(item => item.label === mes);
-                    
-                //SI EL MES EXISTE ACTUALIZARLO..
+    
+                // Actualizar el mes existente o agregar uno nuevo
                 if (mesExistente) {
-                    return prevHistorial.map(item => item.label === mes ? { ...item, value: parseFloat(peso) } : item);
+                    return prevHistorial.map(item =>
+                        item.label === mes ? { ...item, value: pesoNum } : item
+                    );
                 } else {
-                    //DE LO CONTRARIO CREAR UN NUEVO REGISTRO
                     return [...prevHistorial, nuevoHistorial];
                 }
             });
+    
+            // Ordenar el historial por los meses
+            setHistorialPeso(prevHistorial => {
+                const mesesOrdenados = [
+                    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+                ];
+                return [...prevHistorial].sort(
+                    (a, b) => mesesOrdenados.indexOf(a.label) - mesesOrdenados.indexOf(b.label)
+                );
+            });
         }
-
-        //ORDENAR EL HISTORIAL EN TORNO A LOS MESES DEL AÑO
-        setHistorialPeso(prevHistorial => {
-            const mesesOrdenados = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio','Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
-            return [...prevHistorial].sort((a, b) => mesesOrdenados.indexOf(a.label) - mesesOrdenados.indexOf(b.label));
-        });
-
-        //MOSTRAR EL MENSAJE AL USUARIO CON EL CÁLCULO DEL IMC
-        setResultado(
-            `Paciente: ${nombre} ${apellido} \n` +
-            `Tu IMC es: ${imc ? imc.toFixed(2) : "N/A"} \n` +
-            `Observación: ${calculo}`
-        );
+    
+        // Construir las líneas del resultado
+        const lines = [`Paciente: ${nombre} ${apellido}`];
+        if (imc !== null && imc !== undefined) {
+            lines.push(`Tu IMC es: ${imc.toFixed(2)}`);
+        }
+        lines.push(`Observación: ${calculo}`);
+    
+        setResultado(lines);
     };
+    
 
     return (
         <div className="imc-container">
@@ -78,7 +93,7 @@ function IndiceDeMasaCorporal(){
             <div className="main-container">
                 <div className="form-container">
                     <div className="mb-3">
-                    <label htmlFor="nombre" className="form-label">Nombre:</label>
+                        <label htmlFor="nombre" className="form-label">Nombre:</label>
                         <input
                             type="text"
                             id="nombre"
@@ -138,19 +153,22 @@ function IndiceDeMasaCorporal(){
                         </Form.Select>
                     </Form.Group>
                     <button type="button" className="btn btn-calcular w-100" onClick={calcularIMC}>Calcular IMC</button>
-                    <div className="resultado">{resultado.split('\n').map((line, index) => (
-                        <p key={index}>{line}</p>
-                    ))}</div>
+                    <div className="resultado">
+                        {resultado.map((line, index) => (
+                            <p key={index}>{line}</p>
+                        ))}
+                    </div>
                     <button type="button" className="btn btn-estadisticas" onClick={() => setEstadisticasAbiertas(!estadisticasAbiertas)}>
                         Ver Estadísticas
                     </button>
                 </div>
 
                 <div className={`estadisticas ${estadisticasAbiertas ? 'estadisticas-visible' : ''}`} >
-                    <BarChart data={historialPeso} /> 
+                    <BarChart data={historialPeso} />
                 </div>
-                </div>
+            </div>
         </div>
     );
 }
+
 export default IndiceDeMasaCorporal;
