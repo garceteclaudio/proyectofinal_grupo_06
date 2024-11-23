@@ -13,6 +13,7 @@ function DesafioMatematico() {
     const [juegoTerminado, setJuegoTerminado] = useState(false);
     const [dificultad, setDificultad] = useState('basico');
     const [dificultadSeleccionada, setDificultadSeleccionada] = useState(false);
+    const [opciones, setOpciones] = useState([]);
 
     const generarProblema = () => {
         //TERMINAR EL JUEGO UNA VEZ TERMINADO EL QUINTO DESAFÍO
@@ -26,6 +27,7 @@ function DesafioMatematico() {
         switch (dificultad) {
             //GENERAR DESAFÍOS EN BASE A LA DIFICULTAD SELECCIONADA
             case 'basico':
+
                 newNum1 = Math.floor(Math.random() * 11);
                 newNum2 = Math.floor(Math.random() * 11);
                 newOperacion = Math.random() > 0.5 ? '+' : '-';
@@ -33,6 +35,10 @@ function DesafioMatematico() {
                     [newNum1, newNum2] = [newNum2, newNum1];
                 }
                 correctAnswer = newOperacion === '+' ? newNum1 + newNum2 : newNum1 - newNum2;
+                
+                //GENERAR RESPUESTAS INCORRECTAS PARA MOSTRARLAS
+                const wrongAnswer = generarWrongAnswer(correctAnswer);
+                setOpciones(wrongAnswer);
                 break;
             case 'intermedio':
                 newNum2 = Math.floor(Math.random() * 10) + 1;
@@ -65,6 +71,23 @@ function DesafioMatematico() {
         setMensaje('');
     };
 
+    //GENERAR RESPUESTAS INCORRECTAS PARA LA DIFICULTAD BÁSICA
+    const generarWrongAnswer = (correctAnswer) => {
+        const wrongAnswer = [];
+        let randomAnswers = correctAnswer + Math.floor(Math.random() * 10) - 1;
+
+        //EVITAR RESPUESTAS INCORRECTAS QUE SEAN DUPLICADAS O IGUAL A LA RESPUESTA CORRECTA
+        while (wrongAnswer.length < 2) {
+            if (randomAnswers !== correctAnswer && !wrongAnswer.includes(randomAnswers)) {
+                wrongAnswer.push(randomAnswers);
+            }
+            randomAnswers = correctAnswer + Math.floor(Math.random() * 10) - 1;
+        }
+
+        //DARLE ORDEN ALEATORIO A LAS TRES RESPUESTAS
+        return [correctAnswer, ...wrongAnswer].sort(() => Math.random() - 0.5);
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -77,9 +100,24 @@ function DesafioMatematico() {
         }
     };
 
+    const handleSelect = (respuestaSeleccionada) => {
+        //COMPARA LA RESPUESTA ELEGIDA CON LA CORRECTA
+        if (parseFloat(respuestaSeleccionada) === parseFloat(respuestaCorrecta)) {
+            setMensaje('¡Correcto!');
+            setPuntaje(puntaje + 1);
+        } else {
+            setMensaje(`Incorrecto. La respuesta correcta es ${respuestaCorrecta}`);
+        }
+    };
+
     const siguienteDesafio = () => {
-        setDesafio(desafio + 1);
-        generarProblema();
+        //EVITAR QUE EL DESAFÍO PASE AL SEXTO JUEGO
+        if (desafio < 5) {
+            setDesafio(desafio + 1);
+            generarProblema();
+        } else {
+            setJuegoTerminado(true);
+        }
     };
 
     const reiniciarJuego = () => {
@@ -96,9 +134,10 @@ function DesafioMatematico() {
         setDificultadSeleccionada(false);
     };
 
+    //AQUI ESTABA EL ERROR DEL 0 + 0 - AHORA SE GENERA UN PROBLEMA CORRECTAMENTE EN EL PRIMER DESAFÍO LUEGO DE SELECCIONAR LA DIFICULTAD 
     useEffect(() => {
-        if (dificultadSeleccionada) generarProblema();
-    }, [desafio, dificultad]);
+        if (dificultadSeleccionada && desafio === 1) generarProblema();
+    }, [dificultadSeleccionada, desafio]);
 
     return (
         <div className='challenge-container'>
@@ -155,16 +194,26 @@ function DesafioMatematico() {
                                     {num1} {operacion} {num2}
                                 </h2>
                                 <div className='scoring-form'>
-                                    <form onSubmit={handleSubmit}>
-                                        <input
-                                            type="number"
-                                            value={respuesta}
-                                            onChange={(e) => setRespuesta(e.target.value)}
-                                            placeholder="Tu respuesta..."
-                                            disabled={mensaje !== ''}
-                                        />
-                                        <button type="submit" disabled={mensaje !== ''}>Comprobar</button>
-                                    </form>
+                                    {dificultad === 'basico' ? (
+                                        //MOSTRAR LOS BOTONES PARA ELEGIR LA RESPUESTA EN LA DIFICULTAD BÁSICA
+                                        opciones.map((respuestaElegida, index) => (
+                                            <button key={index} onClick={() => handleSelect(respuestaElegida)}>
+                                                {respuestaElegida}
+                                            </button>
+                                        ))
+                                    ) : (
+                                        //MOSTRAR EL BOTÓN PARA COMPROBAR EL RESULTADO EN LAS DIFICULTADES RESTANTES
+                                        <form onSubmit={handleSubmit}>
+                                            <input
+                                                type="number"
+                                                value={respuesta}
+                                                onChange={(e) => setRespuesta(e.target.value)}
+                                                placeholder="Tu respuesta..."
+                                                disabled={mensaje !== ''}
+                                            />
+                                            <button type="submit" disabled={mensaje !== ''}>Comprobar</button>
+                                        </form>
+                                    )}
                                 </div>
                                 <p>{mensaje}</p>
                                 {mensaje && (
