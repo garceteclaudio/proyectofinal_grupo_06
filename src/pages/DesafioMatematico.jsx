@@ -90,35 +90,50 @@ function DesafioMatematico() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        //COMPARA LA RESPUESTA INGRESADA CON LA CORRECTA
+    
+        // COMPARA LA RESPUESTA INGRESADA CON LA CORRECTA
         if (parseFloat(respuesta) === parseFloat(respuestaCorrecta)) {
             setMensaje('¡Correcto!');
             setPuntaje(puntaje + 1);
         } else {
             setMensaje(`Incorrecto. La respuesta correcta es ${respuestaCorrecta}`);
         }
+    
+        // ESPERAR 3 SEGUNDOS ANTES DE PASAR AL SIGUIENTE DESAFÍO
+        setTimeout(() => {
+            if (desafio < 5) {
+                setDesafio(desafio + 1);
+                generarProblema();
+            } else {
+                setJuegoTerminado(true);
+            }
+            setMensaje(''); // Limpia el mensaje para el siguiente desafío
+            setRespuesta(''); // Resetea la respuesta en dificultades avanzadas
+        }, 3000);
     };
 
     const handleSelect = (respuestaSeleccionada) => {
-        //COMPARA LA RESPUESTA ELEGIDA CON LA CORRECTA
+        // COMPARA LA RESPUESTA ELEGIDA CON LA CORRECTA
         if (parseFloat(respuestaSeleccionada) === parseFloat(respuestaCorrecta)) {
             setMensaje('¡Correcto!');
             setPuntaje(puntaje + 1);
         } else {
             setMensaje(`Incorrecto. La respuesta correcta es ${respuestaCorrecta}`);
         }
+    
+        // ESPERAR 3 SEGUNDOS ANTES DE PASAR AL SIGUIENTE DESAFÍO
+        setTimeout(() => {
+            if (desafio < 5) {
+                setDesafio(desafio + 1);
+                generarProblema();
+            } else {
+                setJuegoTerminado(true);
+            }
+            setMensaje(''); // Limpia el mensaje para el siguiente desafío
+        }, 3000);
     };
 
-    const siguienteDesafio = () => {
-        //EVITAR QUE EL DESAFÍO PASE AL SEXTO JUEGO
-        if (desafio < 5) {
-            setDesafio(desafio + 1);
-            generarProblema();
-        } else {
-            setJuegoTerminado(true);
-        }
-    };
+
 
     const reiniciarJuego = () => {
         setNumero1(0);
@@ -220,11 +235,6 @@ function DesafioMatematico() {
                                     )}
                                 </div>
                                 <p>{mensaje}</p>
-                                {mensaje && (
-                                    <button onClick={siguienteDesafio}>
-                                        {desafio < 5 ? 'Siguiente desafío' : 'Ver resultado final'}
-                                    </button>
-                                )}
                                 <p>Puntaje: {puntaje}</p>
                             </div>
                         </div>
