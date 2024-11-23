@@ -197,7 +197,11 @@ function DesafioMatematico() {
                                     {dificultad === 'basico' ? (
                                         //MOSTRAR LOS BOTONES PARA ELEGIR LA RESPUESTA EN LA DIFICULTAD BÁSICA
                                         opciones.map((respuestaElegida, index) => (
-                                            <button key={index} onClick={() => handleSelect(respuestaElegida)}>
+                                            <button
+                                                key={index}
+                                                onClick={() => handleSelect(respuestaElegida)}
+                                                disabled={mensaje !== ''} // Deshabilita si ya hay un mensaje
+                                            >
                                                 {respuestaElegida}
                                             </button>
                                         ))
