@@ -38,37 +38,56 @@ function GestorDeTransacciones() {
     );
   };
 
-//MOSTRAR LAS TRANSACCIONES MÁS GRANDES POR USUARIO
+// MOSTRAR LAS TRANSACCIONES MÁS GRANDES POR USUARIO
 const mostrarResumen = () => {
-  const maxTransaccionPorUsuario = {};
+  // Agrupar y sumar las transacciones por usuario y billetera
+  const transaccionesAgrupadas = datosCuentas.reduce((acumulador, cuenta) => {
+    const clave = `${cuenta.nombre}-${cuenta.billetera}`;
+    const transaccionExistente = acumulador.find((item) => item.clave === clave);
 
-  //RECORRER CADA TRANSACCIÓN Y ACTUALIZAR LA MÁS ALTA PARA CADA USUARIO
-  datosCuentas.forEach((cuenta) => {
-    const nombre = cuenta.nombre;
-    
-    //SI NO HAY TRANSACCIÓN REGISTRADA O LA ACTUAL ES MAYOR, ACTUALIZAMOS
-    if (!maxTransaccionPorUsuario[nombre] || cuenta.transacciones > maxTransaccionPorUsuario[nombre].transacciones) {
-      maxTransaccionPorUsuario[nombre] = cuenta;
+    if (transaccionExistente) {
+      transaccionExistente.transacciones += cuenta.transacciones;
+    } else {
+      acumulador.push({
+        clave,
+        nombre: cuenta.nombre,
+        billetera: cuenta.billetera,
+        transacciones: cuenta.transacciones,
+      });
     }
-  });
 
+    return acumulador;
+  }, []);
+
+  // Determinar la transacción más alta por usuario
+  const maxTransaccionPorUsuario = transaccionesAgrupadas.reduce((acumulador, transaccion) => {
+    const usuarioExistente = acumulador.find(
+      (item) => item.nombre === transaccion.nombre
+    );
+
+    if (!usuarioExistente || transaccion.transacciones > usuarioExistente.transacciones) {
+      const nuevoAcumulador = acumulador.filter((item) => item.nombre !== transaccion.nombre);
+      nuevoAcumulador.push(transaccion);
+      return nuevoAcumulador;
+    }
+
+    return acumulador;
+  }, []);
+
+  // Renderizar las transacciones más altas
   return (
     <div id="resumenFinal">
-      {Object.keys(maxTransaccionPorUsuario).length === 0
+      {maxTransaccionPorUsuario.length === 0
         ? "Todavía no se registraron transacciones."
-        : Object.keys(maxTransaccionPorUsuario).map((nombre, index) => {
-            const cuenta = maxTransaccionPorUsuario[nombre];
-            return (
-              //MOSTRAR LA MAYOR TRANSACCIÓN DE CADA USUARIO
-              <li key={index}>
-                {cuenta.nombre} - {cuenta.billetera} - {cuenta.transacciones}
-              </li>
-            );
-          })}
+        : maxTransaccionPorUsuario.map((cuenta, index) => (
+            // Mostrar la mayor transacción de cada usuario
+            <li key={index}>
+              {cuenta.nombre} - {cuenta.billetera} - {cuenta.transacciones}
+            </li>
+          ))}
     </div>
   );
 };
-
 
   return (
     <div className="project-container">
